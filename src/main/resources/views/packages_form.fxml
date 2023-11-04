@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootHome" prefHeight="485.0" prefWidth="578.0" style="-fx-background-color: #ededed; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.shadowStudio.controller.PackagesFormController">
+   <children>
+      <Label layoutX="10.0" layoutY="6.0" prefHeight="37.0" prefWidth="191.0" text="Manage packages">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDate" layoutX="316.0" layoutY="12.0" prefHeight="16.0" prefWidth="38.0" text="Date :" />
+      <Label fx:id="lblTime" layoutX="438.0" layoutY="9.0" prefHeight="21.0" prefWidth="56.0" text="Time :" />
+      <Separator layoutX="409.0" layoutY="11.0" orientation="VERTICAL" prefHeight="19.0" prefWidth="6.0" />
+      <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="433.0" prefWidth="566.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;">
+         <children>
+            <Button layoutX="384.0" layoutY="118.0" mnemonicParsing="false" onAction="#btnUpdatePackageOnAction" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #fcec0d; -fx-background-radius: 10;" text="Update" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <ComboBox fx:id="comboPackageType" layoutX="379.0" layoutY="9.0" onAction="#comPackageTypeOnAction" prefHeight="32.0" prefWidth="164.0" visibleRowCount="2" />
+            <TextArea fx:id="txtAboutPackage" layoutX="19.0" layoutY="54.0" prefHeight="82.0" prefWidth="168.0" promptText="About Package" style="-fx-background-radius: 10;" />
+         </children>
+      </AnchorPane>
+      <TextField fx:id="txtPackageId" layoutX="27.0" layoutY="57.0" prefHeight="32.0" prefWidth="164.0" promptText="Package Id" />
+      <TextField fx:id="txtPackageName" layoutX="210.0" layoutY="57.0" prefHeight="32.0" prefWidth="164.0" promptText="Package Name" />
+      <TextField fx:id="txtPackagePrice" layoutX="210.0" layoutY="104.0" prefHeight="32.0" prefWidth="164.0" promptText="Price" />
+      <TableView layoutX="6.0" layoutY="204.0" prefHeight="278.0" prefWidth="566.0" style="-fx-background-radius: 10;">
+         <columns>
+            <TableColumn fx:id="colPackageId" prefWidth="89.0" text="Package Id" />
+            <TableColumn fx:id="colPackageName" prefWidth="111.0" text="Name" />
+            <TableColumn fx:id="colPackageType" prefWidth="100.0" text="Type" />
+            <TableColumn fx:id="colPackageDescription" prefWidth="151.0" text="Description" />
+            <TableColumn fx:id="colPackagePrice" prefWidth="114.0" text="Price " />
+         </columns>
+      </TableView>
+      <Button layoutX="481.0" layoutY="166.0" mnemonicParsing="false" onAction="#btnSavePackageOnAction" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #81ecec; -fx-background-radius: 10;" text="Save">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="294.0" layoutY="166.0" mnemonicParsing="false" onAction="#btnDeletePackageOnAction" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #fc1d0d; -fx-background-radius: 10;" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="489.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/saveIcon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="393.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/updateIcon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="299.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/deleteIcon.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
