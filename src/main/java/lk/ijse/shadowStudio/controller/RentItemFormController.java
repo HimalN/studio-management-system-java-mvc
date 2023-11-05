@@ -20,15 +20,17 @@ import javafx.scene.control.TextField;
 
 public class RentItemFormController{
 
-
     @FXML
     private TableColumn<?, ?> colItemId;
 
     @FXML
-    private TableColumn<?, ?> colItemType;
+    private TableColumn<?, ?> colItemName;
 
     @FXML
-    private TableColumn<?, ?> colRentalPrice;
+    private TableColumn<?, ?> colItemPrice;
+
+    @FXML
+    private TableColumn<?, ?> colItemType;
 
     @FXML
     private JFXComboBox<?> comItemType;
@@ -43,7 +45,10 @@ public class RentItemFormController{
     private TextField txtItemId;
 
     @FXML
-    private TextField txtRentalPrice;
+    private TextField txtItemName;
+
+    @FXML
+    private TextField txtRentalPrice1;
 
     @FXML
     void btnDeleteItemOnAction(ActionEvent event) {

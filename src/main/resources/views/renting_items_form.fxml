@@ -25,19 +25,21 @@
       <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="433.0" prefWidth="566.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;">
          <children>
             <JFXComboBox fx:id="comItemType" layoutX="345.0" layoutY="22.0" prefHeight="32.0" prefWidth="168.0" />
-            <TextField fx:id="txtRentalPrice" layoutX="34.0" layoutY="82.0" prefHeight="30.0" prefWidth="168.0" promptText="Rental Price" />
+            <TextField fx:id="txtItemName" layoutX="34.0" layoutY="82.0" prefHeight="30.0" prefWidth="168.0" promptText="Item Name" />
             <Label layoutX="230.0" layoutY="24.0" text="Item Type :">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
+            <TextField fx:id="txtRentalPrice1" layoutX="221.0" layoutY="82.0" prefHeight="30.0" prefWidth="168.0" promptText="Rental Price" />
          </children></AnchorPane>
       <TextField fx:id="txtItemId" layoutX="41.0" layoutY="71.0" prefHeight="32.0" prefWidth="168.0" promptText="Item Id" />
       <TableView layoutX="6.0" layoutY="203.0" prefHeight="278.0" prefWidth="566.0" style="-fx-background-radius: 10;">
          <columns>
-            <TableColumn fx:id="colItemId" prefWidth="180.0" text="Item Id" />
-            <TableColumn fx:id="colItemType" prefWidth="244.0" text="Item Type" />
-            <TableColumn fx:id="colRentalPrice" prefWidth="137.0" text="Rental Price" />
+            <TableColumn fx:id="colItemId" prefWidth="131.0" text="Item Id" />
+            <TableColumn fx:id="colItemType" prefWidth="117.0" text="Item Type" />
+            <TableColumn fx:id="colItemName" prefWidth="172.0" text="Item Name" />
+            <TableColumn fx:id="colItemPrice" prefWidth="145.0" text="Rental Price" />
          </columns>
       </TableView>
       <Button layoutX="481.0" layoutY="169.0" mnemonicParsing="false" onAction="#btnSaveItemOnAction" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #81ecec; -fx-background-radius: 10;" text="Save">
