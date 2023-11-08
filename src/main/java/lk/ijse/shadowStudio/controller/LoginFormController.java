@@ -31,12 +31,29 @@ public class LoginFormController {
 
     @FXML
     void btnLoginOmAction(ActionEvent event) throws IOException, SQLException {
-        System.out.println("navigating to signup");
-        Parent rootNode = FXMLLoader.load(getClass().getResource("/views/main_form.fxml"));
-        Scene scene = new Scene(rootNode);
-        Stage stage = (Stage) this.rootNode.getScene().getWindow();
-        stage.setTitle("SignUp");
-        stage.setScene(scene);
+        String username = txtUserName.getText();
+        String password = txtPassword.getText();
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "SELECT * FROM user WHERE use_name = ? AND password = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                Parent rootNode = FXMLLoader.load(this.getClass().getResource("/views/main_form.fxml"));
+                Scene scene =new Scene(rootNode);
+                Stage primaryStage = (Stage) this.rootNode.getScene().getWindow();
+                primaryStage.setScene(scene);
+                primaryStage.setTitle("Dashboard");
+            } else {
+                new Alert(Alert.AlertType.ERROR, "oops! credentials are wrong!").show();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

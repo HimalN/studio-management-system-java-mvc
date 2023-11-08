@@ -6,7 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -101,10 +103,12 @@ public class MainFormController {
 
     @FXML
     void btnLogoutOnAction(ActionEvent event) throws IOException {
-        System.out.println("Loging Out...");
-        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/views/login_form.fxml"));
-        this.rootHome.getChildren().clear();
-        this.rootHome.getChildren().add(rootNode);
+        System.out.println("navigating to signup");
+        Parent rootNode = FXMLLoader.load(getClass().getResource("/views/login_form.fxml"));
+        Scene scene = new Scene(rootNode);
+        Stage stage = (Stage) this.rootNode.getScene().getWindow();
+        stage.setTitle("SignUp");
+        stage.setScene(scene);
 
     }
 
