@@ -1,6 +1,4 @@
 # studio-management-system-java-mvc
-studio-management-system-java-mvc - Create Database
-
 
 create database if not exists shadow_studio;
 
