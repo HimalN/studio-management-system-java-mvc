@@ -1,0 +1,79 @@
+# studio-management-system-java-mvc
+
+create database if not exists shadow_studio;
+
+create table user(
+    use_name varchar(6)primary key ,
+    password varchar(8)not null
+);
+create table employee(
+    emp_id varchar(6)primary key,
+    emp_name varchar(20)not null,
+    emp_address varchar(50)not null,
+    emp_nic varchar(15)not null,
+    emp_tp int not null
+);
+
+create table customer(
+    cust_id varchar (6)primary key ,
+    cust_name varchar(15)not null ,
+    cust_address varchar(50) not null ,
+    cust_nic varchar(10)not null ,
+    cust_tp int not null
+);
+create table packages(
+    package_id varchar (6)Primary key,
+    package_name varchar(15)not null,
+    package_type varchar(10)not null,
+    package_description varchar (50)not null,
+    package_price int not null
+);
+create table bookings(
+  booking_id varchar(6)primary key,
+  cust_id varchar(6) not null ,
+  foreign key (cust_id)references customer(cust_id)on update cascade on delete cascade ,
+  package_id varchar(6) not null ,
+  foreign key (package_id)references packages(package_id) on update cascade on delete cascade ,
+  Date date not null ,
+  Time time not null ,
+  location varchar(100) not null ,
+  description varchar(200)
+);
+create table complains(
+    complain_id varchar(6)primary key,
+    cust_id varchar(6)not null ,
+    foreign key (cust_id)references customer(cust_id)on update cascade on delete cascade ,
+    about_complain varchar(150)
+);
+
+create table item(
+    itemId varchar(6)primary key ,
+    itemName varchar(20)not null ,
+    itemType varchar(10)not null ,
+    rentalPrice double
+);
+
+create table rent(
+    rentId varchar(6)primary key ,
+    cust_id varchar(6)not null ,
+    foreign key (cust_id)references customer(cust_id)on update cascade on delete cascade ,
+    itemId varchar(6) ,
+    foreign key (itemId)references item(itemId) on update cascade on delete cascade,
+    dayCount int,
+    Date date
+);
+
+create table rent_item_details(
+  itemId varchar(6),
+  foreign key (itemId)references item(itemId)on update cascade on delete cascade,
+  cust_id varchar(6),
+  foreign key (cust_id)references customer(cust_id)
+);
+
+create table employee_booking_details(
+  bookingId varchar(6),
+  foreign key (bookingId)references bookings(booking_id)on UPDATE cascade on DELETE cascade ,
+  employee_Id varchar(6),
+  foreign key (employee_Id)references employee(emp_id) on UPDATE cascade on DELETE cascade
+
+);
