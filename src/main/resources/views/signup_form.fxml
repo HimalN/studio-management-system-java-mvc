@@ -15,7 +15,7 @@
             <Image url="@../icon/sign_up.jpg" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="287.0" layoutY="14.0" prefHeight="378.0" prefWidth="299.0" style="-fx-background-color: #ededed; -fx-background-radius: 25;">
+      <AnchorPane layoutX="287.0" layoutY="14.0" prefHeight="378.0" prefWidth="299.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 25;">
          <children>
             <AnchorPane layoutX="9.0" layoutY="7.0" prefHeight="364.0" prefWidth="279.0" style="-fx-background-color: #ffffff; -fx-background-radius: 25;">
                <children>
@@ -41,7 +41,7 @@
                      </font>
                   </Label>
                   <TextField fx:id="txtPasswordSignUp" layoutX="18.0" layoutY="204.0" prefHeight="29.0" prefWidth="236.0" style="-fx-background-radius: 10;" />
-                  <JFXButton layoutX="109.0" layoutY="324.0" onAction="#btnLoginOmAction" prefHeight="27.0" prefWidth="68.0" style="-fx-background-radius: 10; -fx-background-color: #81ecec;" text="Login">
+                  <JFXButton layoutX="109.0" layoutY="324.0" onAction="#btnLoginOmAction" prefHeight="27.0" prefWidth="68.0" style="-fx-background-radius: 10; -fx-background-color: #6c5ce7;" text="Login" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -51,7 +51,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <JFXButton layoutX="107.0" layoutY="260.0" onAction="#btnSignUpOnAction" prefHeight="27.0" prefWidth="68.0" style="-fx-background-radius: 10; -fx-background-color: #81ecec;" text="Sign Up">
+                  <JFXButton layoutX="107.0" layoutY="260.0" onAction="#btnSignUpOnAction" prefHeight="27.0" prefWidth="68.0" style="-fx-background-radius: 10; -fx-background-color: #6c5ce7;" text="Sign Up" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>

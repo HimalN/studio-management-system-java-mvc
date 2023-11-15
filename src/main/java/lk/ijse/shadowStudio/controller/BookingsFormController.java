@@ -7,8 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -17,10 +16,43 @@ import java.io.IOException;
 public class BookingsFormController {
 
     @FXML
+    private DatePicker bookingDate;
+
+    @FXML
     private JFXComboBox<?> cmbCustomerId;
 
     @FXML
     private JFXComboBox<?> cmbPackageId;
+
+    @FXML
+    private TableColumn<?, ?> colBookingId;
+
+    @FXML
+    private TableColumn<?, ?> colCustomerId;
+
+    @FXML
+    private TableColumn<?, ?> colCustomerName;
+
+    @FXML
+    private TableColumn<?, ?> colDate;
+
+    @FXML
+    private TableColumn<?, ?> colDescription;
+
+    @FXML
+    private TableColumn<?, ?> colLocation;
+
+    @FXML
+    private TableColumn<?, ?> colPackageId;
+
+    @FXML
+    private TableColumn<?, ?> colPackageName;
+
+    @FXML
+    private TableColumn<?, ?> colTime;
+
+    @FXML
+    private Label lblBookingId;
 
     @FXML
     private Label lblCustomerName;
@@ -29,33 +61,42 @@ public class BookingsFormController {
     private Label lblDate;
 
     @FXML
-    private Label lblOrderId;
-
-    @FXML
     private Label lblTime;
 
     @FXML
     private AnchorPane rootHome;
 
     @FXML
-    void cmbCustomerOnAction(ActionEvent event) {
+    private TextArea txtCustomerIdea;
+
+    @FXML
+    private TextField txtLocation;
+
+    @FXML
+    private TextField txtTime;
+
+    @FXML
+    void btnDeleteBookingOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void cmbPackageOnAction(ActionEvent event) {
+    void btnSaveBookingOnAction(ActionEvent event) {
 
     }
 
-    public void btnSaveBookingOnAction(ActionEvent actionEvent) {
+    @FXML
+    void btnUpdateBookingOnAction(ActionEvent event) {
+
     }
 
-    public void btnDeleteBookingOnAction(ActionEvent actionEvent) {
+    @FXML
+    void cmbCustomerIdOnAction(ActionEvent event) {
+
     }
 
-    public void btnUpdateBookingOnAction(ActionEvent actionEvent) {
-    }
+    @FXML
+    void cmbPackageIdOnAction(ActionEvent event) {
 
-    public void btnViewBookingsOnAction(ActionEvent actionEvent) {
     }
 }

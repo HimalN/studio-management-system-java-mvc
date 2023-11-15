@@ -25,13 +25,17 @@ public class SignupFormController {
 
     @FXML
     private TextField txtUserNameSignUp;
+    private SignUpModel userModel = new SignUpModel();
 
     public void initialize(){
 
     }
+
     private void loadAllUser(){
         var model = new SignUpModel();
     }
+
+
     private void clearFields(){
         txtUserNameSignUp.setText("");
         txtPasswordSignUp.setText("");
@@ -47,28 +51,25 @@ public class SignupFormController {
 
 
     }
-
     public void btnSignUpOnAction(ActionEvent actionEvent) throws IOException {
-        String name = txtUserNameSignUp.getText();
+        String userName = txtUserNameSignUp.getText();
         String password = txtPasswordSignUp.getText();
-        var dto = new SignUpDto(name,password);
 
+        var dto = new SignUpDto(userName,password);
         try {
-            boolean isSaved = SignUpModel.saveUser(dto);
-            if(isSaved){
-                new Alert(Alert.AlertType.CONFIRMATION,"User Saved SuccessFully");
-                clearFields();
-                Parent rootNode = FXMLLoader.load(getClass().getResource("/views/login_form.fxml"));
-                Scene scene = new Scene(rootNode);
-                Stage stage = (Stage) this.rootNode.getScene().getWindow();
-                stage.setTitle("Login");
-                stage.setScene(scene);
-
+            if(userName.isEmpty() || password.isEmpty()) {
+                new Alert(Alert.AlertType.ERROR,"Empty").show();
+                return;
             }
-        }catch (SQLException e){
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            clearFields();
+            boolean isSaved = userModel.saveUser(dto);
+            if (isSaved){
+                new Alert(Alert.AlertType.CONFIRMATION,"User Saved").show();
+            }
+        }catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            clearFields();
         }
-
 
 
     }

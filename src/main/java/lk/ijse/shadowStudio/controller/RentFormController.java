@@ -46,19 +46,13 @@ public class RentFormController{
     private Label lblCustomerName;
 
     @FXML
-    private Label lblDate;
-
-    @FXML
     private Label lblItemName;
 
     @FXML
-    private Label lblTime;
+    private Label lblRentID;
 
     @FXML
-    private TextField txtCustomerTp;
-
-    @FXML
-    private TextField txtRentId;
+    private TextField txtDayCount;
 
     @FXML
     void btnDeleteRentOnAction(ActionEvent event) {

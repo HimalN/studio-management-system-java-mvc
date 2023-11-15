@@ -20,7 +20,6 @@ import javafx.scene.layout.AnchorPane;
 
 public class EmployeeFormController{
 
-
     @FXML
     private TableColumn<?, ?> colEmployeeAddress;
 
@@ -37,19 +36,13 @@ public class EmployeeFormController{
     private TableColumn<?, ?> colEmployeeTelephone;
 
     @FXML
-    private Label lblDate;
-
-    @FXML
-    private Label lblTime;
+    private Label lblEmployeeId;
 
     @FXML
     private AnchorPane rootHome;
 
     @FXML
     private TextField txtEmlployeeAddress;
-
-    @FXML
-    private TextField txtEmployeeId;
 
     @FXML
     private TextField txtEmployeeName;

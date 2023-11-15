@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -12,64 +11,70 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="485.0" prefWidth="578.0" style="-fx-background-color: #ededed; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.shadowStudio.controller.RentItemFormController">
+<AnchorPane prefHeight="690.0" prefWidth="1114.0" style="-fx-background-color: #ededed; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.shadowStudio.controller.RentItemFormController">
    <children>
       <Label layoutX="10.0" layoutY="6.0" prefHeight="37.0" prefWidth="202.0" text="Manage Rent Items">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="lblDate" layoutX="316.0" layoutY="12.0" prefHeight="16.0" prefWidth="38.0" text="Date :" />
-      <Label fx:id="lblTime" layoutX="438.0" layoutY="9.0" prefHeight="21.0" prefWidth="56.0" text="Time :" />
-      <Separator layoutX="409.0" layoutY="11.0" orientation="VERTICAL" prefHeight="19.0" prefWidth="6.0" />
-      <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="433.0" prefWidth="566.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;">
+      <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="638.0" prefWidth="1103.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;">
          <children>
-            <JFXComboBox fx:id="comItemType" layoutX="345.0" layoutY="22.0" prefHeight="32.0" prefWidth="168.0" />
-            <TextField fx:id="txtItemName" layoutX="34.0" layoutY="82.0" prefHeight="30.0" prefWidth="168.0" promptText="Item Name" />
-            <Label layoutX="230.0" layoutY="24.0" text="Item Type :">
+            <JFXComboBox fx:id="comItemType" layoutX="518.0" layoutY="14.0" onAction="#comItemTypeOnAction" prefHeight="37.0" prefWidth="245.0" />
+            <TextField fx:id="txtItemName" layoutX="58.0" layoutY="78.0" prefHeight="40.0" prefWidth="265.0" promptText="Item Name" />
+            <Label layoutX="392.0" layoutY="25.0" text="Item Type :">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="System Bold" size="21.0" />
                </font>
             </Label>
-            <TextField fx:id="txtRentalPrice1" layoutX="221.0" layoutY="82.0" prefHeight="30.0" prefWidth="168.0" promptText="Rental Price" />
+            <TextField fx:id="txtRentalPrice" layoutX="387.0" layoutY="75.0" prefHeight="40.0" prefWidth="378.0" promptText="Rental Price" />
+            <Label layoutX="59.0" layoutY="17.0" text="Item Id :">
+               <font>
+                  <Font name="System Bold" size="31.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblItemId" layoutX="190.0" layoutY="21.0" text="Label">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
-      <TextField fx:id="txtItemId" layoutX="41.0" layoutY="71.0" prefHeight="32.0" prefWidth="168.0" promptText="Item Id" />
-      <TableView layoutX="6.0" layoutY="203.0" prefHeight="278.0" prefWidth="566.0" style="-fx-background-radius: 10;">
+      <TableView layoutX="6.0" layoutY="203.0" prefHeight="484.0" prefWidth="1103.0" style="-fx-background-radius: 10;">
          <columns>
-            <TableColumn fx:id="colItemId" prefWidth="131.0" text="Item Id" />
-            <TableColumn fx:id="colItemType" prefWidth="117.0" text="Item Type" />
-            <TableColumn fx:id="colItemName" prefWidth="172.0" text="Item Name" />
-            <TableColumn fx:id="colItemPrice" prefWidth="145.0" text="Rental Price" />
+            <TableColumn fx:id="colItemId" prefWidth="216.0" text="Item Id" />
+            <TableColumn fx:id="colItemType" prefWidth="385.0" text="Item Type" />
+            <TableColumn fx:id="colItemPrice" prefWidth="341.0" text="Item Name" />
+            <TableColumn fx:id="colRentalPrice" prefWidth="154.0" text="Rental Price" />
          </columns>
       </TableView>
-      <Button layoutX="481.0" layoutY="169.0" mnemonicParsing="false" onAction="#btnSaveItemOnAction" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #81ecec; -fx-background-radius: 10;" text="Save">
+      <JFXButton layoutX="775.0" layoutY="163.0" onAction="#btnDeleteItemOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #fc1d0d;" text="Delete" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
-      </Button>
-      <Button layoutX="293.0" layoutY="171.0" mnemonicParsing="false" onAction="#btnDeleteItemOnAction" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #fc1d0d; -fx-background-radius: 10;" text="Delete" textFill="WHITE">
+      </JFXButton>
+      <JFXButton layoutX="891.0" layoutY="162.0" onAction="#btnUpdateItemOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #fcec0d;" text="Update">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
-      </Button>
-      <Button layoutX="388.0" layoutY="170.0" mnemonicParsing="false" onAction="#btnUpdateItemOnAction" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #fcec0d; -fx-background-radius: 10;" text="Update" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="488.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
+      </JFXButton>
+      <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="780.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../icon/saveIcon.png" />
+            <Image url="@../icon/deleteIcon.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="392.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="19.0" fitWidth="38.0" layoutX="895.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icon/updateIcon.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="297.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+      <JFXButton layoutX="1004.0" layoutY="162.0" onAction="#btnSaveItemOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #81ecec;" text="Save">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="1014.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../icon/deleteIcon.png" />
+            <Image url="@../icon/saveIcon.png" />
          </image>
       </ImageView>
    </children>

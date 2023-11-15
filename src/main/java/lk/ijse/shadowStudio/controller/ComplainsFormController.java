@@ -1,6 +1,7 @@
 package lk.ijse.shadowStudio.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +23,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class ComplainsFormController {
     @FXML
-    private ComboBox<?> cmbComplainStatus;
+    private JFXComboBox<?> cmbCustomerId;
 
     @FXML
     private TableColumn<?, ?> colComplainId;
@@ -40,22 +41,13 @@ public class ComplainsFormController {
     private TableColumn<?, ?> colTelephone;
 
     @FXML
-    private Label lblDate;
+    private Label lblComplainsid;
 
     @FXML
-    private Label lblTime;
+    private Label lblCustName;
 
     @FXML
-    private AnchorPane rootHome;
-
-    @FXML
-    private TextField txtComplainId;
-
-    @FXML
-    private TextField txtCustomerId;
-
-    @FXML
-    private TextArea txtDescription;
+    private TextArea txtComplain;
 
     @FXML
     void btnDeleteComplainOnAction(ActionEvent event) {
@@ -73,7 +65,7 @@ public class ComplainsFormController {
     }
 
     @FXML
-    void cmbComplainStatusOnAction(ActionEvent event) {
+    void cmbCustomerIdOnAction(ActionEvent event) {
 
     }
 }

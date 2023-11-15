@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -13,62 +12,68 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootHome" prefHeight="485.0" prefWidth="578.0" style="-fx-background-color: #ededed; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.shadowStudio.controller.PackagesFormController">
+<AnchorPane fx:id="rootHome" prefHeight="690.0" prefWidth="1114.0" style="-fx-background-color: #ededed; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.shadowStudio.controller.PackagesFormController">
    <children>
       <Label layoutX="10.0" layoutY="6.0" prefHeight="37.0" prefWidth="191.0" text="Manage packages">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="lblDate" layoutX="316.0" layoutY="12.0" prefHeight="16.0" prefWidth="38.0" text="Date :" />
-      <Label fx:id="lblTime" layoutX="438.0" layoutY="9.0" prefHeight="21.0" prefWidth="56.0" text="Time :" />
-      <Separator layoutX="409.0" layoutY="11.0" orientation="VERTICAL" prefHeight="19.0" prefWidth="6.0" />
-      <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="433.0" prefWidth="566.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;">
+      <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="640.0" prefWidth="1104.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;">
          <children>
-            <Button layoutX="384.0" layoutY="118.0" mnemonicParsing="false" onAction="#btnUpdatePackageOnAction" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #fcec0d; -fx-background-radius: 10;" text="Update" textAlignment="CENTER">
+            <ComboBox fx:id="comboPackageType" layoutX="742.0" layoutY="17.0" onAction="#comPackageTypeOnAction" prefHeight="40.0" prefWidth="305.0" visibleRowCount="2" />
+            <TextArea fx:id="txtAboutPackage" layoutX="29.0" layoutY="86.0" prefHeight="65.0" prefWidth="687.0" promptText="About Package" style="-fx-background-radius: 10;" />
+            <Label layoutX="36.0" layoutY="16.0" prefHeight="39.0" prefWidth="155.0" text="Package Id :">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="27.0" />
                </font>
-            </Button>
-            <ComboBox fx:id="comboPackageType" layoutX="379.0" layoutY="9.0" onAction="#comPackageTypeOnAction" prefHeight="32.0" prefWidth="164.0" visibleRowCount="2" />
-            <TextArea fx:id="txtAboutPackage" layoutX="19.0" layoutY="54.0" prefHeight="82.0" prefWidth="168.0" promptText="About Package" style="-fx-background-radius: 10;" />
+            </Label>
+            <TextField fx:id="txtPackageName" layoutX="403.0" layoutY="19.0" prefHeight="40.0" prefWidth="314.0" promptText="Package Name" />
+            <TextField fx:id="txtPackagePrice" layoutX="741.0" layoutY="85.0" prefHeight="40.0" prefWidth="310.0" promptText="Price" />
+            <Label fx:id="lblPackageId" layoutX="196.0" layoutY="18.0" prefHeight="39.0" prefWidth="90.0" text="1">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
-      <TextField fx:id="txtPackageId" layoutX="27.0" layoutY="57.0" prefHeight="32.0" prefWidth="164.0" promptText="Package Id" />
-      <TextField fx:id="txtPackageName" layoutX="210.0" layoutY="57.0" prefHeight="32.0" prefWidth="164.0" promptText="Package Name" />
-      <TextField fx:id="txtPackagePrice" layoutX="210.0" layoutY="104.0" prefHeight="32.0" prefWidth="164.0" promptText="Price" />
-      <TableView layoutX="6.0" layoutY="204.0" prefHeight="278.0" prefWidth="566.0" style="-fx-background-radius: 10;">
+      <TableView layoutX="6.0" layoutY="259.0" prefHeight="431.0" prefWidth="1104.0" style="-fx-background-radius: 10;">
          <columns>
-            <TableColumn fx:id="colPackageId" prefWidth="89.0" text="Package Id" />
-            <TableColumn fx:id="colPackageName" prefWidth="111.0" text="Name" />
-            <TableColumn fx:id="colPackageType" prefWidth="100.0" text="Type" />
-            <TableColumn fx:id="colPackageDescription" prefWidth="151.0" text="Description" />
-            <TableColumn fx:id="colPackagePrice" prefWidth="114.0" text="Price " />
+            <TableColumn fx:id="colPackageId" prefWidth="169.0" text="Package Id" />
+            <TableColumn fx:id="colPackageName" prefWidth="201.0" text="Name" />
+            <TableColumn fx:id="colPackageType" prefWidth="255.0" text="Type" />
+            <TableColumn fx:id="colPackageDescription" prefWidth="278.0" text="Description" />
+            <TableColumn fx:id="colPackagePrice" prefWidth="198.0" text="Price " />
          </columns>
       </TableView>
-      <Button layoutX="481.0" layoutY="166.0" mnemonicParsing="false" onAction="#btnSavePackageOnAction" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #81ecec; -fx-background-radius: 10;" text="Save">
+      <JFXButton layoutX="758.0" layoutY="213.0" onAction="#btnDeletePackageOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #fc1d0d;" text="Delete" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
-      </Button>
-      <Button layoutX="294.0" layoutY="166.0" mnemonicParsing="false" onAction="#btnDeletePackageOnAction" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #fc1d0d; -fx-background-radius: 10;" text="Delete" textFill="WHITE">
+      </JFXButton>
+      <JFXButton layoutX="874.0" layoutY="212.0" onAction="#btnUpdatePackageOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #fcec0d;" text="Update">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
-      </Button>
-      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="489.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+      </JFXButton>
+      <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="763.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../icon/saveIcon.png" />
+            <Image url="@../icon/deleteIcon.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="393.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="19.0" fitWidth="38.0" layoutX="878.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icon/updateIcon.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="299.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+      <JFXButton layoutX="987.0" layoutY="212.0" onAction="#btnSavePackageOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #81ecec;" text="Save">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="997.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../icon/deleteIcon.png" />
+            <Image url="@../icon/saveIcon.png" />
          </image>
       </ImageView>
    </children>

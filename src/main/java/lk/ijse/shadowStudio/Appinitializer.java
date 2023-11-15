@@ -29,8 +29,11 @@ public class Appinitializer extends Application {
         // Set the taskbar icon
         stage.getIcons().add(icon);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.setTitle("Login");
         stage.show();
+
+
 
 
     }

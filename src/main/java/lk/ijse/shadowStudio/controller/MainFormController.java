@@ -1,6 +1,7 @@
 package lk.ijse.shadowStudio.controller;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainFormController {
+public class MainFormController  {
 
     @FXML
     private JFXButton btnBookings;
@@ -109,6 +110,7 @@ public class MainFormController {
         Stage stage = (Stage) this.rootNode.getScene().getWindow();
         stage.setTitle("SignUp");
         stage.setScene(scene);
+        stage.centerOnScreen();
 
     }
 
@@ -143,5 +145,7 @@ public class MainFormController {
         this.rootHome.getChildren().clear();
         this.rootHome.getChildren().add(rootNode);
     }
+
+
 
 }

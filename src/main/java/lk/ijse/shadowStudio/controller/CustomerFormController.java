@@ -1,27 +1,47 @@
 package lk.ijse.shadowStudio.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.shadowStudio.dto.CustomerDto;
+import lk.ijse.shadowStudio.dto.tm.CustomerTm;
+import lk.ijse.shadowStudio.model.CustomerModel;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class CustomerFormController {
 
     @FXML
-    private Label lblDate;
+    private TableColumn<?, ?> colCustAddress;
 
     @FXML
-    private Label lblTime;
+    private TableColumn<?, ?> colCustId;
+
+    @FXML
+    private TableColumn<?, ?> colCustName;
+
+    @FXML
+    private TableColumn<?, ?> colCustNic;
+
+    @FXML
+    private TableColumn<?, ?> colCustTelephone;
+
+    @FXML
+    private Label lblcustId;
 
     @FXML
     private AnchorPane rootHome;
 
     @FXML
-    private TextField txtCustomerAddress;
+    private TableView<?> tblCustomer;
 
     @FXML
-    private TextField txtCustomerId;
+    private TextField txtCustomerAddress;
 
     @FXML
     private TextField txtCustomerName;
@@ -46,5 +66,4 @@ public class CustomerFormController {
     void btnUpdateCustomerOnAction(ActionEvent event) {
 
     }
-
 }

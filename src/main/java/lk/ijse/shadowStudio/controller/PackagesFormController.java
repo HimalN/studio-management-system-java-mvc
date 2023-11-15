@@ -40,19 +40,13 @@ public class PackagesFormController{
     private ComboBox<?> comboPackageType;
 
     @FXML
-    private Label lblDate;
-
-    @FXML
-    private Label lblTime;
+    private Label lblPackageId;
 
     @FXML
     private AnchorPane rootHome;
 
     @FXML
     private TextArea txtAboutPackage;
-
-    @FXML
-    private TextField txtPackageId;
 
     @FXML
     private TextField txtPackageName;

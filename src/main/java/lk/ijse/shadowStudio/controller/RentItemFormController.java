@@ -24,31 +24,25 @@ public class RentItemFormController{
     private TableColumn<?, ?> colItemId;
 
     @FXML
-    private TableColumn<?, ?> colItemName;
-
-    @FXML
     private TableColumn<?, ?> colItemPrice;
 
     @FXML
     private TableColumn<?, ?> colItemType;
 
     @FXML
+    private TableColumn<?, ?> colRentalPrice;
+
+    @FXML
     private JFXComboBox<?> comItemType;
 
     @FXML
-    private Label lblDate;
-
-    @FXML
-    private Label lblTime;
-
-    @FXML
-    private TextField txtItemId;
+    private Label lblItemId;
 
     @FXML
     private TextField txtItemName;
 
     @FXML
-    private TextField txtRentalPrice1;
+    private TextField txtRentalPrice;
 
     @FXML
     void btnDeleteItemOnAction(ActionEvent event) {
@@ -62,6 +56,11 @@ public class RentItemFormController{
 
     @FXML
     void btnUpdateItemOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void comItemTypeOnAction(ActionEvent event) {
 
     }
 
