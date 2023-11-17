@@ -32,14 +32,20 @@ public class LoginFormController {
 
     @FXML
     void btnLoginOmAction(ActionEvent event) throws IOException, SQLException {
-        System.out.println("navigating to signup");
-        Parent rootNode = FXMLLoader.load(getClass().getResource("/views/main_form.fxml"));
-        Scene scene = new Scene(rootNode);
-        Stage stage = (Stage) this.rootNode.getScene().getWindow();
-        stage.setTitle("Dashboard");
-        stage.setScene(scene);
-        stage.centerOnScreen();
-
+        String userName = txtUserName.getText();
+        String password = txtPassword.getText();
+        System.out.println("navigating to signin");
+        if(userName.isEmpty() || password.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR,"Empty").show();
+            return;
+        }else {
+            Parent rootNode = FXMLLoader.load(getClass().getResource("/views/main_form.fxml"));
+            Scene scene = new Scene(rootNode);
+            Stage stage = (Stage) this.rootNode.getScene().getWindow();
+            stage.setTitle("Dashboard");
+            stage.setScene(scene);
+            stage.centerOnScreen();
+        }
 
     }
 

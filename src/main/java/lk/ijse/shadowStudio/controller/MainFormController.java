@@ -55,6 +55,7 @@ public class MainFormController  {
         Parent rootNode = FXMLLoader.load(getClass().getResource("/views/dashboard_form.fxml"));
         rootHome.getChildren().clear();
         rootHome.getChildren().add(rootNode);
+
     }
 
 

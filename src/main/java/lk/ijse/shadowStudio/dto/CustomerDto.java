@@ -10,9 +10,9 @@ import java.lang.invoke.StringConcatException;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerDto {
-    private String customerId;
-    private String customerName;
-    private String customerNic;
-    private String customerTp;
-    private String description;
+    private String cust_id;
+    private String cust_Name;
+    private String cust_address;
+    private String cust_nic;
+    private String cust_tp;
 }

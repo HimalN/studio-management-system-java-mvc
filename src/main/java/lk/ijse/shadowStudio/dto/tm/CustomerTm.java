@@ -10,7 +10,8 @@ import lombok.*;
 public class CustomerTm {
     private String customerId;
     private String customerName;
+    private String customerAddress;
     private String customerNic;
     private String customerTp;
-    private String description;
+
 }

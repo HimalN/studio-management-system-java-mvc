@@ -38,7 +38,7 @@ public class CustomerFormController {
     private AnchorPane rootHome;
 
     @FXML
-    private TableView<?> tblCustomer;
+    private TableView<CustomerTm> tblCustomer;
 
     @FXML
     private TextField txtCustomerAddress;
@@ -52,18 +52,96 @@ public class CustomerFormController {
     @FXML
     private TextField txtCustomerTp;
 
-    @FXML
-    void btnDeleteCustomerOnAction(ActionEvent event) {
+    private final CustomerModel customerModel = new CustomerModel();
 
+    public void initialize() {
+        generateNextCustomerId();
+        setCellValueFactory();
+        loadAllCustomer();
+    }
+
+    private void setCellValueFactory() {
+        colCustId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        colCustName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        colCustAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+        colCustNic.setCellValueFactory(new PropertyValueFactory<>("customerNic"));
+        colCustTelephone.setCellValueFactory(new PropertyValueFactory<>("customerTp"));
+    }
+
+
+    private void loadAllCustomer() {
+        var model = new CustomerModel();
+
+        ObservableList<CustomerTm> obList = FXCollections.observableArrayList();
+        try{
+            List<CustomerDto> dtoList = model.getAllCustomer();
+
+            for (CustomerDto dto : dtoList) {
+                obList.add(
+                        new CustomerTm(
+                                dto.getCust_id(),
+                                dto.getCust_Name(),
+                                dto.getCust_address(),
+                                dto.getCust_nic(),
+                                dto.getCust_tp()
+                        )
+                );
+            }
+            tblCustomer.setItems(obList);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    private void clearFields() {
+        txtCustomerName.setText("");
+        txtCustomerAddress.setText("");
+        txtCustomerNic.setText("");
+        txtCustomerTp.setText("");
     }
 
     @FXML
     void btnSaveCustomerOnAction(ActionEvent event) {
+        String custId = lblcustId.getText();
+        String custName = txtCustomerName.getText();
+        String custAddress = txtCustomerAddress.getText();
+        String custNic = txtCustomerNic.getText();
+        String custTp = txtCustomerTp.getText();
+
+        var dto = new CustomerDto(custId, custName, custAddress, custNic, custTp);
+
+        try {
+            boolean isSaved = CustomerModel.saveCustomer(dto);
+            if (isSaved){
+                new Alert(Alert.AlertType.CONFIRMATION,"Customer Savd").show();
+                clearFields();
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Error While Saving Data").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+/*        generateNextCustomerId();
+        loadAllCustomer();*/
+        initialize();
 
     }
-
+    private void generateNextCustomerId() {
+        try {
+            String custId = CustomerModel.generateNextCustomerId();
+            lblcustId.setText(custId);
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
     @FXML
     void btnUpdateCustomerOnAction(ActionEvent event) {
+
+    }
+    @FXML
+    void btnDeleteCustomerOnAction(ActionEvent event) throws SQLException {
+
 
     }
 }

@@ -171,5 +171,15 @@
          </children>
       </AnchorPane>
       <Separator layoutX="784.0" layoutY="23.0" orientation="VERTICAL" prefHeight="19.0" prefWidth="6.0" />
+      <Label fx:id="txtDate" layoutX="656.0" layoutY="15.0" prefHeight="35.0" prefWidth="157.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtTime" layoutX="946.0" layoutY="15.0" prefHeight="35.0" prefWidth="157.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

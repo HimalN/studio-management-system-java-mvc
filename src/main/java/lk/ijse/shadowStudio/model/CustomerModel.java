@@ -14,70 +14,61 @@ public class CustomerModel {
     public static boolean saveCustomer(CustomerDto dto) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
-        String sql = "INSERT INTO customer VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO customer VALUES(?,?,?,?,?)";
         PreparedStatement pstm = connection.prepareStatement(sql);
 
-        pstm.setString(1, dto.getCustomerId());
-        pstm.setString(2, dto.getCustomerName());
-        pstm.setString(3, dto.getCustomerNic());
-        pstm.setString(4, dto.getCustomerTp());
-        pstm.setString(5, dto.getDescription());
+        pstm.setString(1, dto.getCust_id());
+        pstm.setString(2,dto.getCust_Name());
+        pstm.setString(3,dto.getCust_address());
+        pstm.setString(4,dto.getCust_nic());
+        pstm.setString(5,dto.getCust_tp());
 
         boolean isSaved = pstm.executeUpdate() > 0;
 
         return isSaved;
     }
-
-    public static boolean deleteCustomer(String id) throws SQLException {
+    public static String generateNextCustomerId() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
-        String sql = "delete from customer where cus_id = ?";
+
+        String sql = "SELECT cust_id FROM customer ORDER BY cust_id DESC LIMIT 1";
         PreparedStatement pstm = connection.prepareStatement(sql);
 
-        pstm.setString(1, id);
+        ResultSet resultSet = pstm.executeQuery();
+        if(resultSet.next()) {
+            return splitCustomerId(resultSet.getString(1));
+        }
+        return splitCustomerId(null);
+    }
+    private static String splitCustomerId(String currentCustomerId) {
+        if(currentCustomerId != null) {
+            String[] split = currentCustomerId.split("C0");
 
-        return pstm.executeUpdate() > 0;
+            int id = Integer.parseInt(split[1]); //01
+            id++;
+            return "C00" + id;
+        } else {
+            return "C001";
+        }
+    }
+
+    public static boolean deleteCustomer(String cust_id) throws SQLException {
+/*        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "delete from customer where cus_id =
+
+        ?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+
+        pstm.setString(1, cust_id);
+
+        return pstm.executeUpdate() > 0;*/
+        return false;
+
     }
 
     public static boolean updateCustomer(CustomerDto dto) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-        String sql = "update customer set cus_name = ?, cus_nic = ?, cus_tp = ?, decription = ? where cus_id = ?";
-        PreparedStatement pstm = connection.prepareStatement(sql);
 
-
-        pstm.setString(1, dto.getCustomerName());
-        pstm.setString(2, dto.getCustomerNic());
-        pstm.setString(3, dto.getCustomerTp());
-        pstm.setString(4, dto.getDescription());
-        pstm.setString(5, dto.getCustomerId());
-
-        return pstm.executeUpdate() > 0;
+        return false;
     }
-
-
-
-    public CustomerDto searchCustomer(String id) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-        String sql = "select * from customer where cus_id=?";
-        PreparedStatement pstm = connection.prepareStatement(sql);
-
-        pstm.setString(1, id);
-
-        ResultSet resultSet = pstm.executeQuery();
-
-        CustomerDto dto = null;
-
-        if(resultSet.next()) {
-            String cus_id = resultSet.getString(1);
-            String cus_name = resultSet.getString(2);
-            String cus_nic = resultSet.getString(3);
-            String cus_tp = resultSet.getString(4);
-            String description = resultSet.getString(5);
-
-            dto = new CustomerDto(cus_id, cus_name, cus_nic, cus_tp, description);
-        }
-        return dto;
-    }
-
     public List<CustomerDto> getAllCustomer() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "select * from customer";
@@ -101,5 +92,6 @@ public class CustomerModel {
         return dtoList;
 
     }
+
 
 }
