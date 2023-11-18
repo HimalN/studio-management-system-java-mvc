@@ -1,22 +1,11 @@
 package lk.ijse.shadowStudio.controller;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import javafx.scene.control.*;
 
-import java.io.IOException;
 import com.jfoenix.controls.JFXComboBox;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import lk.ijse.shadowStudio.model.RentItemModel;
 
 public class RentItemFormController{
 
@@ -63,5 +52,7 @@ public class RentItemFormController{
     void comItemTypeOnAction(ActionEvent event) {
 
     }
+
+
 
 }

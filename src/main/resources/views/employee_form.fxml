@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="rootHome" prefHeight="690.0" prefWidth="1114.0" style="-fx-background-color: #ededed; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.shadowStudio.controller.EmployeeFormController">
    <children>
-      <Label layoutX="10.0" layoutY="3.0" prefHeight="46.0" prefWidth="283.0" text="Manage Employee">
+      <Label layoutX="12.0" layoutY="3.0" prefHeight="46.0" prefWidth="283.0" text="Manage Employee">
          <font>
             <Font name="System Bold" size="27.0" />
          </font>
@@ -25,11 +25,11 @@
                   <Font name="System Bold" size="31.0" />
                </font>
             </Label>
-            <TextField fx:id="txtEmployeeNic" layoutX="732.0" layoutY="18.0" prefHeight="40.0" prefWidth="260.0" promptText="NIC" />
-            <TextField fx:id="txtEmployeeName" layoutX="405.0" layoutY="18.0" prefHeight="40.0" prefWidth="260.0" promptText="Name" />
-            <TextField fx:id="txtEmployeeTp" layoutX="732.0" layoutY="80.0" prefHeight="40.0" prefWidth="260.0" promptText="Employee T.P" />
-            <TextField fx:id="txtEmlployeeAddress" layoutX="406.0" layoutY="81.0" prefHeight="40.0" prefWidth="260.0" promptText="Employee Address" />
-            <Label fx:id="lblEmployeeId" layoutX="259.0" layoutY="22.0" prefHeight="36.0" prefWidth="75.0" text="1">
+            <TextField fx:id="txtEmployeeNic" layoutX="732.0" layoutY="18.0" prefHeight="40.0" prefWidth="260.0" promptText="200505201724" />
+            <TextField fx:id="txtEmployeeName" layoutX="405.0" layoutY="18.0" prefHeight="40.0" prefWidth="260.0" promptText="Himal Nimsara" />
+            <TextField fx:id="txtEmployeeTp" layoutX="732.0" layoutY="80.0" prefHeight="40.0" prefWidth="260.0" promptText="0712345678" />
+            <TextField fx:id="txtEmlployeeAddress" layoutX="406.0" layoutY="81.0" prefHeight="40.0" prefWidth="260.0" promptText="Avissawella" />
+            <Label fx:id="lblEmployeeId" layoutX="259.0" layoutY="22.0" prefHeight="36.0" prefWidth="75.0" text="E001">
                <font>
                   <Font size="25.0" />
                </font>
@@ -54,16 +54,22 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
+            <TableView fx:id="tblEmployee" layoutX="-1.0" layoutY="174.0" prefHeight="461.0" prefWidth="1105.0" style="-fx-background-radius: 10;">
+               <columns>
+                  <TableColumn fx:id="colEmployeeId" prefWidth="179.0" text="Employee Id" />
+                  <TableColumn fx:id="colEmployeeName" prefWidth="230.0" text="Name" />
+                  <TableColumn fx:id="colEmployeeNic" prefWidth="204.00001525878906" text="N.I.C" />
+                  <TableColumn fx:id="colEmployeeAddress" prefWidth="290.0" text="Address" />
+                  <TableColumn fx:id="colEmployeeTelephone" prefWidth="202.33331298828125" text="Telephone" />
+               </columns>
+            </TableView>
+            <TextField fx:id="txtEmlployeeSearch" layoutX="56.0" layoutY="81.0" prefHeight="40.0" prefWidth="260.0" promptText="E001" />
+            <Label layoutX="56.0" layoutY="65.0" text="Search Employee">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
-      <TableView layoutX="6.0" layoutY="225.0" prefHeight="461.0" prefWidth="1105.0" style="-fx-background-radius: 10;">
-         <columns>
-            <TableColumn fx:id="colEmployeeId" prefWidth="179.0" text="Employee Id" />
-            <TableColumn fx:id="colEmployeeName" prefWidth="230.0" text="Name" />
-            <TableColumn fx:id="colEmployeeNic" prefWidth="204.00001525878906" text="N.I.C" />
-            <TableColumn fx:id="colEmployeeAddress" prefWidth="290.0" text="Address" />
-            <TableColumn fx:id="colEmployeeTelephone" prefWidth="202.33331298828125" text="Telephone" />
-         </columns>
-      </TableView>
       <Separator layoutX="794.0" layoutY="16.0" orientation="VERTICAL" prefHeight="19.0" prefWidth="6.0" />
       <JFXButton layoutX="764.0" layoutY="181.0" onAction="#btnDeleteEmployeeOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #fc1d0d;" text="Delete" textFill="WHITE">
          <font>

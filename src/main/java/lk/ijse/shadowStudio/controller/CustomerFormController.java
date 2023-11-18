@@ -159,6 +159,7 @@ public class CustomerFormController {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             clearFields();
         }
+        initialize();
     }
     @FXML
     void btnDeleteCustomerOnAction(ActionEvent event) throws SQLException {
@@ -176,7 +177,7 @@ public class CustomerFormController {
         }catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-        generateNextCustomerId();
+        initialize();
 
 
     }
