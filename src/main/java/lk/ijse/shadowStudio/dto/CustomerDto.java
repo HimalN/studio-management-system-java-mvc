@@ -15,4 +15,6 @@ public class CustomerDto {
     private String cust_address;
     private String cust_nic;
     private String cust_tp;
+
+
 }

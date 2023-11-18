@@ -58,12 +58,6 @@ public class BookingsFormController {
     private Label lblCustomerName;
 
     @FXML
-    private Label lblDate;
-
-    @FXML
-    private Label lblTime;
-
-    @FXML
     private AnchorPane rootHome;
 
     @FXML

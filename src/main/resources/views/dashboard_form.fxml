@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootHome" prefHeight="690.0" prefWidth="1114.0" style="-fx-background-color: #ededed; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="rootHome" prefHeight="690.0" prefWidth="1114.0" style="-fx-background-color: #ededed; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.shadowStudio.controller.DashboardFormController">
    <children>
       <Label layoutX="12.0" layoutY="6.0" prefHeight="35.0" prefWidth="170.0" text="Welcome Back">
          <font>
@@ -24,11 +24,11 @@
             <Image url="@../../../../../../../Downloads/elephant-pass-master/elephant-pass-master/src/main/resources/com/example/elephantpass/images/notification_26px.png" />
          </image>
       </ImageView>
-      <Label layoutX="586.0" layoutY="15.0" prefHeight="35.0" prefWidth="68.0" text="Date :">
+      <Label layoutX="586.0" layoutY="13.0" prefHeight="35.0" prefWidth="68.0" text="Date :">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-      <Label layoutX="867.0" layoutY="17.0" prefHeight="35.0" prefWidth="84.0" text="Time :">
+      <Label layoutX="867.0" layoutY="15.0" prefHeight="35.0" prefWidth="84.0" text="Time :">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
@@ -68,7 +68,7 @@
                   </AnchorPane>
                   <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="63.0" layoutY="70.0">
                      <image>
-                        <Image url="@../icon/icons8-rent-64%20(1).png" />
+                        <Image url="@../icon/icons8-rent-64 (1).png" />
                      </image>
                   </ImageView>
                   <Label fx:id="lblHumanDeaths" layoutX="136.0" layoutY="59.0" prefHeight="80.0" prefWidth="72.0" text="8" textAlignment="CENTER">
@@ -113,7 +113,7 @@
                   </AnchorPane>
                   <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="63.0" layoutY="78.0">
                      <image>
-                        <Image url="@../icon/icons8-complaint-64%20(1).png" />
+                        <Image url="@../icon/icons8-complaint-64 (1).png" />
                      </image>
                   </ImageView>
                   <Label fx:id="lblElephantDeaths" layoutX="121.0" layoutY="63.0" prefHeight="80.0" prefWidth="77.0" text="3" textAlignment="CENTER">
@@ -171,12 +171,12 @@
          </children>
       </AnchorPane>
       <Separator layoutX="784.0" layoutY="23.0" orientation="VERTICAL" prefHeight="19.0" prefWidth="6.0" />
-      <Label fx:id="txtDate" layoutX="656.0" layoutY="15.0" prefHeight="35.0" prefWidth="157.0">
+      <Label fx:id="lblDate" layoutX="656.0" layoutY="15.0" prefHeight="35.0" prefWidth="157.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="txtTime" layoutX="946.0" layoutY="15.0" prefHeight="35.0" prefWidth="157.0">
+      <Label fx:id="lblTime" layoutX="946.0" layoutY="15.0" prefHeight="35.0" prefWidth="157.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

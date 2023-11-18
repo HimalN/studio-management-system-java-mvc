@@ -52,22 +52,30 @@ public class CustomerModel {
     }
 
     public static boolean deleteCustomer(String cust_id) throws SQLException {
-/*        Connection connection = DbConnection.getInstance().getConnection();
-        String sql = "delete from customer where cus_id =
-
-        ?";
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "delete from customer where cust_id = ?";
         PreparedStatement pstm = connection.prepareStatement(sql);
 
         pstm.setString(1, cust_id);
 
-        return pstm.executeUpdate() > 0;*/
-        return false;
+        return pstm.executeUpdate() > 0;
 
     }
 
     public static boolean updateCustomer(CustomerDto dto) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "update customer set cus_name = ?, cus_address = ?, cus_mobile = ? where cus_id = ?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
 
-        return false;
+        pstm.setString(1, dto.getCust_id());
+        pstm.setString(2, dto.getCust_Name());
+        pstm.setString(3, dto.getCust_address());
+        pstm.setString(4, dto.getCust_nic());
+        pstm.setString(5, dto.getCust_tp());
+
+        return pstm.executeUpdate() > 0;
+
+
     }
     public List<CustomerDto> getAllCustomer() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();

@@ -52,6 +52,9 @@ public class CustomerFormController {
     @FXML
     private TextField txtCustomerTp;
 
+    @FXML
+    private TextField txtCustomerSearch;
+
     private final CustomerModel customerModel = new CustomerModel();
 
     public void initialize() {
@@ -122,8 +125,6 @@ public class CustomerFormController {
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-/*        generateNextCustomerId();
-        loadAllCustomer();*/
         initialize();
 
     }
@@ -137,11 +138,54 @@ public class CustomerFormController {
     }
     @FXML
     void btnUpdateCustomerOnAction(ActionEvent event) {
+        String id = lblcustId.getText();
+        String name = txtCustomerName.getText();
+        String address = txtCustomerAddress.getText();
+        String mobile = txtCustomerNic.getText();
+        String tp = txtCustomerTp.getText();
 
+        var dto  = new CustomerDto(id, name, address, mobile,tp);
+
+        try {
+            boolean isUpdated = customerModel.updateCustomer(dto);
+            if(isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Customer details updated").show();;
+                clearFields();
+                loadAllCustomer();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Customer details not updated").show();;
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            clearFields();
+        }
     }
     @FXML
     void btnDeleteCustomerOnAction(ActionEvent event) throws SQLException {
+        String id  = txtCustomerSearch.getText();
+
+        try {
+            boolean isDeleted = CustomerModel.deleteCustomer(id);
+            if (isDeleted) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Customer Deleted").show();
+                clearFields();
+                loadAllCustomer();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Customer Not Deleted").show();
+            }
+        }catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+        generateNextCustomerId();
 
 
     }
+
+    @FXML
+    void txtCustomerSearchOnAction(ActionEvent event) {
+
+
+
+    }
+
 }
