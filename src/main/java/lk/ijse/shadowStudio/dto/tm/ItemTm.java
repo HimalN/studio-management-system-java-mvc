@@ -1,12 +1,12 @@
-package lk.ijse.shadowStudio.dto;
-
+package lk.ijse.shadowStudio.dto.tm;
 
 import lombok.*;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
-public class ItemDto {
+@NoArgsConstructor
+public class ItemTm {
     private String itemId;
     private String itemName;
     private String itemType;

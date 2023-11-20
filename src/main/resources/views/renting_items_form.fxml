@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -20,7 +19,6 @@
       </Label>
       <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="638.0" prefWidth="1103.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;">
          <children>
-            <JFXComboBox fx:id="comItemType" layoutX="518.0" layoutY="14.0" onAction="#comItemTypeOnAction" prefHeight="37.0" prefWidth="245.0" />
             <TextField fx:id="txtItemName" layoutX="58.0" layoutY="78.0" prefHeight="40.0" prefWidth="265.0" promptText="Item Name" />
             <Label layoutX="392.0" layoutY="25.0" text="Item Type :">
                <font>
@@ -38,12 +36,13 @@
                   <Font size="27.0" />
                </font>
             </Label>
+            <TextField fx:id="txtItemType" layoutX="514.0" layoutY="21.0" prefHeight="40.0" prefWidth="265.0" promptText="Camera , Lence etc..." />
          </children></AnchorPane>
-      <TableView layoutX="6.0" layoutY="203.0" prefHeight="484.0" prefWidth="1103.0" style="-fx-background-radius: 10;">
+      <TableView fx:id="tblItem" layoutX="6.0" layoutY="203.0" prefHeight="484.0" prefWidth="1103.0" style="-fx-background-radius: 10;">
          <columns>
             <TableColumn fx:id="colItemId" prefWidth="216.0" text="Item Id" />
             <TableColumn fx:id="colItemType" prefWidth="385.0" text="Item Type" />
-            <TableColumn fx:id="colItemPrice" prefWidth="341.0" text="Item Name" />
+            <TableColumn fx:id="colItemName" prefWidth="341.0" text="Item Name" />
             <TableColumn fx:id="colRentalPrice" prefWidth="154.0" text="Rental Price" />
          </columns>
       </TableView>
