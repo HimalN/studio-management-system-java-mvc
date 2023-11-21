@@ -1,5 +1,6 @@
 package lk.ijse.shadowStudio.controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,13 +9,21 @@ import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.shadowStudio.dto.ItemDto;
+import lk.ijse.shadowStudio.dto.PackageDto;
 import lk.ijse.shadowStudio.dto.tm.ItemTm;
+import lk.ijse.shadowStudio.model.PackagesModel;
 import lk.ijse.shadowStudio.model.RentItemModel;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class RentItemFormController{
+
+    @FXML
+    private JFXButton btnClear;
+
+    @FXML
+    private TextField txtSearch;
 
     @FXML
     private TableColumn<?, ?> colItemId;
@@ -50,6 +59,7 @@ public class RentItemFormController{
         generateNextItemId();
         loadAllItem();
         setCellValueFactory();
+        tableListener();
 
     }
     private void generateNextItemId() throws SQLException {
@@ -60,11 +70,43 @@ public class RentItemFormController{
         txtItemName.setText("");
         txtItemType.setText("");
         txtRentalPrice.setText("");
+        txtSearch.setText("");
+    }
+    private void tableListener() {
+        tblItem.getSelectionModel().selectedItemProperty().addListener((observable, oldValued, newValue) -> {
+            if (tblItem.getSelectionModel().getSelectedItem() != null) {
+                setData(newValue);
+            }
+        });
+
+    }
+
+    private void setData(ItemTm row) {
+        lblItemId.setText(row.getItemId());
+        txtItemName.setText(row.getItemName());
+        txtItemType.setText(String.valueOf(row.getItemType()));
+        txtRentalPrice.setText(String.valueOf(row.getRentalPrice()));
     }
 
     @FXML
     void btnDeleteItemOnAction(ActionEvent event) {
+        String id = lblItemId.getText();
+        try {
+            boolean isDeleted = RentItemModel.deleteItem(id);
+            if (isDeleted) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Item Deleted").show();
+                loadAllItem();
+                clearFields();
+                generateNextItemId();
 
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "Can not delete Item").show();
+
+            }
+
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 
     @FXML
@@ -122,7 +164,55 @@ public class RentItemFormController{
 
     @FXML
     void btnUpdateItemOnAction(ActionEvent event) {
+        String id = lblItemId.getText();
+        String name = txtItemName.getText();
+        String type = txtItemType.getText();
+        String price = txtRentalPrice.getText();
 
+        var dto = new ItemDto(id, name, type, price);
+        try {
+            boolean isUpdated = RentItemModel.updateItem(dto);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Item is Updated").show();
+                clearFields();
+                generateNextItemId();
+                loadAllItem();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Item is Not Updated").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
+
+    @FXML
+    void btnClearOnAction(ActionEvent event) {
+        clearFields();
+        try {
+            generateNextItemId();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR,"Error While doing Action").show();
+        }
+    }
+
+    @FXML
+    void txtSearchItemOnAction(ActionEvent event) {
+        String id = txtSearch.getText();
+        try {
+
+            ItemDto itemDto = RentItemModel.searchItem(id);
+            if (itemDto != null) {
+                lblItemId.setText(itemDto.getItemId());
+                txtItemName.setText(itemDto.getItemName());
+                txtItemType.setText(itemDto.getItemType());
+                txtRentalPrice.setText(itemDto.getRentalPrice());
+
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "Item not found !").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 
 }

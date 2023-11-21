@@ -47,6 +47,7 @@ create table complains(
     complain_id varchar(10)primary key,
     cust_id varchar(10)not null ,
     foreign key (cust_id)references customer(cust_id)on update cascade on delete cascade ,
+    cust_name varchar (20),
     about_complain varchar(150)
 );
 

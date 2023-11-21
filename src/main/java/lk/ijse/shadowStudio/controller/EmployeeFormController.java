@@ -13,9 +13,11 @@ import java.util.List;
 
 import javafx.scene.control.Label;
 import lk.ijse.shadowStudio.dto.EmployeeDto;
+import lk.ijse.shadowStudio.dto.ItemDto;
 import lk.ijse.shadowStudio.dto.tm.EmployeeTm;
 import lk.ijse.shadowStudio.model.CustomerModel;
 import lk.ijse.shadowStudio.model.EmployeeModel;
+import lk.ijse.shadowStudio.model.RentItemModel;
 
 public class EmployeeFormController{
 
@@ -132,6 +134,26 @@ public class EmployeeFormController{
         colEmployeeAddress.setCellValueFactory(new PropertyValueFactory<>("employeeAddress"));
         colEmployeeNic.setCellValueFactory(new PropertyValueFactory<>("employeeNic"));
         colEmployeeTelephone.setCellValueFactory(new PropertyValueFactory<>("employeeTp"));
+    }
+
+    @FXML
+    void txtEmployeeSearchOnAction(ActionEvent event) {
+        String id = txtEmlployeeSearch.getText();
+        try {
+
+            EmployeeDto employeeDto = EmployeeModel.searchEmployee(id);
+            if (employeeDto != null) {
+                lblEmployeeId.setText(employeeDto.getEmp_id());
+                txtEmployeeName.setText(employeeDto.getEmp_name());
+                txtEmlployeeAddress.setText(employeeDto.getEmp_address());
+                txtEmployeeNic.setText(employeeDto.getEmp_id());
+
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "Item not found !").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 
 

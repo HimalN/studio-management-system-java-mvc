@@ -63,7 +63,7 @@
                   <TableColumn fx:id="colEmployeeTelephone" prefWidth="202.33331298828125" text="Telephone" />
                </columns>
             </TableView>
-            <TextField fx:id="txtEmlployeeSearch" layoutX="56.0" layoutY="81.0" prefHeight="40.0" prefWidth="260.0" promptText="E001" />
+            <TextField fx:id="txtEmlployeeSearch" layoutX="56.0" layoutY="81.0" onAction="#txtEmployeeSearchOnAction" prefHeight="40.0" prefWidth="260.0" promptText="E001" />
             <Label layoutX="56.0" layoutY="65.0" text="Search Employee">
                <font>
                   <Font name="System Bold" size="13.0" />

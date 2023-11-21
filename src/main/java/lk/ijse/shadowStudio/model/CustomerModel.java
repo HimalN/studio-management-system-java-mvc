@@ -98,7 +98,7 @@ public class CustomerModel {
         return dtoList;
 
     }
-    public CustomerDto searchCustomer(String id) throws SQLException {
+    public static CustomerDto searchCustomer(String id) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "select * from customer where cust_id=?";
         PreparedStatement pstm = connection.prepareStatement(sql);

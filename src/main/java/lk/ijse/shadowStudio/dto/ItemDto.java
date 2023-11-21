@@ -3,6 +3,8 @@ package lk.ijse.shadowStudio.dto;
 
 import lombok.*;
 
+@Getter
+@Setter
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

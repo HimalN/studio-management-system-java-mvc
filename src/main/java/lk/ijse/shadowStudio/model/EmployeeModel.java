@@ -3,6 +3,7 @@ package lk.ijse.shadowStudio.model;
 import lk.ijse.shadowStudio.db.DbConnection;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.EmployeeDto;
+import lk.ijse.shadowStudio.dto.ItemDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -64,6 +65,31 @@ public class EmployeeModel {
         return pstm.executeUpdate() > 0;
 
     }
+
+    public static EmployeeDto searchEmployee(String id) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+
+        String sql = "select * from employee where emp_id=?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+
+        pstm.setString(1, id);
+
+        ResultSet resultSet = pstm.executeQuery();
+
+        EmployeeDto dto = null;
+
+        if(resultSet.next()) {
+            String emp_id = resultSet.getString(1);
+            String emp_name = resultSet.getString(2);
+            String  emp_address= resultSet.getString(3);
+            String  emp_nic= resultSet.getString(3);
+            String emp_tp = resultSet.getString(4);
+
+            dto = new EmployeeDto(emp_id,emp_name,emp_address,emp_nic,emp_tp);
+        }
+        return dto;
+    }
+
     public List<EmployeeDto> getAllEmployee() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "select * from employee";

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,7 +21,7 @@
       </Label>
       <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="637.0" prefWidth="1104.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;">
          <children>
-            <TextArea fx:id="txtComplain" layoutX="6.0" layoutY="130.0" prefHeight="150.0" prefWidth="817.0" promptText="Description" text="Complain">
+            <TextArea fx:id="txtComplain" layoutX="6.0" layoutY="130.0" prefHeight="150.0" prefWidth="845.0" promptText="Description" text="Complain">
                <font>
                   <Font size="18.0" />
                </font></TextArea>
@@ -29,25 +30,25 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
-            <Label layoutX="374.0" layoutY="18.0" text="Customer Id :">
+            <Label layoutX="309.0" layoutY="18.0" text="Customer Id :">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
-            <Label layoutX="21.0" layoutY="78.0" prefHeight="36.0" prefWidth="208.0" text="Customer Name :">
+            <Label layoutX="792.0" layoutY="15.0" prefHeight="36.0" prefWidth="208.0" text="Customer Name :">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
-            <JFXComboBox fx:id="cmbCustomerId" layoutX="537.0" layoutY="11.0" onAction="#cmbCustomerIdOnAction" prefHeight="40.0" prefWidth="254.0" />
+            <JFXComboBox fx:id="cmbCustomerId" layoutX="474.0" layoutY="11.0" onAction="#cmbCustomerIdOnAction" prefHeight="40.0" prefWidth="254.0" />
             <Label fx:id="lblComplainsid" layoutX="182.0" layoutY="27.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label fx:id="lblCustName" layoutX="227.0" layoutY="85.0" text="Label">
+            <Label fx:id="lblCustName" layoutX="1002.0" layoutY="21.0" prefHeight="30.0" prefWidth="51.0" text="Label">
                <font>
-                  <Font name="System Bold" size="17.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
             </Label>
             <JFXButton layoutX="880.0" layoutY="184.0" onAction="#btnUpdateComplainOnAction" prefHeight="40.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: #fcec0d;" text="Update">
@@ -80,15 +81,20 @@
                   <Image url="@../icon/saveIcon.png" />
                </image>
             </ImageView>
+            <TextField fx:id="txtSearchComplain" layoutX="607.0" layoutY="79.0" onAction="#txtSearchComplainOnAction" prefHeight="37.0" prefWidth="244.0" promptText="C001" />
+            <Label layoutX="415.0" layoutY="82.0" text="Search Complain :">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <TableView layoutX="6.0" layoutY="338.0" prefHeight="346.0" prefWidth="1104.0" style="-fx-background-radius: 10;">
          <columns>
             <TableColumn fx:id="colComplainId" prefWidth="172.0" text="Complain Id" />
             <TableColumn fx:id="colCustomerId" minWidth="0.0" prefWidth="192.0" text="Customer Id" />
-            <TableColumn fx:id="colCustomerName" prefWidth="195.0" text="Customer Name" />
-            <TableColumn fx:id="colDescription" prefWidth="322.0" text="Description" />
-            <TableColumn fx:id="colTelephone" prefWidth="220.0" text="Telephone" />
+            <TableColumn fx:id="colCustomerName" prefWidth="265.0" text="Customer Name" />
+            <TableColumn fx:id="colDescription" prefWidth="474.0" text="Description" />
          </columns>
       </TableView>
    </children>

@@ -1,8 +1,10 @@
 package lk.ijse.shadowStudio.model;
 
 import lk.ijse.shadowStudio.db.DbConnection;
+import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.EmployeeDto;
 import lk.ijse.shadowStudio.dto.ItemDto;
+import lk.ijse.shadowStudio.dto.PackageDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -54,6 +56,58 @@ public class RentItemModel {
         return isSaved;
 
     }
+
+    public static boolean deleteItem(String id) throws SQLException {
+
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "delete from item where itemId = ?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+
+        pstm.setString(1, id);
+
+        return pstm.executeUpdate() > 0;
+
+    }
+
+    public static boolean updateItem(ItemDto dto) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+
+        String sql = "UPDATE item SET itemName = ?, itemType = ?, rentalPrice = ? WHERE itemId = ?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+
+        pstm.setString(1, dto.getItemName());
+        pstm.setString(2, dto.getItemType());
+        pstm.setString(3, dto.getRentalPrice());
+        pstm.setString(4,dto.getItemId());
+
+
+        return pstm.executeUpdate() > 0;
+    }
+
+    public static ItemDto searchItem(String id) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+
+        String sql = "select * from item where itemId=?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+
+        pstm.setString(1, id);
+
+        ResultSet resultSet = pstm.executeQuery();
+
+        ItemDto dto = null;
+
+        if(resultSet.next()) {
+            String itemId = resultSet.getString(1);
+            String itemName = resultSet.getString(2);
+            String itemType = resultSet.getString(3);
+            String itemRental = resultSet.getString(4);
+
+            dto = new ItemDto(itemId,itemName,itemType,itemRental );
+        }
+        return dto;
+
+    }
+
     public List<ItemDto> getAllItem() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "select * from item";
@@ -76,4 +130,5 @@ public class RentItemModel {
         return dtoList;
 
     }
+
 }

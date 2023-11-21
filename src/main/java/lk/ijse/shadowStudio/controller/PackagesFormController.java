@@ -198,12 +198,12 @@ public class PackagesFormController{
         try {
             boolean isUpdated = PackagesModel.updateCustomer(dto);
             if (isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Customer is Updated").show();
+                new Alert(Alert.AlertType.CONFIRMATION, "Package is Updated").show();
                 clearFields();
                 generateNextPackageId();
                 loadAllPackages();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Customer is Not Updated").show();
+                new Alert(Alert.AlertType.ERROR, "Package is Not Updated").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
