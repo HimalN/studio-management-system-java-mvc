@@ -1,5 +1,6 @@
 package lk.ijse.shadowStudio.controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,12 +13,16 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javafx.scene.control.Label;
+import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.PackageDto;
 import lk.ijse.shadowStudio.dto.tm.CustomerTm;
 import lk.ijse.shadowStudio.dto.tm.PackageTm;
 import lk.ijse.shadowStudio.model.PackagesModel;
 
 public class PackagesFormController{
+    @FXML
+    private JFXButton btnClear;
+
     @FXML
     private TableColumn<?, ?> colPackageDescription;
 
@@ -54,35 +59,55 @@ public class PackagesFormController{
     @FXML
     private TableView<PackageTm> tblPackages;
 
+    @FXML
+    private TextField txtPackageSearch;
+
     private final PackagesModel packagesModel = new PackagesModel();
 
     public void initialize(){
         generateNextPackageId();
         loadAllPackages();
         setCellValueFactory();
+        tableListener();
 
     }
     private void clearFields(){
         lblPackageId.setText("");
         txtPackageName.setText("");
+        txtPackageType.setText("");
         txtAboutPackage.setText("");
         txtPackagePrice.setText("");
+        txtPackageSearch.setText("");
 
     }
-    private void generateNextPackageId(){
-
+    private void generateNextPackageId() {
         try {
-            String packageId  = PackagesModel.generateNextPackageId();
+            String packageId = PackagesModel.generateNextPackageId();
             lblPackageId.setText(packageId);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-
     }
 
     @FXML
     void btnDeletePackageOnAction(ActionEvent event) {
+        String id = lblPackageId.getText();
+        try {
+            boolean isDeleted = PackagesModel.deletePackage(id);
+            if (isDeleted) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Customer Deleted").show();
+                loadAllPackages();
+                clearFields();
+                generateNextPackageId();
 
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "Can not delete customer").show();
+
+            }
+
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 
     @FXML
@@ -99,9 +124,9 @@ public class PackagesFormController{
             boolean isSaved = PackagesModel.savePackage(dto);
             if (isSaved){
                 new Alert(Alert.AlertType.CONFIRMATION,"Package Saved").show();
-                generateNextPackageId();
+                clearFields();
                 loadAllPackages();
-                setCellValueFactory();
+                generateNextPackageId();
 
             }else {
                 new Alert(Alert.AlertType.ERROR,"Error while Saving data").show();
@@ -109,6 +134,7 @@ public class PackagesFormController{
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+
 
     }
 
@@ -143,13 +169,71 @@ public class PackagesFormController{
         }
     }
 
+    private void tableListener() {
+        tblPackages.getSelectionModel().selectedItemProperty().addListener((observable, oldValued, newValue) -> {
+            if (tblPackages.getSelectionModel().getSelectedItem() != null) {
+                setData(newValue);
+            }
+        });
+
+    }
+
+    private void setData(PackageTm row) {
+        lblPackageId.setText(row.getPackage_id());
+        txtPackageName.setText(row.getPackage_name());
+        txtPackageType.setText(String.valueOf(row.getPackage_type()));
+        txtAboutPackage.setText(String.valueOf(row.getPackage_description()));
+        txtPackagePrice.setText(String.valueOf(row.getPackage_price()));
+    }
+
     @FXML
     void btnUpdatePackageOnAction(ActionEvent event) {
+        String id = lblPackageId.getText();
+        String name = txtPackageName.getText();
+        String type = txtPackageType.getText();
+        String description = txtAboutPackage.getText();
+        String price  = txtPackagePrice.getText();
 
+        var dto = new PackageDto(id, name, type, description, price);
+        try {
+            boolean isUpdated = PackagesModel.updateCustomer(dto);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Customer is Updated").show();
+                clearFields();
+                generateNextPackageId();
+                loadAllPackages();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Customer is Not Updated").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
-
     @FXML
-    void comPackageTypeOnAction(ActionEvent event) {
+    void txtPckageSearchOnAction(ActionEvent event) {
+        String id = txtPackageSearch.getText();
+        try {
+
+            PackageDto packageDto = PackagesModel.searchPackage(id);
+            if (packageDto != null) {
+                lblPackageId.setText(packageDto.getPackage_id());
+                txtPackageSearch.setText(packageDto.getPackage_id());
+                txtPackageName.setText(packageDto.getPackage_name());
+                txtPackageType.setText(packageDto.getPackage_type());
+                txtAboutPackage.setText(packageDto.getPackage_description());
+                txtPackagePrice.setText(packageDto.getPackage_price());
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "customer not found !").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
 
     }
+    @FXML
+    void btnClearOnAction(ActionEvent event) {
+        clearFields();
+        generateNextPackageId();
+    }
+
 }

@@ -217,6 +217,7 @@ public class CustomerFormController {
 
             CustomerDto customerDto = customerModel.searchCustomer(id);
             if (customerDto != null) {
+                lblcustId.setText(customerDto.getCust_id());
                 txtCustomerSearch.setText(customerDto.getCust_id());
                 txtCustomerName.setText(customerDto.getCust_Name());
                 txtCustomerAddress.setText(customerDto.getCust_address());
