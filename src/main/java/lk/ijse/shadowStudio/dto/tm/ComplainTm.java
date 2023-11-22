@@ -13,6 +13,6 @@ import lombok.*;
         private String comId;
         private String cusId;
         private String cusName;
-        private String Desc;
+        private String aboutComplain;
     }
 

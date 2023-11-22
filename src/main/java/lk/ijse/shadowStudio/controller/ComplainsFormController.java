@@ -6,26 +6,26 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import lk.ijse.shadowStudio.dto.ComplainDto;
 import lk.ijse.shadowStudio.dto.CustomerDto;
+import lk.ijse.shadowStudio.dto.tm.ComplainTm;
+import lk.ijse.shadowStudio.dto.tm.CustomerTm;
 import lk.ijse.shadowStudio.model.ComplainModel;
 import lk.ijse.shadowStudio.model.CustomerModel;
+import lombok.SneakyThrows;
 
 public class ComplainsFormController {
+
+    @FXML
+    private TableView<ComplainTm> tblComplains;
+
     @FXML
     private JFXComboBox<String> cmbCustomerId;
 
@@ -53,12 +53,19 @@ public class ComplainsFormController {
     @FXML
     private TextField txtSearchComplain;
 
-    private ComplainModel complainModel = new ComplainModel();
+    @FXML
+    private JFXButton btnClear;
+
+    private final ComplainModel complainModel = new ComplainModel();
     private CustomerModel customerModel = new CustomerModel();
 
     public void initialize(){
+        clearFields();
         generateNextComplainId();
         loadCustomerIds();
+        setCellValueFactory();
+        loadAllComplains();
+        tableListener();
     }
 
     private void loadCustomerIds() {
@@ -88,10 +95,24 @@ public class ComplainsFormController {
 
 
     @FXML
-    void btnDeleteComplainOnAction(ActionEvent event) {
+    void btnDeleteComplainOnAction(ActionEvent event) throws SQLException {
+        String id = lblComplainsid.getText();
+        boolean isDeleted = complainModel.deleteComplain(id);
+        if (isDeleted) {
+            new Alert(Alert.AlertType.CONFIRMATION, "Complain Deleted").show();
+            loadAllComplains();
+            clearFields();
+            generateNextComplainId();
+
+        } else {
+            new Alert(Alert.AlertType.INFORMATION, "Can not delete customer").show();
+
+        }
 
     }
 
+
+    @SneakyThrows
     @FXML
     void btnSaveComplainOnAction(ActionEvent event) {
         String id = lblComplainsid.getText();
@@ -99,14 +120,55 @@ public class ComplainsFormController {
         String custName = lblCustName.getText();
         String complain = txtComplain.getText();
 
+        var dto = new ComplainDto(id, custId, custName, complain);
 
+        boolean isSaved = ComplainModel.saveComplain(dto);
+        if (isSaved){
+            new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
+            loadAllComplains();
+            generateNextComplainId();
+
+        }else {
+            new Alert(Alert.AlertType.ERROR,"Error While Saving data");
+        }
 
 
     }
 
     @FXML
     void btnUpdateComplainOnAction(ActionEvent event) {
+        String id = lblComplainsid.getText();
+        String custId = cmbCustomerId.getValue();
+        String custName = lblCustName.getText();
+        String complain = txtComplain.getText();
 
+        var dto = new ComplainDto(id, custId, custName,complain);
+        try {
+            boolean isUpdated = ComplainModel.updateCompalin(dto);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Complain is Updated").show();
+                clearFields();
+                loadAllComplains();
+                generateNextComplainId();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Complain is Not Updated").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
+
+    @FXML
+    void btnClearOnAction(ActionEvent event) {
+        clearFields();
+        generateNextComplainId();
+    }
+
+    private void clearFields() {
+        lblComplainsid.setText("");
+        // cmbCustomerId.setValue("");
+        lblCustName.setText("");
+        txtComplain.setText("");
     }
 
     @FXML
@@ -124,6 +186,67 @@ public class ComplainsFormController {
     }
     @FXML
     void txtSearchComplainOnAction(ActionEvent event) {
+        String id = txtSearchComplain.getText();
+        try {
 
+            ComplainDto complainDto = complainModel.searchComplain(id);
+
+            if (complainDto != null) {
+                lblComplainsid.setText(complainDto.getComplain_id());
+                cmbCustomerId.setValue(complainDto.getCust_id());
+                lblCustName.setText(complainDto.getCust_name());
+                txtComplain.setText(complainDto.getAbout());
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "customer not found !").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
+    private void setCellValueFactory() {
+        colComplainId.setCellValueFactory(new PropertyValueFactory<>("comId"));
+        colCustomerId.setCellValueFactory(new PropertyValueFactory<>("cusId"));
+        colCustomerName.setCellValueFactory(new PropertyValueFactory<>("cusName"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("aboutComplain"));
+    }
+
+    private void loadAllComplains() {
+        var model = new ComplainModel();
+
+        ObservableList<ComplainTm> obList = FXCollections.observableArrayList();
+        try {
+            List<ComplainDto> dtoList = model.getAllComplains();
+
+            for (ComplainDto dto : dtoList) {
+                obList.add(
+                        new ComplainTm(
+                                dto.getComplain_id(),
+                                dto.getCust_id(),
+                                dto.getCust_name(),
+                                dto.getAbout()
+                        )
+                );
+            }
+            tblComplains.setItems(obList);
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+
+    }
+
+    private void tableListener() {
+        tblComplains.getSelectionModel().selectedItemProperty().addListener((observable, oldValued, newValue) -> {
+            if (tblComplains.getSelectionModel().getSelectedItem() != null) {
+                setData(newValue);
+            }
+        });
+
+    }
+
+    private void setData(ComplainTm row) {
+        lblComplainsid.setText(row.getComId());
+        cmbCustomerId.setValue(row.getCusId());
+        lblCustName.setText(row.getCusName());
+        txtComplain.setText(String.valueOf(row.getAboutComplain()));
     }
 }
