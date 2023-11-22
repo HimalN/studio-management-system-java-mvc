@@ -2,7 +2,6 @@ package lk.ijse.shadowStudio.model;
 
 import lk.ijse.shadowStudio.db.DbConnection;
 import lk.ijse.shadowStudio.dto.ComplainDto;
-import lk.ijse.shadowStudio.dto.CustomerDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

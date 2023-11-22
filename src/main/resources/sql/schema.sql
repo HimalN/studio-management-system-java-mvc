@@ -64,8 +64,10 @@ create table rent(
     rentId varchar(10)primary key ,
     cust_id varchar(10)not null ,
     foreign key (cust_id)references customer(cust_id)on update cascade on delete cascade ,
+    cust_name varchar (20),
     itemId varchar(10) ,
     foreign key (itemId)references item(itemId) on update cascade on delete cascade,
+    item_name varchar(20),
     dayCount int,
     Date date
 );

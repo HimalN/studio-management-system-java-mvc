@@ -16,7 +16,6 @@ import javafx.scene.control.Label;
 import lk.ijse.shadowStudio.dto.ComplainDto;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.tm.ComplainTm;
-import lk.ijse.shadowStudio.dto.tm.CustomerTm;
 import lk.ijse.shadowStudio.model.ComplainModel;
 import lk.ijse.shadowStudio.model.CustomerModel;
 import lombok.SneakyThrows;
