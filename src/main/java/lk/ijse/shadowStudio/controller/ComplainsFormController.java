@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javafx.scene.control.Label;
+import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.ComplainDto;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.tm.ComplainTm;
@@ -119,17 +120,24 @@ public class ComplainsFormController {
         String custName = lblCustName.getText();
         String complain = txtComplain.getText();
 
-        var dto = new ComplainDto(id, custId, custName, complain);
+        boolean isValidDescription = RegExPatterns.getValidDescriptions().matcher(complain).matches();
 
-        boolean isSaved = ComplainModel.saveComplain(dto);
-        if (isSaved){
-            new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
-            loadAllComplains();
-            generateNextComplainId();
-
+        if (!isValidDescription){
+            new Alert(Alert.AlertType.ERROR,"low Characters in Description");
         }else {
-            new Alert(Alert.AlertType.ERROR,"Error While Saving data");
+            var dto = new ComplainDto(id, custId, custName, complain);
+
+            boolean isSaved = ComplainModel.saveComplain(dto);
+            if (isSaved){
+                new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
+                loadAllComplains();
+                generateNextComplainId();
+
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Error While Saving data");
+            }
         }
+
 
 
     }
@@ -141,20 +149,29 @@ public class ComplainsFormController {
         String custName = lblCustName.getText();
         String complain = txtComplain.getText();
 
-        var dto = new ComplainDto(id, custId, custName,complain);
-        try {
-            boolean isUpdated = ComplainModel.updateCompalin(dto);
-            if (isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Complain is Updated").show();
-                clearFields();
-                loadAllComplains();
-                generateNextComplainId();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Complain is Not Updated").show();
+        boolean isValidDescription = RegExPatterns.getValidDescriptions().matcher(complain).matches();
+
+        if (!isValidDescription){
+            new Alert(Alert.AlertType.ERROR,"low Characters in Description");
+        }else {
+            var dto = new ComplainDto(id, custId, custName,complain);
+            try {
+                boolean isUpdated = ComplainModel.updateCompalin(dto);
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Complain is Updated").show();
+                    clearFields();
+                    loadAllComplains();
+                    generateNextComplainId();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Complain is Not Updated").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+
         }
+
+
     }
 
     @FXML

@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.BookingDto;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.PackageDto;
@@ -163,29 +164,44 @@ public class BookingsFormController {
         String location = txtLocation.getText();
         String custIdea = txtCustomerIdea.getText();
 
+        boolean isTimeValidated = RegExPatterns.getValidTime().matcher(time).matches();
+        boolean isValidLocation = RegExPatterns.getValidName().matcher(location).matches();
 
-        var dto = new BookingDto(
-                id,
-                custId,
-                custName,
-                packageId,
-                packageName,
-                date,
-                time,
-                location,
-                custIdea
-        );
-
-        boolean isSaved = BookingsModel.saveBooking(dto);
-        if (isSaved){
-            new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
-            clearFields();
-            loadAllBookings();
-            generateNextBookingId();
-
+        if (!isTimeValidated){
+            new Alert(Alert.AlertType.ERROR,"Invalid Time Format").show();
+            return;
+        }if (!isValidLocation){
+            new Alert(Alert.AlertType.ERROR,"Invalid Location Format").show();
         }else {
-            new Alert(Alert.AlertType.ERROR,"Error While Saving data");
+            var dto = new BookingDto(
+                    id,
+                    custId,
+                    custName,
+                    packageId,
+                    packageName,
+                    date,
+                    time,
+                    location,
+                    custIdea
+            );
+
+            boolean isSaved = BookingsModel.saveBooking(dto);
+            if (isSaved){
+                new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
+                clearFields();
+                loadAllBookings();
+                generateNextBookingId();
+
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Error While Saving data");
+            }
         }
+
+
+
+
+
+
     }
 
     @FXML
