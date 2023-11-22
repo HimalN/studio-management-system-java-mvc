@@ -2,6 +2,8 @@ package lk.ijse.shadowStudio.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +12,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.shadowStudio.dto.CustomerDto;
+import lk.ijse.shadowStudio.model.BookingsModel;
+import lk.ijse.shadowStudio.model.CustomerModel;
+import lk.ijse.shadowStudio.model.PackagesModel;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 public class BookingsFormController {
 
@@ -68,6 +76,27 @@ public class BookingsFormController {
 
     @FXML
     private TextField txtTime;
+    private final BookingsModel bookingsModel = new BookingsModel();
+    private final PackagesModel packagesModel = new PackagesModel();
+    private CustomerModel customerModel = new CustomerModel();
+
+    public void initialize() {
+        generateNextBookingId();
+        loadCustomerIds();
+    }
+
+    private void generateNextBookingId() {
+        try {
+            String bookingId = BookingsModel.generateNextBookingId();
+            lblBookingId.setText(bookingId);
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+
+    }
+    private void loadCustomerIds() {
+
+    }
 
     @FXML
     void btnDeleteBookingOnAction(ActionEvent event) {
@@ -86,7 +115,15 @@ public class BookingsFormController {
 
     @FXML
     void cmbCustomerIdOnAction(ActionEvent event) {
+        String id = (String) cmbCustomerId.getValue();
 
+        try {
+            CustomerDto customerDto = customerModel.searchCustomer(id);
+            lblCustomerName.setText(customerDto.getCust_Name());
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

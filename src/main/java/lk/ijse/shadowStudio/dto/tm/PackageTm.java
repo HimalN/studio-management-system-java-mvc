@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@ToString
 public class PackageTm {
     private String package_id;
     private String package_name;

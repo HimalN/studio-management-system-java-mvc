@@ -182,7 +182,6 @@ public class ComplainsFormController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
     @FXML
     void txtSearchComplainOnAction(ActionEvent event) {
