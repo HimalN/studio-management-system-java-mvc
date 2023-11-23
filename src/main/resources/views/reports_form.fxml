@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +13,14 @@
             <Font name="System Bold" size="31.0" />
          </font>
       </Label>
-      <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="636.0" prefWidth="1104.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;" />
+      <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="636.0" prefWidth="1104.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;">
+         <children>
+            <JFXButton layoutX="159.0" layoutY="166.0" onAction="#btnRentDetailsFormOnAction" prefHeight="234.0" prefWidth="250.0" style="-fx-background-color: #6c5ce7; -fx-background-radius: 30;" text="Rent Details" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </JFXButton>
+         </children></AnchorPane>
       <Label layoutX="596.0" layoutY="8.0" prefHeight="35.0" prefWidth="68.0" text="Date :">
          <font>
             <Font name="System Bold" size="24.0" />
@@ -24,5 +32,15 @@
          </font>
       </Label>
       <Separator layoutX="794.0" layoutY="16.0" orientation="VERTICAL" prefHeight="19.0" prefWidth="6.0" />
+      <Label fx:id="lblDate" layoutX="666.0" layoutY="13.0" prefHeight="28.0" prefWidth="84.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblTime" layoutX="952.0" layoutY="14.0" prefHeight="28.0" prefWidth="84.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

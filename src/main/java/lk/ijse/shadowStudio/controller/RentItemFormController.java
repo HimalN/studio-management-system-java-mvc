@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.ItemDto;
 import lk.ijse.shadowStudio.dto.PackageDto;
 import lk.ijse.shadowStudio.dto.tm.ItemTm;
@@ -116,20 +117,36 @@ public class RentItemFormController{
         String itemType = txtItemType.getText();
         String itemPrice = txtRentalPrice.getText();
 
-        ItemDto dto = new ItemDto(itemId,itemName,itemType,itemPrice);
+        boolean isValidItemName = RegExPatterns.getValidName().matcher(itemName).matches();
+        boolean isValidItemType = RegExPatterns.getValidItemType().matcher(itemType).matches();
+        boolean isValidPrice = RegExPatterns.getValidPrice().matcher(itemPrice).matches();
 
-        try {
-            boolean isSaved = RentItemModel.saveItem(dto);
-            if (isSaved){
-                new Alert(Alert.AlertType.CONFIRMATION,"Item Saved").show();
-                clearFields();
-            }else {
-                new Alert(Alert.AlertType.ERROR,"Error While Saving Data").show();
+        if (!isValidItemName){
+            new Alert(Alert.AlertType.ERROR,"Invalid Item Name");
+            return;
+        }if (!isValidItemType){
+            new Alert(Alert.AlertType.ERROR,"Invalid Item Type");
+            return;
+        }if (!isValidPrice){
+            new Alert(Alert.AlertType.ERROR,"Invalid Item Price");
+        }else {
+            ItemDto dto = new ItemDto(itemId,itemName,itemType,itemPrice);
+
+            try {
+                boolean isSaved = RentItemModel.saveItem(dto);
+                if (isSaved){
+                    new Alert(Alert.AlertType.CONFIRMATION,"Item Saved").show();
+                    clearFields();
+                }else {
+                    new Alert(Alert.AlertType.ERROR,"Error While Saving Data").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            initialize();
         }
-        initialize();
+
+
     }
     private void setCellValueFactory() {
         colItemId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
@@ -169,20 +186,36 @@ public class RentItemFormController{
         String type = txtItemType.getText();
         String price = txtRentalPrice.getText();
 
-        var dto = new ItemDto(id, name, type, price);
-        try {
-            boolean isUpdated = RentItemModel.updateItem(dto);
-            if (isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Item is Updated").show();
-                clearFields();
-                generateNextItemId();
-                loadAllItem();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Item is Not Updated").show();
+        boolean isValidItemName = RegExPatterns.getValidName().matcher(name).matches();
+        boolean isValidItemType = RegExPatterns.getValidItemType().matcher(type).matches();
+        boolean isValidPrice = RegExPatterns.getValidPrice().matcher(type).matches();
+
+        if (!isValidItemName){
+            new Alert(Alert.AlertType.ERROR,"Invalid Item Name");
+            return;
+        }if (!isValidItemType){
+            new Alert(Alert.AlertType.ERROR,"Invalid Item Type");
+            return;
+        }if (!isValidPrice){
+            new Alert(Alert.AlertType.ERROR,"Invalid Item Price");
+        }else {
+            var dto = new ItemDto(id, name, type, price);
+            try {
+                boolean isUpdated = RentItemModel.updateItem(dto);
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Item is Updated").show();
+                    clearFields();
+                    generateNextItemId();
+                    loadAllItem();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Item is Not Updated").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+
+
     }
 
     @FXML

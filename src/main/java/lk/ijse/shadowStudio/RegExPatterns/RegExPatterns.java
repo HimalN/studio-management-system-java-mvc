@@ -19,4 +19,12 @@ public class RegExPatterns {
     public static final Pattern validTime = Pattern.compile("(0?[1-9]|1[0-2]).[0-5][0-9](AM|PM|Am|Pm|am|pm)");
     @Getter
     public static final Pattern validDescriptions = Pattern.compile("([a-z]|[A-Z]){10,}");
+    @Getter
+    public static final Pattern validPackageType = Pattern.compile("(photography|Photography|videography|Videography)");
+    @Getter
+    public static final Pattern validPrice = Pattern.compile("([^-][\\d+]){4,}");
+    @Getter
+    public static final Pattern validDayCount = Pattern.compile("[0-9]");
+    @Getter
+    public static final Pattern validItemType = Pattern.compile("(Camera|camera|Lence|lence)");
 }

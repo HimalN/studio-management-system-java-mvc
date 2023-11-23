@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.ItemDto;
 import lk.ijse.shadowStudio.dto.RentDto;
@@ -106,17 +107,22 @@ public class RentFormController{
         String dayCount = txtDayCount.getText();
         String broughtdate = String.valueOf(broughtDate.getValue());
 
+        boolean isValidDayCount = RegExPatterns.getValidDayCount().matcher(dayCount).matches();
 
-        var dto = new RentDto(id, custId, custName, itemId,itemName,dayCount,broughtdate);
-
-        boolean isSaved = RentModel.saveRent(dto);
-        if (isSaved){
-            new Alert(Alert.AlertType.CONFIRMATION,"Rent Details Added").show();
-            loadAllRents();
-            generateNextRentId();
-
+        if (!isValidDayCount){
+            new Alert(Alert.AlertType.ERROR,"Invalid Day Count");
         }else {
-            new Alert(Alert.AlertType.ERROR,"Error While Saving data");
+            var dto = new RentDto(id, custId, custName, itemId,itemName,dayCount,broughtdate);
+
+            boolean isSaved = RentModel.saveRent(dto);
+            if (isSaved){
+                new Alert(Alert.AlertType.CONFIRMATION,"Rent Details Added").show();
+                loadAllRents();
+                generateNextRentId();
+
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Error While Saving data");
+            }
         }
     }
 

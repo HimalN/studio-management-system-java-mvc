@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javafx.scene.control.Label;
+import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.PackageDto;
 import lk.ijse.shadowStudio.dto.tm.CustomerTm;
@@ -118,24 +119,40 @@ public class PackagesFormController{
         String packageAbout = txtAboutPackage.getText();
         String packagePrice = txtPackagePrice.getText();
 
-        var dto = new PackageDto(packageId,packageName,packageType,packageAbout,packagePrice);
+        boolean isValidName = RegExPatterns.getValidName().matcher(packageName).matches();
+        boolean isValidPackageType = RegExPatterns.getValidPackageType().matcher(packageType).matches();
+        boolean isValidPackageAbout = RegExPatterns.getValidDescriptions().matcher(packageAbout).matches();
+        boolean isValidPackagePrice = RegExPatterns.getValidPrice().matcher(packagePrice).matches();
 
-        try {
-            boolean isSaved = PackagesModel.savePackage(dto);
-            if (isSaved){
-                new Alert(Alert.AlertType.CONFIRMATION,"Package Saved").show();
-                clearFields();
-                loadAllPackages();
-                generateNextPackageId();
+        if (!isValidName){
+            new Alert(Alert.AlertType.ERROR,"Invalid Name Format").show();
+            return;
+        }if (!isValidPackageType){
+            new Alert(Alert.AlertType.ERROR,"Invalid PAckage Type").show();
+            return;
+        }if (isValidPackageAbout){
+            new Alert(Alert.AlertType.ERROR,"Invalid package about").show();
+            return;
+        }if (isValidPackagePrice){
+            new Alert(Alert.AlertType.ERROR,"Invalid package Price").show();
+        }else {
+            var dto = new PackageDto(packageId,packageName,packageType,packageAbout,packagePrice);
 
-            }else {
-                new Alert(Alert.AlertType.ERROR,"Error while Saving data").show();
+            try {
+                boolean isSaved = PackagesModel.savePackage(dto);
+                if (isSaved){
+                    new Alert(Alert.AlertType.CONFIRMATION,"Package Saved").show();
+                    clearFields();
+                    loadAllPackages();
+                    generateNextPackageId();
+
+                }else {
+                    new Alert(Alert.AlertType.ERROR,"Error while Saving data").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-
-
     }
 
     private void setCellValueFactory() {
@@ -194,20 +211,41 @@ public class PackagesFormController{
         String description = txtAboutPackage.getText();
         String price  = txtPackagePrice.getText();
 
-        var dto = new PackageDto(id, name, type, description, price);
-        try {
-            boolean isUpdated = PackagesModel.updateCustomer(dto);
-            if (isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Package is Updated").show();
-                clearFields();
-                generateNextPackageId();
-                loadAllPackages();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Package is Not Updated").show();
+        boolean isValidName = RegExPatterns.getValidName().matcher(name).matches();
+        boolean isValidPackageType = RegExPatterns.getValidPackageType().matcher(type).matches();
+        boolean isValidPackageAbout = RegExPatterns.getValidDescriptions().matcher(description).matches();
+        boolean isValidPackagePrice = RegExPatterns.getValidPrice().matcher(price).matches();
+
+        if (!isValidName){
+            new Alert(Alert.AlertType.ERROR,"Invalid Name Format").show();
+            return;
+        }if (!isValidPackageType){
+            new Alert(Alert.AlertType.ERROR,"Invalid PAckage Type").show();
+            return;
+        }if (isValidPackageAbout){
+            new Alert(Alert.AlertType.ERROR,"Invalid package about").show();
+            return;
+        }if (isValidPackagePrice){
+            new Alert(Alert.AlertType.ERROR,"Invalid package Price").show();
+        }else {
+            var dto = new PackageDto(id, name, type, description, price);
+            try {
+                boolean isUpdated = PackagesModel.updateCustomer(dto);
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Package is Updated").show();
+                    clearFields();
+                    generateNextPackageId();
+                    loadAllPackages();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Package is Not Updated").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+
+
+
     }
     @FXML
     void txtPckageSearchOnAction(ActionEvent event) {

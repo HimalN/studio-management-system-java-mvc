@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javafx.scene.control.Label;
+import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.EmployeeDto;
 import lk.ijse.shadowStudio.dto.ItemDto;
 import lk.ijse.shadowStudio.dto.tm.EmployeeTm;
@@ -89,20 +90,40 @@ public class EmployeeFormController{
         String empNic = txtEmployeeNic.getText();
         String empTp = txtEmployeeTp.getText();
 
-        EmployeeDto dto = new EmployeeDto(empId,empName,empAddress,empNic,empTp);
+        boolean isValidName = RegExPatterns.getValidName().matcher(empName).matches();
+        boolean isValidAddress = RegExPatterns.getValidAddress().matcher(empAddress).matches();
+        boolean isValidNic = RegExPatterns.getValidNic().matcher(empNic).matches();
+        boolean isValidTp = RegExPatterns.getValidPhoneNumber().matcher(empTp).matches();
 
-        try {
-            boolean isSaved = EmployeeModel.saveEmployee(dto);
-            if (isSaved){
-                new Alert(Alert.AlertType.CONFIRMATION,"Empoyee Saved").show();
-                clearFields();
-            }else {
-                new Alert(Alert.AlertType.ERROR,"Error While Saving Data").show();
+        if (!isValidName){
+            new Alert(Alert.AlertType.ERROR,"Invalid Name Format").show();
+            return;
+        }if (!isValidAddress){
+            new Alert(Alert.AlertType.ERROR,"Invalid Address Format").show();
+            return;
+        }if (!isValidNic){
+            new Alert(Alert.AlertType.ERROR,"Invalid Nic Format").show();
+            return;
+        }if (!isValidTp){
+            new Alert(Alert.AlertType.ERROR,"Invalid Telephone Format").show();
+        }else {
+            EmployeeDto dto = new EmployeeDto(empId,empName,empAddress,empNic,empTp);
+
+            try {
+                boolean isSaved = EmployeeModel.saveEmployee(dto);
+                if (isSaved){
+                    new Alert(Alert.AlertType.CONFIRMATION,"Empoyee Saved").show();
+                    clearFields();
+                }else {
+                    new Alert(Alert.AlertType.ERROR,"Error While Saving Data").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            initialize();
         }
-        initialize();
+
+
     }
 
     @FXML
