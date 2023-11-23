@@ -13,8 +13,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lk.ijse.shadowStudio.db.DbConnection;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -48,7 +55,18 @@ public class ReportsFormController{
         });
     }
     @FXML
-    void btnRentDetailsFormOnAction(ActionEvent event) {
+    void btnRentDetailsFormOnAction(ActionEvent event) throws SQLException, JRException {
+        InputStream resourceAsStream = getClass().getResourceAsStream("/reports/RentDetails.jrxml");
 
+        JasperDesign load = JRXmlLoader.load(resourceAsStream);
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(load);
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(
+                jasperReport,
+                null,
+                DbConnection.getInstance().getConnection()
+        );
+        JasperViewer.viewReport(jasperPrint,false);
     }
 }

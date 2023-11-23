@@ -14,7 +14,7 @@ public class RegExPatterns {
     @Getter
     public static final Pattern validNic = Pattern.compile("^\\d{10,12}|\\d+[V]");
     @Getter
-    public static final Pattern validAddress = Pattern.compile("^[A-Za-z0-9'\\/\\.\\,\\s]{5,}$");
+    public static final Pattern validAddress = Pattern.compile("([A-Z]|[a-z][0-9]){5,}");
     @Getter
     public static final Pattern validTime = Pattern.compile("(0?[1-9]|1[0-2]).[0-5][0-9](AM|PM|Am|Pm|am|pm)");
     @Getter

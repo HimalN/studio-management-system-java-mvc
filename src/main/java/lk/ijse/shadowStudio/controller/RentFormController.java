@@ -93,8 +93,18 @@ public class RentFormController{
     }
 
     @FXML
-    void btnDeleteRentOnAction(ActionEvent event) {
+    void btnDeleteRentOnAction(ActionEvent event) throws SQLException {
+        String id = lblRentID.getText();
+        boolean isDeleted = rentModel.deleteRent(id);
+        if (isDeleted) {
+            new Alert(Alert.AlertType.CONFIRMATION, "Rent Information Deleted").show();
+            loadAllRents();
+            generateNextRentId();
 
+        } else {
+            new Alert(Alert.AlertType.INFORMATION, "Can not delete customer").show();
+
+        }
     }
 
     @FXML
@@ -158,7 +168,7 @@ public class RentFormController{
     }
 
     @FXML
-    void dateOnAction(ActionEvent event) {
+    void dateOnAction(ActionEvent event){
 
     }
 

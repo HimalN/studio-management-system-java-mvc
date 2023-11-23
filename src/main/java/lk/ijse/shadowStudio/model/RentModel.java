@@ -84,4 +84,15 @@ public class RentModel {
         return dtoList;
 
     }
+
+    public boolean deleteRent(String id) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+
+        String sql = "delete from rent where rentId = ?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+
+        pstm.setString(1, id);
+
+        return pstm.executeUpdate() > 0;
+    }
 }

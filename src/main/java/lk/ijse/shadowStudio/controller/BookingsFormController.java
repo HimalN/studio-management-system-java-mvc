@@ -13,11 +13,13 @@ import lk.ijse.shadowStudio.dto.BookingDto;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.PackageDto;
 import lk.ijse.shadowStudio.dto.tm.BookingTm;
+import lk.ijse.shadowStudio.dto.tm.CustomerTm;
 import lk.ijse.shadowStudio.model.BookingsModel;
 import lk.ijse.shadowStudio.model.CustomerModel;
 import lk.ijse.shadowStudio.model.PackagesModel;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class BookingsFormController {
@@ -91,6 +93,7 @@ public class BookingsFormController {
         loadPackageIds();
         loadAllBookings();
         setCellValueFactory();
+        tableListener();
 
     }
     public void clearFields(){
@@ -149,6 +152,23 @@ public class BookingsFormController {
 
     @FXML
     void btnDeleteBookingOnAction(ActionEvent event) {
+        String id = lblBookingId.getText();
+        try {
+            boolean isDeleted = bookingsModel.deleteBooking(id);
+            if (isDeleted) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Booking Deleted Deleted").show();
+                loadAllBookings();
+                clearFields();
+                generateNextBookingId();
+
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "Can not delete booking").show();
+
+            }
+
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
 
     }
 
@@ -196,17 +216,34 @@ public class BookingsFormController {
                 new Alert(Alert.AlertType.ERROR,"Error While Saving data");
             }
         }
-
-
-
-
-
-
     }
 
     @FXML
     void btnUpdateBookingOnAction(ActionEvent event) {
+        String bid = lblBookingId.getText();
+        String custId = cmbCustomerId.getValue();
+        String custName = lblCustomerName.getText();
+        String packageId = cmbPackageId.getValue();
+        String packageName = lblPackageName.getText();
+        String date = String.valueOf(bookingDate.getValue());
+        String time = txtTime.getText();
+        String location = txtLocation.getText();
+        String custIdea = txtCustomerIdea.getText();
 
+        var dto = new BookingDto(bid,custId,custName,packageId,packageName,date,time,location,custIdea);
+        try {
+            boolean isUpdated = bookingsModel.updateBookings(dto);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Booking Updated").show();
+                clearFields();
+                generateNextBookingId();
+                loadAllBookings();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Booking is Not Updated").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 
     @FXML
@@ -269,6 +306,26 @@ public class BookingsFormController {
         }
         tblBookings.setItems(obList);
 
+    }
+    private void tableListener() {
+        tblBookings.getSelectionModel().selectedItemProperty().addListener((observable, oldValued, newValue) -> {
+            if (tblBookings.getSelectionModel().getSelectedItem() != null) {
+                setData(newValue);
+            }
+        });
+
+    }
+
+    private void setData(BookingTm row) {
+        lblBookingId.setText(row.getBooking_id());
+        cmbCustomerId.setValue(row.getCust_id());
+        lblCustomerName.setText(row.getCust_name());
+        cmbPackageId.setValue(row.getPackage_id());
+        lblPackageName.setText(row.getPackage_name());
+        bookingDate.setValue(LocalDate.parse(row.getDate()));
+        txtTime.setText(row.getTime());
+        txtLocation.setText(row.getLocation());
+        txtCustomerIdea.setText(row.getDescription());
     }
     @FXML
     void btnClearOnAction(ActionEvent event) {
