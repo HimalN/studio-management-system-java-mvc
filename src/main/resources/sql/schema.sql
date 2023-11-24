@@ -57,7 +57,8 @@ create table item(
     itemId varchar(10)primary key ,
     itemName varchar(20)not null ,
     itemType varchar(10)not null ,
-    rentalPrice double
+    rentalPrice varchar (10),
+    qty varchar(10)
 );
 
 create table rent(

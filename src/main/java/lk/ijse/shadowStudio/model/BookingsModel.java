@@ -103,15 +103,46 @@ public class BookingsModel {
     public boolean updateBookings(BookingDto dto) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
-        String sql = "UPDATE bookings SET cust_id = ?, package_id = ?, date = ?, time = ?, location=?, description=? WHERE cust_id = ?";
+        String sql = "UPDATE bookings SET cust_id = ?,cust_name=?, package_id = ?,package_name=?, date = ?, time = ?, location=?, description=? WHERE booking_id = ?";
         PreparedStatement pstm = connection.prepareStatement(sql);
-/*        pstm.setString(1, dto.getCust_Name(a));
-        pstm.setString(2, dto.getCust_address());
-        pstm.setString(3, dto.getCust_nic());
-        pstm.setString(4, dto.getCust_tp());
-        pstm.setString(5, dto.getCust_id());*/
+        pstm.setString(1, dto.getCust_id());
+        pstm.setString(2, dto.getCust_name());
+        pstm.setString(3, dto.getPackage_id());
+        pstm.setString(4, dto.getPackage_name());
+        pstm.setString(5, dto.getDate());
+        pstm.setString(6, dto.getTime());
+        pstm.setString(7, dto.getLocation());
+        pstm.setString(8, dto.getDescription());
+        pstm.setString(9, dto.getBooking_id());
 
         return pstm.executeUpdate() > 0;
 
+    }
+
+    public BookingDto searchBookings(String id) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "select * from bookings where booking_id=?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+
+        pstm.setString(1, id);
+
+        ResultSet resultSet = pstm.executeQuery();
+
+        BookingDto dto = null;
+
+        if(resultSet.next()) {
+            String booking_id = resultSet.getString(1);
+            String cust_id = resultSet.getString(2);
+            String cust_name = resultSet.getString(3);
+            String package_id = resultSet.getString(4);
+            String package_name = resultSet.getString(5);
+            String date = resultSet.getString(5);
+            String time = resultSet.getString(5);
+            String location = resultSet.getString(5);
+            String description = resultSet.getString(5);
+
+            dto = new BookingDto(booking_id,cust_id,cust_name,package_id,package_name,date,time,location,description);
+        }
+        return dto;
     }
 }

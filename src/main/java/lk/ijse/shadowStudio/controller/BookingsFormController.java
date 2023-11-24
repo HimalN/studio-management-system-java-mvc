@@ -83,6 +83,10 @@ public class BookingsFormController {
     private TextField txtTime;
     @FXML
     private Label lblPackageName;
+
+    @FXML
+    private TextField txtBookingSearch;
+
     private final BookingsModel bookingsModel = new BookingsModel();
     private final PackagesModel packagesModel = new PackagesModel();
     private CustomerModel customerModel = new CustomerModel();
@@ -106,6 +110,7 @@ public class BookingsFormController {
         bookingDate.setValue(null);
         txtTime.setText("");
         txtLocation.setText("");
+        txtBookingSearch.setText("");
 
     }
 
@@ -240,6 +245,31 @@ public class BookingsFormController {
                 loadAllBookings();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Booking is Not Updated").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
+
+    @FXML
+    void txtBookingSearchOnAction(ActionEvent event) {
+        String id = txtBookingSearch.getText();
+        try {
+
+            BookingDto bookingDto = bookingsModel.searchBookings(id);
+            if (bookingDto != null) {
+                lblBookingId.setText(bookingDto.getBooking_id());
+                txtBookingSearch.setText(bookingDto.getBooking_id());
+                cmbCustomerId.setValue(bookingDto.getCust_id());
+                lblCustomerName.setText(bookingDto.getCust_name());
+                cmbPackageId.setValue(bookingDto.getPackage_id());
+                lblPackageName.setText(bookingDto.getPackage_name());
+                bookingDate.setValue(LocalDate.parse(bookingDto.getDate()));
+                txtTime.setText(bookingDto.getTime());
+                txtLocation.setText(bookingDto.getLocation());
+                txtCustomerIdea.setText(bookingDto.getDescription());
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "Booking not found !").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

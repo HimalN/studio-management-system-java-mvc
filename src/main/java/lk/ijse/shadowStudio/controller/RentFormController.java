@@ -13,9 +13,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.ItemDto;
+import lk.ijse.shadowStudio.dto.PackageDto;
 import lk.ijse.shadowStudio.dto.RentDto;
 import lk.ijse.shadowStudio.dto.tm.RentTm;
 import lk.ijse.shadowStudio.model.CustomerModel;
+import lk.ijse.shadowStudio.model.PackagesModel;
 import lk.ijse.shadowStudio.model.RentItemModel;
 import lk.ijse.shadowStudio.model.RentModel;
 
@@ -138,7 +140,27 @@ public class RentFormController{
 
     @FXML
     void btnUpdateRentrOnAction(ActionEvent event) {
+/*        String id = lblPackageId.getText();
+        String name = txtPackageName.getText();
+        String type = txtPackageType.getText();
+        String description = txtAboutPackage.getText();
+        String price  = txtPackagePrice.getText();
 
+            var dto = new PackageDto(id, name, type, description, price);
+            try {
+                boolean isUpdated = PackagesModel.updateCustomer(dto);
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Package is Updated").show();
+                    clearFields();
+                    generateNextPackageId();
+                    loadAllPackages();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Package is Not Updated").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            }
+        */
     }
 
     @FXML

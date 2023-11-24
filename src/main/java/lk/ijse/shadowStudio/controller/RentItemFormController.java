@@ -21,6 +21,12 @@ import java.util.List;
 public class RentItemFormController{
 
     @FXML
+    private TextField txtItemQty;
+
+    @FXML
+    private TableColumn<?, ?> colQty;
+
+    @FXML
     private JFXButton btnClear;
 
     @FXML
@@ -72,6 +78,7 @@ public class RentItemFormController{
         txtItemType.setText("");
         txtRentalPrice.setText("");
         txtSearch.setText("");
+        txtItemQty.setText("");
     }
     private void tableListener() {
         tblItem.getSelectionModel().selectedItemProperty().addListener((observable, oldValued, newValue) -> {
@@ -87,6 +94,7 @@ public class RentItemFormController{
         txtItemName.setText(row.getItemName());
         txtItemType.setText(String.valueOf(row.getItemType()));
         txtRentalPrice.setText(String.valueOf(row.getRentalPrice()));
+        txtItemQty.setText(row.getQty());
     }
 
     @FXML
@@ -116,6 +124,7 @@ public class RentItemFormController{
         String itemName = txtItemName.getText();
         String itemType = txtItemType.getText();
         String itemPrice = txtRentalPrice.getText();
+        String qty = txtItemQty.getText();
 
         boolean isValidItemName = RegExPatterns.getValidName().matcher(itemName).matches();
         boolean isValidItemType = RegExPatterns.getValidItemType().matcher(itemType).matches();
@@ -130,7 +139,7 @@ public class RentItemFormController{
         }if (!isValidPrice){
             new Alert(Alert.AlertType.ERROR,"Invalid Item Price");
         }else {
-            ItemDto dto = new ItemDto(itemId,itemName,itemType,itemPrice);
+            ItemDto dto = new ItemDto(itemId,itemName,itemType,itemPrice,qty);
 
             try {
                 boolean isSaved = RentItemModel.saveItem(dto);
@@ -153,6 +162,7 @@ public class RentItemFormController{
         colItemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
         colItemType.setCellValueFactory(new PropertyValueFactory<>("itemType"));
         colRentalPrice.setCellValueFactory(new PropertyValueFactory<>("rentalPrice"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
     }
 
 
@@ -169,7 +179,8 @@ public class RentItemFormController{
                                 dto.getItemId(),
                                 dto.getItemName(),
                                 dto.getItemType(),
-                                dto.getRentalPrice()
+                                dto.getRentalPrice(),
+                                dto.getQty()
                         )
                 );
             }
@@ -185,6 +196,7 @@ public class RentItemFormController{
         String name = txtItemName.getText();
         String type = txtItemType.getText();
         String price = txtRentalPrice.getText();
+        String qty = txtItemQty.getText();
 
         boolean isValidItemName = RegExPatterns.getValidName().matcher(name).matches();
         boolean isValidItemType = RegExPatterns.getValidItemType().matcher(type).matches();
@@ -199,7 +211,7 @@ public class RentItemFormController{
         }if (!isValidPrice){
             new Alert(Alert.AlertType.ERROR,"Invalid Item Price");
         }else {
-            var dto = new ItemDto(id, name, type, price);
+            var dto = new ItemDto(id, name, type, price,qty);
             try {
                 boolean isUpdated = RentItemModel.updateItem(dto);
                 if (isUpdated) {
@@ -239,6 +251,7 @@ public class RentItemFormController{
                 txtItemName.setText(itemDto.getItemName());
                 txtItemType.setText(itemDto.getItemType());
                 txtRentalPrice.setText(itemDto.getRentalPrice());
+                txtItemQty.setText(itemDto.getQty());
 
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "Item not found !").show();

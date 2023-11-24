@@ -42,13 +42,14 @@ public class RentItemModel {
     public static boolean saveItem(ItemDto dto) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
-        String sql = "INSERT INTO item VALUES(?,?,?,?)";
+        String sql = "INSERT INTO item VALUES(?,?,?,?,?)";
         PreparedStatement pstm = connection.prepareStatement(sql);
 
         pstm.setString(1, dto.getItemId());
         pstm.setString(2,dto.getItemName());
         pstm.setString(3,dto.getItemType());
         pstm.setString(4,dto.getRentalPrice());
+        pstm.setString(5,dto.getQty());
 
 
         boolean isSaved = pstm.executeUpdate() > 0;
@@ -72,13 +73,14 @@ public class RentItemModel {
     public static boolean updateItem(ItemDto dto) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
-        String sql = "UPDATE item SET itemName = ?, itemType = ?, rentalPrice = ? WHERE itemId = ?";
+        String sql = "UPDATE item SET itemName = ?, itemType = ?, rentalPrice = ?, qty = ? WHERE itemId = ?";
         PreparedStatement pstm = connection.prepareStatement(sql);
 
         pstm.setString(1, dto.getItemName());
         pstm.setString(2, dto.getItemType());
         pstm.setString(3, dto.getRentalPrice());
-        pstm.setString(4,dto.getItemId());
+        pstm.setString(4, dto.getQty());
+        pstm.setString(5,dto.getItemId());
 
 
         return pstm.executeUpdate() > 0;
@@ -101,8 +103,9 @@ public class RentItemModel {
             String itemName = resultSet.getString(2);
             String itemType = resultSet.getString(3);
             String itemRental = resultSet.getString(4);
+            String qty = resultSet.getString(5);
 
-            dto = new ItemDto(itemId,itemName,itemType,itemRental );
+            dto = new ItemDto(itemId,itemName,itemType,itemRental,qty );
         }
         return dto;
 
@@ -123,7 +126,8 @@ public class RentItemModel {
                             rs.getString(1),
                             rs.getString(2),
                             rs.getString(3),
-                            rs.getString(4)
+                            rs.getString(4),
+                            rs.getString(5)
                     )
             );
         }

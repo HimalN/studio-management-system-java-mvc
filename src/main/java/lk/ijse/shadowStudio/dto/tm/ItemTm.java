@@ -11,4 +11,5 @@ public class ItemTm {
     private String itemName;
     private String itemType;
     private String rentalPrice;
+    private String qty;
 }

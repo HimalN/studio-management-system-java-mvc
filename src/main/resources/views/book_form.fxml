@@ -52,7 +52,7 @@
             <DatePicker fx:id="bookingDate" layoutX="803.0" layoutY="89.0" prefHeight="40.0" prefWidth="280.0" promptText="Date" />
             <TextField fx:id="txtTime" layoutX="803.0" layoutY="150.0" prefHeight="40.0" prefWidth="280.0" promptText="Time" />
             <TextField fx:id="txtLocation" layoutX="803.0" layoutY="210.0" prefHeight="40.0" prefWidth="280.0" promptText="Location" />
-            <TextArea fx:id="txtCustomerIdea" layoutX="9.0" layoutY="151.0" prefHeight="108.0" prefWidth="776.0" promptText="Customer Idea">
+            <TextArea fx:id="txtCustomerIdea" layoutX="9.0" layoutY="151.0" prefHeight="98.0" prefWidth="776.0" promptText="Customer Idea">
                <font>
                   <Font size="20.0" />
                </font></TextArea>
@@ -123,6 +123,12 @@
       <Label layoutX="15.0" layoutY="2.0" prefHeight="37.0" prefWidth="179.0" text="Bookings">
          <font>
             <Font name="System Bold" size="31.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtBookingSearch" layoutX="810.0" layoutY="8.0" onAction="#txtBookingSearchOnAction" prefHeight="34.0" prefWidth="280.0" />
+      <Label layoutX="655.0" layoutY="11.0" text="Search Customer :">
+         <font>
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
    </children>

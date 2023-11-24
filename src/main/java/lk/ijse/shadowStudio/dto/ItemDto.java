@@ -13,4 +13,5 @@ public class ItemDto {
     private String itemName;
     private String itemType;
     private String rentalPrice;
+    private String qty;
 }

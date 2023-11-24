@@ -19,13 +19,13 @@
       </Label>
       <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="638.0" prefWidth="1103.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;">
          <children>
-            <TextField fx:id="txtItemName" layoutX="255.0" layoutY="22.0" prefHeight="40.0" prefWidth="265.0" promptText="Nikon D5300 , TT Flasher &amp; Lence" />
+            <TextField fx:id="txtItemName" layoutX="255.0" layoutY="22.0" prefHeight="40.0" prefWidth="265.0" />
             <Label layoutX="548.0" layoutY="4.0" text="Item Type">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="txtRentalPrice" layoutX="825.0" layoutY="22.0" prefHeight="40.0" prefWidth="265.0" promptText="R.S 25000" />
+            <TextField fx:id="txtRentalPrice" layoutX="825.0" layoutY="22.0" prefHeight="40.0" prefWidth="265.0" />
             <Label layoutX="23.0" layoutY="20.0" text="Item Id :">
                <font>
                   <Font name="System Bold" size="31.0" />
@@ -36,7 +36,7 @@
                   <Font size="27.0" />
                </font>
             </Label>
-            <TextField fx:id="txtItemType" layoutX="544.0" layoutY="22.0" prefHeight="40.0" prefWidth="265.0" promptText="Camera , Lence etc..." />
+            <TextField fx:id="txtItemType" layoutX="544.0" layoutY="22.0" prefHeight="40.0" prefWidth="265.0" />
             <Label layoutX="257.0" layoutY="4.0" text="Item Name">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -47,8 +47,8 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="txtSearch" layoutX="254.0" layoutY="100.0" onAction="#txtSearchItemOnAction" prefHeight="40.0" prefWidth="265.0" promptText="I001" />
-            <Label layoutX="257.0" layoutY="79.0" text="Search Item">
+            <TextField fx:id="txtItemQty" layoutX="254.0" layoutY="83.0" prefHeight="40.0" prefWidth="265.0" />
+            <Label layoutX="256.0" layoutY="65.0" text="Item Qty">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -57,9 +57,10 @@
       <TableView fx:id="tblItem" layoutX="6.0" layoutY="203.0" prefHeight="484.0" prefWidth="1103.0" style="-fx-background-radius: 10;">
          <columns>
             <TableColumn fx:id="colItemId" prefWidth="216.0" text="Item Id" />
-            <TableColumn fx:id="colItemType" prefWidth="385.0" text="Item Type" />
-            <TableColumn fx:id="colItemName" prefWidth="341.0" text="Item Name" />
-            <TableColumn fx:id="colRentalPrice" prefWidth="154.0" text="Rental Price" />
+            <TableColumn fx:id="colItemType" prefWidth="271.6666564941406" text="Item Type" />
+            <TableColumn fx:id="colItemName" prefWidth="253.0" text="Item Name" />
+            <TableColumn fx:id="colRentalPrice" prefWidth="177.0" text="Per Day Price" />
+            <TableColumn fx:id="colQty" prefWidth="182.0" text="Qty" />
          </columns>
       </TableView>
       <JFXButton layoutX="775.0" layoutY="163.0" onAction="#btnDeleteItemOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #fc1d0d;" text="Delete" textFill="WHITE">
@@ -102,5 +103,11 @@
             <Image url="@../icon/icons8-clear-48.png" />
          </image>
       </ImageView>
+      <TextField fx:id="txtSearch" layoutX="835.0" layoutY="10.0" onAction="#txtSearchItemOnAction" prefHeight="31.0" prefWidth="265.0" promptText="I001" />
+      <Label layoutX="721.0" layoutY="12.0" text="Search Item :">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -90,6 +90,21 @@ public class EmployeeModel {
         return dto;
     }
 
+    public static boolean updateEmployee(EmployeeDto dto) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+
+        String sql = "UPDATE employee SET emp_name = ?, emp_address = ?, emp_nic = ? , emp_tp=? WHERE emp_id = ?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+
+        pstm.setString(1, dto.getEmp_name());
+        pstm.setString(2, dto.getEmp_address());
+        pstm.setString(3, dto.getEmp_nic());
+        pstm.setString(4, dto.getEmp_tp());
+        pstm.setString(5, dto.getEmp_id());
+
+        return pstm.executeUpdate() > 0;
+    }
+
     public List<EmployeeDto> getAllEmployee() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "select * from employee";

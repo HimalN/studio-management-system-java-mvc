@@ -13,9 +13,11 @@ import java.util.List;
 
 import javafx.scene.control.Label;
 import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
+import lk.ijse.shadowStudio.dto.ComplainDto;
 import lk.ijse.shadowStudio.dto.EmployeeDto;
 import lk.ijse.shadowStudio.dto.ItemDto;
 import lk.ijse.shadowStudio.dto.tm.EmployeeTm;
+import lk.ijse.shadowStudio.model.ComplainModel;
 import lk.ijse.shadowStudio.model.CustomerModel;
 import lk.ijse.shadowStudio.model.EmployeeModel;
 import lk.ijse.shadowStudio.model.RentItemModel;
@@ -80,6 +82,7 @@ public class EmployeeFormController{
         txtEmlployeeAddress.setText("");
         txtEmployeeNic.setText("");
         txtEmployeeTp.setText("");
+        txtEmlployeeSearch.setText("");
     }
 
     @FXML
@@ -147,8 +150,29 @@ public class EmployeeFormController{
 
     @FXML
     void btnUpdateEmployeeOnAction(ActionEvent event) {
+        String id = lblEmployeeId.getText();
+        String name = txtEmployeeName.getText();
+        String address = txtEmlployeeAddress.getText();
+        String nic = txtEmployeeNic.getText();
+        String tp = txtEmployeeTp.getText();
 
+        var dto = new EmployeeDto(id,name,address,nic,tp);
+        try {
+            boolean isUpdated = EmployeeModel.updateEmployee(dto);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Employee is Updated").show();
+                clearFields();
+                loadAllEmployee();
+                generateNextEmployeeId();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Employee is Not Updated").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
+
+
     private void setCellValueFactory() {
         colEmployeeId.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
         colEmployeeName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
@@ -168,6 +192,7 @@ public class EmployeeFormController{
                 txtEmployeeName.setText(employeeDto.getEmp_name());
                 txtEmlployeeAddress.setText(employeeDto.getEmp_address());
                 txtEmployeeNic.setText(employeeDto.getEmp_id());
+                txtEmployeeTp.setText(employeeDto.getEmp_tp());
 
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "Item not found !").show();
