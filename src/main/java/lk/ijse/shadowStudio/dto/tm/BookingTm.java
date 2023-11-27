@@ -19,5 +19,6 @@ public class BookingTm {
     private String time;
     private String location;
     private String description;
+    private String payment;
 
 }

@@ -12,7 +12,7 @@ create table employee(
     emp_name varchar(20)not null,
     emp_address varchar(50)not null,
     emp_nic varchar(15)not null,
-    emp_tp int not null
+    emp_tp varchar(10) not null
 );
 
 create table customer(
@@ -20,7 +20,7 @@ create table customer(
     cust_name varchar(15)not null ,
     cust_address varchar(50) not null ,
     cust_nic varchar(10)not null ,
-    cust_tp int not null
+    cust_tp varchar (10) not null
 );
 
 create table packages(
@@ -40,7 +40,7 @@ create table bookings(
     foreign key (package_id)references packages(package_id) on update cascade on delete cascade ,
     package_name varchar (20),
     Date date not null ,
-    Time time not null ,
+    Time varchar (8) not null ,
     location varchar(100) not null ,
     description varchar(200)
 );

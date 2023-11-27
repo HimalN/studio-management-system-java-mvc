@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.ItemDto;
 import lk.ijse.shadowStudio.dto.PackageDto;
@@ -21,10 +22,16 @@ import java.util.List;
 public class RentItemFormController{
 
     @FXML
+    private ComboBox<?> cmbItemType;
+
+    @FXML
     private TextField txtItemQty;
 
     @FXML
     private TableColumn<?, ?> colQty;
+
+    @FXML
+    private TableColumn<?, ?> colItemType;
 
     @FXML
     private JFXButton btnClear;
@@ -38,8 +45,6 @@ public class RentItemFormController{
     @FXML
     private TableColumn<?, ?> colItemName;
 
-    @FXML
-    private TableColumn<?, ?> colItemType;
 
     @FXML
     private TableColumn<?, ?> colRentalPrice;
@@ -67,6 +72,7 @@ public class RentItemFormController{
         loadAllItem();
         setCellValueFactory();
         tableListener();
+        setType();
 
     }
     private void generateNextItemId() throws SQLException {
@@ -75,7 +81,6 @@ public class RentItemFormController{
     }
     public void clearFields(){
         txtItemName.setText("");
-        txtItemType.setText("");
         txtRentalPrice.setText("");
         txtSearch.setText("");
         txtItemQty.setText("");
@@ -92,7 +97,7 @@ public class RentItemFormController{
     private void setData(ItemTm row) {
         lblItemId.setText(row.getItemId());
         txtItemName.setText(row.getItemName());
-        txtItemType.setText(String.valueOf(row.getItemType()));
+        //cmbItemType.setValue(row.getItemType());
         txtRentalPrice.setText(String.valueOf(row.getRentalPrice()));
         txtItemQty.setText(row.getQty());
     }
@@ -122,39 +127,24 @@ public class RentItemFormController{
     void btnSaveItemOnAction(ActionEvent event) throws SQLException {
         String itemId = lblItemId.getText();
         String itemName = txtItemName.getText();
-        String itemType = txtItemType.getText();
+        String itemType = (String) cmbItemType.getValue();
         String itemPrice = txtRentalPrice.getText();
         String qty = txtItemQty.getText();
 
-        boolean isValidItemName = RegExPatterns.getValidName().matcher(itemName).matches();
-        boolean isValidItemType = RegExPatterns.getValidItemType().matcher(itemType).matches();
-        boolean isValidPrice = RegExPatterns.getValidPrice().matcher(itemPrice).matches();
+        ItemDto dto = new ItemDto(itemId,itemName,itemType,itemPrice,qty);
 
-        if (!isValidItemName){
-            new Alert(Alert.AlertType.ERROR,"Invalid Item Name");
-            return;
-        }if (!isValidItemType){
-            new Alert(Alert.AlertType.ERROR,"Invalid Item Type");
-            return;
-        }if (!isValidPrice){
-            new Alert(Alert.AlertType.ERROR,"Invalid Item Price");
-        }else {
-            ItemDto dto = new ItemDto(itemId,itemName,itemType,itemPrice,qty);
-
-            try {
-                boolean isSaved = RentItemModel.saveItem(dto);
-                if (isSaved){
-                    new Alert(Alert.AlertType.CONFIRMATION,"Item Saved").show();
-                    clearFields();
-                }else {
-                    new Alert(Alert.AlertType.ERROR,"Error While Saving Data").show();
-                }
-            } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        try {
+            boolean isSaved = RentItemModel.saveItem(dto);
+            if (isSaved){
+                new Alert(Alert.AlertType.CONFIRMATION,"Item Saved").show();
+                clearFields();
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Error While Saving Data").show();
             }
-            initialize();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-
+        initialize();
 
     }
     private void setCellValueFactory() {
@@ -194,39 +184,24 @@ public class RentItemFormController{
     void btnUpdateItemOnAction(ActionEvent event) {
         String id = lblItemId.getText();
         String name = txtItemName.getText();
-        String type = txtItemType.getText();
+        String type = (String) cmbItemType.getValue();
         String price = txtRentalPrice.getText();
         String qty = txtItemQty.getText();
 
-        boolean isValidItemName = RegExPatterns.getValidName().matcher(name).matches();
-        boolean isValidItemType = RegExPatterns.getValidItemType().matcher(type).matches();
-        boolean isValidPrice = RegExPatterns.getValidPrice().matcher(type).matches();
-
-        if (!isValidItemName){
-            new Alert(Alert.AlertType.ERROR,"Invalid Item Name");
-            return;
-        }if (!isValidItemType){
-            new Alert(Alert.AlertType.ERROR,"Invalid Item Type");
-            return;
-        }if (!isValidPrice){
-            new Alert(Alert.AlertType.ERROR,"Invalid Item Price");
-        }else {
-            var dto = new ItemDto(id, name, type, price,qty);
-            try {
-                boolean isUpdated = RentItemModel.updateItem(dto);
-                if (isUpdated) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Item is Updated").show();
-                    clearFields();
-                    generateNextItemId();
-                    loadAllItem();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "Item is Not Updated").show();
-                }
-            } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        var dto = new ItemDto(id, name, type, price,qty);
+        try {
+            boolean isUpdated = RentItemModel.updateItem(dto);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Item is Updated").show();
+                clearFields();
+                generateNextItemId();
+                loadAllItem();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Item is Not Updated").show();
             }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-
 
     }
 
@@ -249,7 +224,6 @@ public class RentItemFormController{
             if (itemDto != null) {
                 lblItemId.setText(itemDto.getItemId());
                 txtItemName.setText(itemDto.getItemName());
-                txtItemType.setText(itemDto.getItemType());
                 txtRentalPrice.setText(itemDto.getRentalPrice());
                 txtItemQty.setText(itemDto.getQty());
 
@@ -260,5 +234,14 @@ public class RentItemFormController{
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
+    @FXML
+    void cmbItemTypeOnAction(ActionEvent event) {
+
+    }
+    private void setType(){
+        ObservableList List = FXCollections.observableArrayList("Camera","Lence");
+        cmbItemType.setItems(List);
+    }
+
 
 }

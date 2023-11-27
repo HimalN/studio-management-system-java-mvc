@@ -28,11 +28,11 @@ public class PackagesModel {
     }
     private static String splitPackageId(String currentPackageId) {
         if(currentPackageId != null) {
-            String[] split = currentPackageId.split("P0");
+            String[] split = currentPackageId.split("[P]");
 
             int id = Integer.parseInt(split[1]); //01
             id++;
-            return "P00" + id;
+            return String.format("P%03d",id);
         } else {
             return "P001";
         }

@@ -41,11 +41,11 @@ public class CustomerModel {
     }
     private static String splitCustomerId(String currentCustomerId) {
         if(currentCustomerId != null) {
-            String[] split = currentCustomerId.split("C0");
+            String[] split = currentCustomerId.split("[C]");
 
             int id = Integer.parseInt(split[1]); //01
             id++;
-            return "C00" + id;
+            return String.format("C%03d",id);
         } else {
             return "C001";
         }
@@ -96,7 +96,6 @@ public class CustomerModel {
             );
         }
         return dtoList;
-
     }
     public static CustomerDto searchCustomer(String id) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
@@ -122,4 +121,24 @@ public class CustomerModel {
     }
 
 
+    public CustomerDto searchCustomerByTp(String tp) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+
+        String sql = "SELECT * FROM customer WHERE cust_tp = ?";
+        PreparedStatement ptsm = connection.prepareStatement(sql);
+        ptsm.setString(1, tp);
+        ResultSet resultSet = ptsm.executeQuery();
+
+        CustomerDto dto = null;
+        if (resultSet.next()) {
+            String cust_id = resultSet.getString(1);
+            String cust_name = resultSet.getString(2);
+            String cust_address = resultSet.getString(3);
+            String cust_nic = resultSet.getString(4);
+            String cust_tp = resultSet.getString(5);
+
+            dto = new CustomerDto(cust_id, cust_name, cust_address,cust_nic,cust_tp);
+        }
+        return dto;
+    }
 }

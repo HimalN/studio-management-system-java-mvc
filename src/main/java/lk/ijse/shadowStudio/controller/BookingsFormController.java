@@ -8,12 +8,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.BookingDto;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.PackageDto;
 import lk.ijse.shadowStudio.dto.tm.BookingTm;
-import lk.ijse.shadowStudio.dto.tm.CustomerTm;
 import lk.ijse.shadowStudio.model.BookingsModel;
 import lk.ijse.shadowStudio.model.CustomerModel;
 import lk.ijse.shadowStudio.model.PackagesModel;
@@ -24,9 +22,14 @@ import java.util.List;
 
 public class BookingsFormController {
 
+    @FXML
+    private TextField txtPaymentAmmount;
 
     @FXML
     private TableView<BookingTm> tblBookings;
+
+    @FXML
+    private TableColumn<?, ?> colPayment;
 
     @FXML
     private DatePicker bookingDate;
@@ -111,6 +114,7 @@ public class BookingsFormController {
         txtTime.setText("");
         txtLocation.setText("");
         txtBookingSearch.setText("");
+        txtPaymentAmmount.setText("");
 
     }
 
@@ -188,17 +192,9 @@ public class BookingsFormController {
         String time = txtTime.getText();
         String location = txtLocation.getText();
         String custIdea = txtCustomerIdea.getText();
+        String payment = txtPaymentAmmount.getText();
 
-        boolean isTimeValidated = RegExPatterns.getValidTime().matcher(time).matches();
-        boolean isValidLocation = RegExPatterns.getValidName().matcher(location).matches();
-
-        if (!isTimeValidated){
-            new Alert(Alert.AlertType.ERROR,"Invalid Time Format").show();
-            return;
-        }if (!isValidLocation){
-            new Alert(Alert.AlertType.ERROR,"Invalid Location Format").show();
-        }else {
-            var dto = new BookingDto(
+        var dto = new BookingDto(
                     id,
                     custId,
                     custName,
@@ -207,20 +203,21 @@ public class BookingsFormController {
                     date,
                     time,
                     location,
-                    custIdea
-            );
+                    custIdea,
+                    payment
+        );
 
-            boolean isSaved = BookingsModel.saveBooking(dto);
-            if (isSaved){
+        boolean isSaved = BookingsModel.saveBooking(dto);
+        if (isSaved){
                 new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
                 clearFields();
                 loadAllBookings();
                 generateNextBookingId();
 
-            }else {
+        }else {
                 new Alert(Alert.AlertType.ERROR,"Error While Saving data");
-            }
         }
+
     }
 
     @FXML
@@ -234,8 +231,9 @@ public class BookingsFormController {
         String time = txtTime.getText();
         String location = txtLocation.getText();
         String custIdea = txtCustomerIdea.getText();
+        String paymemt = txtPaymentAmmount.getText();
 
-        var dto = new BookingDto(bid,custId,custName,packageId,packageName,date,time,location,custIdea);
+        var dto = new BookingDto(bid,custId,custName,packageId,packageName,date,time,location,custIdea,paymemt);
         try {
             boolean isUpdated = bookingsModel.updateBookings(dto);
             if (isUpdated) {
@@ -330,7 +328,8 @@ public class BookingsFormController {
                             dto.getDate(),
                             dto.getTime(),
                             dto.getLocation(),
-                            dto.getDescription()
+                            dto.getDescription(),
+                            dto.getPaymemt()
                     )
             );
         }

@@ -119,40 +119,23 @@ public class PackagesFormController{
         String packageAbout = txtAboutPackage.getText();
         String packagePrice = txtPackagePrice.getText();
 
-        boolean isValidName = RegExPatterns.getValidName().matcher(packageName).matches();
-        boolean isValidPackageType = RegExPatterns.getValidPackageType().matcher(packageType).matches();
-        boolean isValidPackageAbout = RegExPatterns.getValidDescriptions().matcher(packageAbout).matches();
-        boolean isValidPackagePrice = RegExPatterns.getValidPrice().matcher(packagePrice).matches();
+        var dto = new PackageDto(packageId,packageName,packageType,packageAbout,packagePrice);
 
-        if (!isValidName){
-            new Alert(Alert.AlertType.ERROR,"Invalid Name Format").show();
-            return;
-        }if (!isValidPackageType){
-            new Alert(Alert.AlertType.ERROR,"Invalid PAckage Type").show();
-            return;
-        }if (isValidPackageAbout){
-            new Alert(Alert.AlertType.ERROR,"Invalid package about").show();
-            return;
-        }if (isValidPackagePrice){
-            new Alert(Alert.AlertType.ERROR,"Invalid package Price").show();
-        }else {
-            var dto = new PackageDto(packageId,packageName,packageType,packageAbout,packagePrice);
+        try {
+            boolean isSaved = PackagesModel.savePackage(dto);
+            if (isSaved){
+                new Alert(Alert.AlertType.CONFIRMATION,"Package Saved").show();
+                clearFields();
+                loadAllPackages();
+                generateNextPackageId();
 
-            try {
-                boolean isSaved = PackagesModel.savePackage(dto);
-                if (isSaved){
-                    new Alert(Alert.AlertType.CONFIRMATION,"Package Saved").show();
-                    clearFields();
-                    loadAllPackages();
-                    generateNextPackageId();
-
-                }else {
-                    new Alert(Alert.AlertType.ERROR,"Error while Saving data").show();
-                }
-            } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Error while Saving data").show();
             }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+
     }
 
     private void setCellValueFactory() {
@@ -211,40 +194,20 @@ public class PackagesFormController{
         String description = txtAboutPackage.getText();
         String price  = txtPackagePrice.getText();
 
-        boolean isValidName = RegExPatterns.getValidName().matcher(name).matches();
-        boolean isValidPackageType = RegExPatterns.getValidPackageType().matcher(type).matches();
-        boolean isValidPackageAbout = RegExPatterns.getValidDescriptions().matcher(description).matches();
-        boolean isValidPackagePrice = RegExPatterns.getValidPrice().matcher(price).matches();
-
-        if (!isValidName){
-            new Alert(Alert.AlertType.ERROR,"Invalid Name Format").show();
-            return;
-        }if (!isValidPackageType){
-            new Alert(Alert.AlertType.ERROR,"Invalid PAckage Type").show();
-            return;
-        }if (isValidPackageAbout){
-            new Alert(Alert.AlertType.ERROR,"Invalid package about").show();
-            return;
-        }if (isValidPackagePrice){
-            new Alert(Alert.AlertType.ERROR,"Invalid package Price").show();
-        }else {
-            var dto = new PackageDto(id, name, type, description, price);
-            try {
-                boolean isUpdated = PackagesModel.updateCustomer(dto);
-                if (isUpdated) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Package is Updated").show();
-                    clearFields();
-                    generateNextPackageId();
-                    loadAllPackages();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "Package is Not Updated").show();
-                }
-            } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        var dto = new PackageDto(id, name, type, description, price);
+        try {
+            boolean isUpdated = PackagesModel.updateCustomer(dto);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Package is Updated").show();
+                clearFields();
+                generateNextPackageId();
+                loadAllPackages();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Package is Not Updated").show();
             }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-
-
 
     }
     @FXML

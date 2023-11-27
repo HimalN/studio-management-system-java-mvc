@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -36,7 +37,6 @@
                   <Font size="27.0" />
                </font>
             </Label>
-            <TextField fx:id="txtItemType" layoutX="544.0" layoutY="22.0" prefHeight="40.0" prefWidth="265.0" />
             <Label layoutX="257.0" layoutY="4.0" text="Item Name">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -47,12 +47,13 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="txtItemQty" layoutX="254.0" layoutY="83.0" prefHeight="40.0" prefWidth="265.0" />
-            <Label layoutX="256.0" layoutY="65.0" text="Item Qty">
+            <TextField fx:id="txtItemQty" layoutX="255.0" layoutY="89.0" prefHeight="40.0" prefWidth="265.0" />
+            <Label layoutX="255.0" layoutY="68.0" text="Item Qty">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
+            <ComboBox fx:id="cmbItemType" layoutX="548.0" layoutY="22.0" onAction="#cmbItemTypeOnAction" prefHeight="40.0" prefWidth="265.0" />
          </children></AnchorPane>
       <TableView fx:id="tblItem" layoutX="6.0" layoutY="203.0" prefHeight="484.0" prefWidth="1103.0" style="-fx-background-radius: 10;">
          <columns>

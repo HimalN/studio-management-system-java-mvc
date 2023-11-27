@@ -46,11 +46,11 @@ public class EmployeeModel {
     }
     private static String splitEmployeeId(String currentEmployeeId) {
         if (currentEmployeeId != null) {
-            String[] split = currentEmployeeId.split("E0");
+            String[] split = currentEmployeeId.split("[E]");
 
             int id = Integer.parseInt(split[1]); //01
             id++;
-            return "E00" + id;
+            return String.format("E%03d",id);
         } else {
             return "E001";
         }

@@ -28,11 +28,11 @@ public class BookingsModel {
     }
     private static String splitBookingId(String currentBookingId) {
         if(currentBookingId != null) {
-            String[] split = currentBookingId.split("B0");
+            String[] split = currentBookingId.split("[B]");
 
             int id = Integer.parseInt(split[1]); //01
             id++;
-            return "B00" + id;
+            return String.format("B%03d",id);
         } else {
             return "B001";
         }
@@ -42,7 +42,7 @@ public class BookingsModel {
     public static boolean saveBooking(BookingDto dto) {
         Connection connection = DbConnection.getInstance().getConnection();
 
-        String sql = "INSERT INTO bookings VALUES(?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO bookings VALUES(?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement pstm = connection.prepareStatement(sql);
 
         pstm.setString(1, dto.getBooking_id());
@@ -54,7 +54,7 @@ public class BookingsModel {
         pstm.setString(7,dto.getTime());
         pstm.setString(8,dto.getLocation());
         pstm.setString(9,dto.getDescription());
-        ;
+        pstm.setString(10,dto.getPaymemt());
 
         boolean isSaved = pstm.executeUpdate() > 0;
 
@@ -82,7 +82,8 @@ public class BookingsModel {
                             rs.getString(6),
                             rs.getString(7),
                             rs.getString(8),
-                            rs.getString(9)
+                            rs.getString(9),
+                            rs.getString(10)
                     )
             );
         }
@@ -103,7 +104,7 @@ public class BookingsModel {
     public boolean updateBookings(BookingDto dto) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
-        String sql = "UPDATE bookings SET cust_id = ?,cust_name=?, package_id = ?,package_name=?, date = ?, time = ?, location=?, description=? WHERE booking_id = ?";
+        String sql = "UPDATE bookings SET cust_id = ?,cust_name=?, package_id = ?,package_name=?, date = ?, time = ?, location=?, description=?, payment=? WHERE booking_id = ?";
         PreparedStatement pstm = connection.prepareStatement(sql);
         pstm.setString(1, dto.getCust_id());
         pstm.setString(2, dto.getCust_name());
@@ -113,7 +114,8 @@ public class BookingsModel {
         pstm.setString(6, dto.getTime());
         pstm.setString(7, dto.getLocation());
         pstm.setString(8, dto.getDescription());
-        pstm.setString(9, dto.getBooking_id());
+        pstm.setString(9, dto.getPaymemt());
+        pstm.setString(10, dto.getBooking_id());
 
         return pstm.executeUpdate() > 0;
 
@@ -136,12 +138,13 @@ public class BookingsModel {
             String cust_name = resultSet.getString(3);
             String package_id = resultSet.getString(4);
             String package_name = resultSet.getString(5);
-            String date = resultSet.getString(5);
-            String time = resultSet.getString(5);
-            String location = resultSet.getString(5);
-            String description = resultSet.getString(5);
+            String date = resultSet.getString(6);
+            String time = resultSet.getString(7);
+            String location = resultSet.getString(8);
+            String description = resultSet.getString(9);
+            String payment = resultSet.getString(10);
 
-            dto = new BookingDto(booking_id,cust_id,cust_name,package_id,package_name,date,time,location,description);
+            dto = new BookingDto(booking_id,cust_id,cust_name,package_id,package_name,date,time,location,description,payment);
         }
         return dto;
     }

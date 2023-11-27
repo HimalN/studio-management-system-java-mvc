@@ -28,11 +28,11 @@ public class RentItemModel {
     }
     private static String splitItemId(String currentItemId) {
         if (currentItemId != null) {
-            String[] split = currentItemId.split("I0");
+            String[] split = currentItemId.split("[I]");
 
             int id = Integer.parseInt(split[1]); //01
             id++;
-            return "I00" + id;
+            return String.format("I%03d",id);
         } else {
             return "I001";
         }

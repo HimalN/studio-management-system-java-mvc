@@ -18,4 +18,5 @@ public class BookingDto {
     private String time;
     private String location;
     private String description;
+    private String paymemt;
 }

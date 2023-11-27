@@ -1,5 +1,6 @@
 package lk.ijse.shadowStudio.controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +20,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LoginFormController {
+
+    @FXML
+    private JFXButton btnLogin;
 
     @FXML
     private TextField txtPassword;
@@ -73,6 +77,16 @@ public class LoginFormController {
         Stage stage = (Stage) this.rootNode.getScene().getWindow();
         stage.setTitle("SignUp");
         stage.setScene(scene);
+    }
+
+    @FXML
+    void txtPasswordOnAction(ActionEvent event) {
+        btnLogin.requestFocus();
+    }
+
+    @FXML
+    void txtUserNameOnAction(ActionEvent event) {
+        txtPassword.requestFocus();
     }
 
 

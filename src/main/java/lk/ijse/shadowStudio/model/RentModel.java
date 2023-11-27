@@ -26,11 +26,11 @@ public class RentModel {
     }
     private static String splitRentId(String currentRentId) {
         if(currentRentId != null) {
-            String[] split = currentRentId.split("R0");
+            String[] split = currentRentId.split("[R]");
 
             int id = Integer.parseInt(split[1]); //01
             id++;
-            return "R00" + id;
+            return String.format("R%03d",id);
         } else {
             return "R001";
         }

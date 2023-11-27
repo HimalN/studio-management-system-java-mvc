@@ -25,11 +25,11 @@ public class ComplainModel {
     }
     private static String splitComplainId(String currentComplainId) {
         if(currentComplainId != null) {
-            String[] split = currentComplainId.split("COM0");
+            String[] split = currentComplainId.split("[COM]");
 
             int id = Integer.parseInt(split[1]); //01
             id++;
-            return "COM00" + id;
+            return String.format("COM%03d",id);
         } else {
             return "COM001";
         }
