@@ -69,4 +69,20 @@ public class ReportsFormController{
         );
         JasperViewer.viewReport(jasperPrint,false);
     }
+
+    public void btnAllCustomerReportOnAction(ActionEvent actionEvent) {
+    }
+
+    public void btnAllBookingReportOnAction(ActionEvent actionEvent) {
+        
+    }
+
+    public void btnAllItemReportOnAction(ActionEvent actionEvent) {
+    }
+
+    public void btnBookingReciptOnAction(ActionEvent actionEvent) {
+    }
+
+    public void btnRentReciptOnAction(ActionEvent actionEvent) {
+    }
 }
