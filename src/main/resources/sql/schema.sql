@@ -42,7 +42,8 @@ create table bookings(
     Date date not null ,
     Time varchar (8) not null ,
     location varchar(100) not null ,
-    description varchar(200)
+    description varchar(200),
+    payment varchar (10)
 );
 
 create table complains(

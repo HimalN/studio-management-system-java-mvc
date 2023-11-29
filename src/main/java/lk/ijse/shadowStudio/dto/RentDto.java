@@ -15,4 +15,5 @@ public class RentDto {
     private String itemName;
     private String daycount;
     private String date;
+    private int qty;
 }

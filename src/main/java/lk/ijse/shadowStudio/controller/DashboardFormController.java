@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.shadowStudio.db.DbConnection;
+import lk.ijse.shadowStudio.dto.SignUpDto;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -50,10 +51,16 @@ public class DashboardFormController {
     @FXML
     private AnchorPane rootHome;
 
+    private SignUpDto userDto;
+
     public void initialize() throws SQLException {
         setTime();
         countCustomer();
         countItems();
+        countBookings();
+        countprofit();
+        countComplains();
+        countRentItems();
     }
 
     private void setTime() {
@@ -69,31 +76,101 @@ public class DashboardFormController {
             timeline.play();
         });
     }
-    private void countCustomer() throws SQLException {
+    private void countCustomer()  {
+        Connection connection = null;
+        try {
+            connection = DbConnection.getInstance().getConnection();
+            Statement stmt = connection.createStatement();
+            //Query to get the number of rows in a table
+            String query = "select count(*) from customer";
+            //Executing the query
+            ResultSet rs = stmt.executeQuery(query);
+            //Retrieving the result
+            rs.next();
+            int count = rs.getInt(1);
+            lblTotalCustomers.setText(String.valueOf(count));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    private void countItems()  {
+        Connection connection = null;
+        try {
+            connection = DbConnection.getInstance().getConnection();
+            Statement stmt = connection.createStatement();
+            //Query to get the number of rows in a table
+            String query = "select count(*) from item";
+            //Executing the query
+            ResultSet rs = stmt.executeQuery(query);
+            //Retrieving the result
+            rs.next();
+            int count = rs.getInt(1);
+            lblTotalItems.setText(String.valueOf(count));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    private void countBookings() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
         Statement stmt = connection.createStatement();
         //Query to get the number of rows in a table
-        String query = "select count(*) from customer";
+        String query = "select count(*) from bookings";
         //Executing the query
         ResultSet rs = stmt.executeQuery(query);
         //Retrieving the result
         rs.next();
         int count = rs.getInt(1);
-        lblTotalCustomers.setText(String.valueOf(count));
+        lblBookings.setText(String.valueOf(count));
     }
-    private void countItems() throws SQLException {
+    private void countprofit() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
         Statement stmt = connection.createStatement();
         //Query to get the number of rows in a table
-        String query = "select count(*) from item";
+        String query = "SELECT SUM(payment) AS total_sum FROM bookings;";
         //Executing the query
         ResultSet rs = stmt.executeQuery(query);
         //Retrieving the result
         rs.next();
         int count = rs.getInt(1);
-        lblTotalItems.setText(String.valueOf(count));
+        lblProfit.setText(String.valueOf("Rs."+count));
     }
+    private void countComplains()  {
+        Connection connection = null;
+        try {
+            connection = DbConnection.getInstance().getConnection();
+            Statement stmt = connection.createStatement();
+            //Query to get the number of rows in a table
+            String query = "select count(*) from complains";
+            //Executing the query
+            ResultSet rs = stmt.executeQuery(query);
+            //Retrieving the result
+            rs.next();
+            int count = rs.getInt(1);
+            lblComplaims.setText(String.valueOf(count));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
+    private void countRentItems()  {
+        Connection connection = null;
+        try {
+            connection = DbConnection.getInstance().getConnection();
+            Statement stmt = connection.createStatement();
+            //Query to get the number of rows in a table
+            String query = "select count(*) from rent";
+            //Executing the query
+            ResultSet rs = stmt.executeQuery(query);
+            //Retrieving the result
+            rs.next();
+            int count = rs.getInt(1);
+            lblRentedItems.setText(String.valueOf(count));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
 
 }

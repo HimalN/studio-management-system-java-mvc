@@ -21,6 +21,10 @@ import lk.ijse.shadowStudio.dto.tm.PackageTm;
 import lk.ijse.shadowStudio.model.PackagesModel;
 
 public class PackagesFormController{
+
+    @FXML
+    private ComboBox<String> cmbPackageType;
+
     @FXML
     private JFXButton btnClear;
 
@@ -70,12 +74,13 @@ public class PackagesFormController{
         loadAllPackages();
         setCellValueFactory();
         tableListener();
+        setType();
 
     }
     private void clearFields(){
         lblPackageId.setText("");
         txtPackageName.setText("");
-        txtPackageType.setText("");
+        cmbPackageType.setValue("");
         txtAboutPackage.setText("");
         txtPackagePrice.setText("");
         txtPackageSearch.setText("");
@@ -115,27 +120,41 @@ public class PackagesFormController{
     void btnSavePackageOnAction(ActionEvent event) {
         String packageId = lblPackageId.getText();
         String packageName = txtPackageName.getText();
-        String packageType = txtPackageType.getText();
+        String packageType = cmbPackageType.getValue();
         String packageAbout = txtAboutPackage.getText();
         String packagePrice = txtPackagePrice.getText();
 
-        var dto = new PackageDto(packageId,packageName,packageType,packageAbout,packagePrice);
+        boolean isValidName = RegExPatterns.getValidName().matcher(packageName).matches();
+        boolean isValidAbout = RegExPatterns.getValidText().matcher(packageAbout).matches();
+        boolean isValidPrice = RegExPatterns.getValidPrice().matcher(packagePrice).matches();
 
-        try {
-            boolean isSaved = PackagesModel.savePackage(dto);
-            if (isSaved){
-                new Alert(Alert.AlertType.CONFIRMATION,"Package Saved").show();
-                clearFields();
-                loadAllPackages();
-                generateNextPackageId();
+        if (!isValidName){
+            new Alert(Alert.AlertType.ERROR,"Invalid Name");
+            return;
+        }if (!isValidAbout){
+            new Alert(Alert.AlertType.ERROR,"Invalid About");
+            return;
+        }if (!isValidPrice){
+            new Alert(Alert.AlertType.ERROR,"Invalid Price");
+        }else {
+            var dto = new PackageDto(packageId,packageName,packageType,packageAbout,packagePrice);
 
-            }else {
-                new Alert(Alert.AlertType.ERROR,"Error while Saving data").show();
+            try {
+                boolean isSaved = PackagesModel.savePackage(dto);
+                if (isSaved){
+                    new Alert(Alert.AlertType.CONFIRMATION,"Package Saved").show();
+                    clearFields();
+                    loadAllPackages();
+                    generateNextPackageId();
+
+                }else {
+                    new Alert(Alert.AlertType.ERROR,"Error while Saving data").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
 
+        }
     }
 
     private void setCellValueFactory() {
@@ -181,7 +200,7 @@ public class PackagesFormController{
     private void setData(PackageTm row) {
         lblPackageId.setText(row.getPackage_id());
         txtPackageName.setText(row.getPackage_name());
-        txtPackageType.setText(String.valueOf(row.getPackage_type()));
+        cmbPackageType.setValue(String.valueOf(row.getPackage_type()));
         txtAboutPackage.setText(String.valueOf(row.getPackage_description()));
         txtPackagePrice.setText(String.valueOf(row.getPackage_price()));
     }
@@ -190,25 +209,38 @@ public class PackagesFormController{
     void btnUpdatePackageOnAction(ActionEvent event) {
         String id = lblPackageId.getText();
         String name = txtPackageName.getText();
-        String type = txtPackageType.getText();
+        String type = cmbPackageType.getValue();
         String description = txtAboutPackage.getText();
         String price  = txtPackagePrice.getText();
 
-        var dto = new PackageDto(id, name, type, description, price);
-        try {
-            boolean isUpdated = PackagesModel.updateCustomer(dto);
-            if (isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Package is Updated").show();
-                clearFields();
-                generateNextPackageId();
-                loadAllPackages();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Package is Not Updated").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
+        boolean isValidName = RegExPatterns.getValidName().matcher(name).matches();
+        boolean isValidAbout = RegExPatterns.getValidText().matcher(description).matches();
+        boolean isValidPrice = RegExPatterns.getValidPrice().matcher(price).matches();
 
+        if (!isValidName){
+            new Alert(Alert.AlertType.ERROR,"Invalid Name");
+            return;
+        }if (!isValidAbout){
+            new Alert(Alert.AlertType.ERROR,"Invalid About");
+            return;
+        }if (!isValidPrice){
+            new Alert(Alert.AlertType.ERROR,"Invalid Price");
+        }else {
+            var dto = new PackageDto(id, name, type, description, price);
+            try {
+                boolean isUpdated = PackagesModel.updateCustomer(dto);
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Package is Updated").show();
+                    clearFields();
+                    generateNextPackageId();
+                    loadAllPackages();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Package is Not Updated").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            }
+        }
     }
     @FXML
     void txtPckageSearchOnAction(ActionEvent event) {
@@ -220,7 +252,7 @@ public class PackagesFormController{
                 lblPackageId.setText(packageDto.getPackage_id());
                 txtPackageSearch.setText(packageDto.getPackage_id());
                 txtPackageName.setText(packageDto.getPackage_name());
-                txtPackageType.setText(packageDto.getPackage_type());
+                cmbPackageType.setValue(packageDto.getPackage_type());
                 txtAboutPackage.setText(packageDto.getPackage_description());
                 txtPackagePrice.setText(packageDto.getPackage_price());
             } else {
@@ -230,6 +262,14 @@ public class PackagesFormController{
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
+    }
+    @FXML
+    void cmbPackageTypeOnAction(ActionEvent event) {
+
+    }
+    public void setType(){
+        ObservableList List = FXCollections.observableArrayList("Photography","Videography");
+        cmbPackageType.setItems(List);
     }
     @FXML
     void btnClearOnAction(ActionEvent event) {

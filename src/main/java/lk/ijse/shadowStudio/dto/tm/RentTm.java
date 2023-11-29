@@ -14,4 +14,5 @@ public class RentTm {
     private String item_name;
     private String day_count;
     private String date;
+    private int qty;
 }

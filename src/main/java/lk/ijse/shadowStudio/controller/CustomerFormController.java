@@ -142,24 +142,41 @@ public class CustomerFormController {
         String custNic = txtCustomerNic.getText();
         String custTp = txtCustomerTp.getText();
 
-        var dto = new CustomerDto(custId, custName, custAddress, custNic, custTp);
+        boolean isValidName = RegExPatterns.getValidName().matcher(custName).matches();
+        boolean isValidNic = RegExPatterns.getValidNic().matcher(custNic).matches();
+        boolean isValidTp = RegExPatterns.getValidPhoneNumber().matcher(custTp).matches();
+        boolean isValidAddress = RegExPatterns.getValidText().matcher(custAddress).matches();
 
-        try {
-            boolean isSaved = CustomerModel.saveCustomer(dto);
-            if (isSaved) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Customer Savd").show();
-                loadAllCustomer();
-                clearFields();
-                generateNextCustomerId();
+        if (!isValidName){
+            new Alert(Alert.AlertType.ERROR,"Invalid Name").show();
+            return;
+        }if (!isValidNic) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Nic").show();
+            return;
+        }if (!isValidAddress){
+            new Alert(Alert.AlertType.ERROR,"Invalid Address Format").show();
+            return;
+        }if (!isValidTp){
+            new Alert(Alert.AlertType.ERROR,"Invalid Telephone Format").show();
+        }else {
 
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Error While Saving Data").show();
+            var dto = new CustomerDto(custId, custName, custAddress, custNic, custTp);
+
+            try {
+                boolean isSaved = CustomerModel.saveCustomer(dto);
+                if (isSaved) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Customer Savd").show();
+                    loadAllCustomer();
+                    clearFields();
+                    generateNextCustomerId();
+
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Error While Saving Data").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-
-
     }
 
     private void generateNextCustomerId() {
@@ -179,21 +196,38 @@ public class CustomerFormController {
         String nic = txtCustomerNic.getText();
         String tp = txtCustomerTp.getText();
 
-        var dto = new CustomerDto(id, name, address, nic, tp);
-        try {
-            boolean isUpdated = customerModel.updateCustomer(dto);
-            if (isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Customer is Updated").show();
-                clearFields();
-                generateNextCustomerId();
-                loadAllCustomer();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Customer is Not Updated").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
+        boolean isValidName = RegExPatterns.getValidName().matcher(id).matches();
+        boolean isValidNic = RegExPatterns.getValidNic().matcher(nic).matches();
+        boolean isValidTp = RegExPatterns.getValidPhoneNumber().matcher(tp).matches();
+        boolean isValidAddress = RegExPatterns.getValidText().matcher(address).matches();
 
+        if (!isValidName) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Name").show();
+            return;
+        }if (!isValidAddress){
+            new Alert(Alert.AlertType.ERROR,"Invalid Address").show();
+            return;
+        }if (!isValidNic){
+            new Alert(Alert.AlertType.ERROR,"Invalid Nic").show();
+            return;
+        }if (!isValidTp){
+            new Alert(Alert.AlertType.ERROR,"Invalid Telephone Format").show();
+        }else {
+            var dto = new CustomerDto(id, name, address, nic, tp);
+            try {
+                boolean isUpdated = customerModel.updateCustomer(dto);
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Customer is Updated").show();
+                    clearFields();
+                    generateNextCustomerId();
+                    loadAllCustomer();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Customer is Not Updated").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            }
+        }
     }
 
     @FXML

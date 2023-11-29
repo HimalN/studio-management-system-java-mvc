@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.BookingDto;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.PackageDto;
@@ -84,6 +85,7 @@ public class BookingsFormController {
 
     @FXML
     private TextField txtTime;
+
     @FXML
     private Label lblPackageName;
 
@@ -101,8 +103,8 @@ public class BookingsFormController {
         loadAllBookings();
         setCellValueFactory();
         tableListener();
-
     }
+
     public void clearFields(){
         lblBookingId.setText("");
         //cmbCustomerId.setValue(null);
@@ -115,7 +117,6 @@ public class BookingsFormController {
         txtLocation.setText("");
         txtBookingSearch.setText("");
         txtPaymentAmmount.setText("");
-
     }
 
     private void generateNextBookingId() {
@@ -125,7 +126,6 @@ public class BookingsFormController {
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-
     }
     private void loadCustomerIds() {
         ObservableList<String> obList = FXCollections.observableArrayList();
@@ -152,7 +152,6 @@ public class BookingsFormController {
             for (PackageDto dto : idList) {
                 obList.add(dto.getPackage_id());
             }
-
             cmbPackageId.setItems(obList);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -169,16 +168,12 @@ public class BookingsFormController {
                 loadAllBookings();
                 clearFields();
                 generateNextBookingId();
-
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "Can not delete booking").show();
-
             }
-
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-
     }
 
     @FXML
@@ -194,7 +189,7 @@ public class BookingsFormController {
         String custIdea = txtCustomerIdea.getText();
         String payment = txtPaymentAmmount.getText();
 
-        var dto = new BookingDto(
+            var dto = new BookingDto(
                     id,
                     custId,
                     custName,
@@ -205,18 +200,18 @@ public class BookingsFormController {
                     location,
                     custIdea,
                     payment
-        );
+            );
 
-        boolean isSaved = BookingsModel.saveBooking(dto);
-        if (isSaved){
+            boolean isSaved = BookingsModel.saveBooking(dto);
+            if (isSaved){
                 new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
                 clearFields();
                 loadAllBookings();
                 generateNextBookingId();
 
-        }else {
+            }else {
                 new Alert(Alert.AlertType.ERROR,"Error While Saving data");
-        }
+            }
 
     }
 
@@ -297,7 +292,6 @@ public class BookingsFormController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
     private void setCellValueFactory() {
         colBookingId.setCellValueFactory(new PropertyValueFactory<>("booking_id"));
@@ -309,6 +303,7 @@ public class BookingsFormController {
         colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
         colLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colPayment.setCellValueFactory(new PropertyValueFactory<>("payment"));
     }
 
     private void loadAllBookings() {
@@ -334,7 +329,6 @@ public class BookingsFormController {
             );
         }
         tblBookings.setItems(obList);
-
     }
     private void tableListener() {
         tblBookings.getSelectionModel().selectedItemProperty().addListener((observable, oldValued, newValue) -> {
@@ -342,7 +336,6 @@ public class BookingsFormController {
                 setData(newValue);
             }
         });
-
     }
 
     private void setData(BookingTm row) {
@@ -355,7 +348,9 @@ public class BookingsFormController {
         txtTime.setText(row.getTime());
         txtLocation.setText(row.getLocation());
         txtCustomerIdea.setText(row.getDescription());
+        txtPaymentAmmount.setText(row.getPayment());
     }
+
     @FXML
     void btnClearOnAction(ActionEvent event) {
         clearFields();

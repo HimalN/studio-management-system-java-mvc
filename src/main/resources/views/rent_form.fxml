@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="690.0" prefWidth="1114.0" style="-fx-background-color: #ededed; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.shadowStudio.controller.RentFormController">
    <children>
-      <Label layoutX="10.0" layoutY="6.0" prefHeight="37.0" prefWidth="179.0" text="Manage Rent">
+      <Label layoutX="10.0" layoutY="6.0" prefHeight="37.0" prefWidth="197.0" text="Manage Rent">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
@@ -32,22 +32,22 @@
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Label>
-            <Label layoutX="13.0" layoutY="89.0" prefHeight="39.0" prefWidth="279.0" text="Customer Name :">
+            <Label layoutX="13.0" layoutY="89.0" prefHeight="39.0" prefWidth="234.0" text="Customer Name :">
                <font>
                   <Font name="System Bold" size="27.0" />
                </font>
             </Label>
-            <Label fx:id="lblCustomerName" layoutX="242.0" layoutY="91.0" prefHeight="39.0" prefWidth="189.0">
+            <Label fx:id="lblCustomerName" layoutX="232.0" layoutY="89.0" prefHeight="39.0" prefWidth="150.0">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
-            <Label layoutX="449.0" layoutY="93.0" prefHeight="39.0" prefWidth="183.0" text="Item Name :">
+            <Label layoutX="389.0" layoutY="89.0" prefHeight="39.0" prefWidth="197.0" text="Item Name :">
                <font>
                   <Font name="System Bold" size="27.0" />
                </font>
             </Label>
-            <Label fx:id="lblItemName" layoutX="613.0" layoutY="95.0" prefHeight="39.0" prefWidth="161.0">
+            <Label fx:id="lblItemName" layoutX="550.0" layoutY="89.0" prefHeight="39.0" prefWidth="161.0">
                <font>
                   <Font size="27.0" />
                </font>
@@ -57,57 +57,84 @@
                   <Font name="System Bold" size="27.0" />
                </font>
             </Label>
-            <Label fx:id="lblRentID" layoutX="139.0" layoutY="28.0" prefHeight="39.0" prefWidth="95.0">
+            <Label fx:id="lblRentID" layoutX="158.0" layoutY="28.0" prefHeight="39.0" prefWidth="95.0">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
             <TextField fx:id="txtDayCount" layoutX="857.0" layoutY="93.0" prefHeight="40.0" prefWidth="234.0" promptText="Day Count" />
-            <Button layoutX="997.0" layoutY="140.0" mnemonicParsing="false" onAction="#btnSaveRentOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #81ecec; -fx-background-radius: 10;" text="Save">
+            <Button layoutX="877.0" layoutY="140.0" mnemonicParsing="false" onAction="#btnSaveRentOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #81ecec; -fx-background-radius: 10;" text="Save">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="20.0" layoutX="1007.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="20.0" layoutX="887.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../icon/saveIcon.png" />
                </image>
             </ImageView>
-            <Button layoutX="881.0" layoutY="140.0" mnemonicParsing="false" onAction="#btnUpdateRentrOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #fcec0d; -fx-background-radius: 10;" text="Update" textAlignment="CENTER">
+            <Button layoutX="761.0" layoutY="140.0" mnemonicParsing="false" onAction="#btnUpdateRentrOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #fcec0d; -fx-background-radius: 10;" text="Update" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="887.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="767.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../icon/updateIcon.png" />
                </image>
             </ImageView>
-            <Button layoutX="764.0" layoutY="139.0" mnemonicParsing="false" onAction="#btnDeleteRentOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #fc1d0d; -fx-background-radius: 10;" text="Delete" textFill="WHITE">
+            <Button layoutX="644.0" layoutY="140.0" mnemonicParsing="false" onAction="#btnDeleteRentOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #fc1d0d; -fx-background-radius: 10;" text="Delete" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="770.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="650.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../icon/deleteIcon.png" />
                </image>
             </ImageView>
-            <Label layoutX="857.0" layoutY="7.0" prefHeight="24.0" prefWidth="107.0" text="Brought Date">
+            <Label layoutX="857.0" layoutY="7.0" prefHeight="24.0" prefWidth="120.0" text="Brought Date">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
+            <Button layoutX="990.0" layoutY="140.0" mnemonicParsing="false" onAction="#btnPlaceRentOnAction" prefHeight="35.0" prefWidth="107.0" style="-fx-background-color: #6c5ce7; -fx-background-radius: 10;" text="Place Rent" textAlignment="RIGHT" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Button>
+            <Label layoutX="13.0" layoutY="129.0" prefHeight="39.0" prefWidth="294.0" text="Quantity on Hand :">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblQty" layoutX="269.0" layoutY="131.0" prefHeight="39.0" prefWidth="74.0">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="389.0" layoutY="131.0" prefHeight="39.0" prefWidth="161.0" text="Quantity :">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtQty" layoutX="520.0" layoutY="132.0" prefHeight="40.0" prefWidth="74.0" />
+            <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="995.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/icons8-shopping-cart-48.png" />
+               </image>
+            </ImageView>
          </children></AnchorPane>
       <TableView fx:id="tblRent" layoutX="6.0" layoutY="230.0" prefHeight="458.0" prefWidth="1105.0" style="-fx-background-radius: 10;">
          <columns>
             <TableColumn fx:id="colRentId" prefWidth="133.0" text="Rent Id" />
-            <TableColumn fx:id="colCustomerId" prefWidth="141.0" text="Customer Id" />
-            <TableColumn fx:id="colCustomerName" prefWidth="229.0" text="Customer Name" />
-            <TableColumn fx:id="colItemId" prefWidth="139.0" text="Item Id" />
-            <TableColumn fx:id="colItemName" prefWidth="188.0" text="Item Name" />
-            <TableColumn fx:id="colBroughtDate" prefWidth="127.0" text="Brought Date" />
-            <TableColumn fx:id="colDayCount" prefWidth="141.0" text="Day Count" />
+            <TableColumn fx:id="colCustomerId" prefWidth="115.0" text="Customer Id" />
+            <TableColumn fx:id="colCustomerName" prefWidth="177.0" text="Customer Name" />
+            <TableColumn fx:id="colItemId" prefWidth="112.0" text="Item Id" />
+            <TableColumn fx:id="colItemName" prefWidth="192.0" text="Item Name" />
+            <TableColumn fx:id="colBroughtDate" prefWidth="139.0" text="Brought Date" />
+            <TableColumn fx:id="colDayCount" prefWidth="108.0" text="Day Count" />
+            <TableColumn fx:id="colQty" prefWidth="128.0" text="Quantity" />
          </columns>
       </TableView>
    </children>

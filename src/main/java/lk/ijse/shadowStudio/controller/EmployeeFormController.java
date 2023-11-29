@@ -94,7 +94,7 @@ public class EmployeeFormController{
         String empTp = txtEmployeeTp.getText();
 
         boolean isValidName = RegExPatterns.getValidName().matcher(empName).matches();
-        boolean isValidAddress = RegExPatterns.getValidAddress().matcher(empAddress).matches();
+        boolean isValidAddress = RegExPatterns.getValidText().matcher(empAddress).matches();
         boolean isValidNic = RegExPatterns.getValidNic().matcher(empNic).matches();
         boolean isValidTp = RegExPatterns.getValidPhoneNumber().matcher(empTp).matches();
 
@@ -156,22 +156,39 @@ public class EmployeeFormController{
         String nic = txtEmployeeNic.getText();
         String tp = txtEmployeeTp.getText();
 
-        var dto = new EmployeeDto(id,name,address,nic,tp);
-        try {
-            boolean isUpdated = EmployeeModel.updateEmployee(dto);
-            if (isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Employee is Updated").show();
-                clearFields();
-                loadAllEmployee();
-                generateNextEmployeeId();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Employee is Not Updated").show();
+        boolean isValidName = RegExPatterns.getValidName().matcher(name).matches();
+        boolean isValidAddress = RegExPatterns.getValidText().matcher(address).matches();
+        boolean isValidNic = RegExPatterns.getValidNic().matcher(nic).matches();
+        boolean isValidTp = RegExPatterns.getValidPhoneNumber().matcher(tp).matches();
+
+        if (!isValidName){
+            new Alert(Alert.AlertType.ERROR,"Invalid Name Format").show();
+            return;
+        }if (!isValidAddress){
+            new Alert(Alert.AlertType.ERROR,"Invalid Address Format").show();
+            return;
+        }if (!isValidNic){
+            new Alert(Alert.AlertType.ERROR,"Invalid Nic Format").show();
+            return;
+        }if (!isValidTp){
+            new Alert(Alert.AlertType.ERROR,"Invalid Telephone Format").show();
+        }else {
+            var dto = new EmployeeDto(id,name,address,nic,tp);
+            try {
+                boolean isUpdated = EmployeeModel.updateEmployee(dto);
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Employee is Updated").show();
+                    clearFields();
+                    loadAllEmployee();
+                    generateNextEmployeeId();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Employee is Not Updated").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
-
 
     private void setCellValueFactory() {
         colEmployeeId.setCellValueFactory(new PropertyValueFactory<>("employeeId"));

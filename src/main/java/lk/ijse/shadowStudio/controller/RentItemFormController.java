@@ -22,7 +22,7 @@ import java.util.List;
 public class RentItemFormController{
 
     @FXML
-    private ComboBox<?> cmbItemType;
+    private ComboBox<String> cmbItemType;
 
     @FXML
     private TextField txtItemQty;
@@ -84,6 +84,7 @@ public class RentItemFormController{
         txtRentalPrice.setText("");
         txtSearch.setText("");
         txtItemQty.setText("");
+        cmbItemType.setValue("");
     }
     private void tableListener() {
         tblItem.getSelectionModel().selectedItemProperty().addListener((observable, oldValued, newValue) -> {
@@ -97,7 +98,7 @@ public class RentItemFormController{
     private void setData(ItemTm row) {
         lblItemId.setText(row.getItemId());
         txtItemName.setText(row.getItemName());
-        //cmbItemType.setValue(row.getItemType());
+        cmbItemType.setValue(row.getItemType());
         txtRentalPrice.setText(String.valueOf(row.getRentalPrice()));
         txtItemQty.setText(row.getQty());
     }
@@ -127,7 +128,7 @@ public class RentItemFormController{
     void btnSaveItemOnAction(ActionEvent event) throws SQLException {
         String itemId = lblItemId.getText();
         String itemName = txtItemName.getText();
-        String itemType = (String) cmbItemType.getValue();
+        String itemType = cmbItemType.getValue();
         String itemPrice = txtRentalPrice.getText();
         String qty = txtItemQty.getText();
 
@@ -184,7 +185,7 @@ public class RentItemFormController{
     void btnUpdateItemOnAction(ActionEvent event) {
         String id = lblItemId.getText();
         String name = txtItemName.getText();
-        String type = (String) cmbItemType.getValue();
+        String type = cmbItemType.getValue();
         String price = txtRentalPrice.getText();
         String qty = txtItemQty.getText();
 
@@ -224,6 +225,7 @@ public class RentItemFormController{
             if (itemDto != null) {
                 lblItemId.setText(itemDto.getItemId());
                 txtItemName.setText(itemDto.getItemName());
+                cmbItemType.setValue(itemDto.getItemType());
                 txtRentalPrice.setText(itemDto.getRentalPrice());
                 txtItemQty.setText(itemDto.getQty());
 

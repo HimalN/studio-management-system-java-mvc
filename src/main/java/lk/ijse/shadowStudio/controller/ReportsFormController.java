@@ -71,6 +71,7 @@ public class ReportsFormController{
     }
 
     public void btnAllCustomerReportOnAction(ActionEvent actionEvent) {
+
     }
 
     public void btnAllBookingReportOnAction(ActionEvent actionEvent) {
@@ -78,11 +79,7 @@ public class ReportsFormController{
     }
 
     public void btnAllItemReportOnAction(ActionEvent actionEvent) {
+
     }
 
-    public void btnBookingReciptOnAction(ActionEvent actionEvent) {
-    }
-
-    public void btnRentReciptOnAction(ActionEvent actionEvent) {
-    }
 }

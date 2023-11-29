@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -20,21 +21,20 @@
       </Label>
       <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="640.0" prefWidth="1104.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;">
          <children>
-            <TextArea fx:id="txtAboutPackage" layoutX="29.0" layoutY="75.0" prefHeight="65.0" prefWidth="687.0" promptText="4 Framed Photos &amp; 100 thankyou cards" style="-fx-background-radius: 10;" />
+            <TextArea fx:id="txtAboutPackage" layoutX="29.0" layoutY="75.0" prefHeight="65.0" prefWidth="687.0" style="-fx-background-radius: 10;" />
             <Label layoutX="36.0" layoutY="16.0" prefHeight="39.0" prefWidth="155.0" text="Package Id :">
                <font>
                   <Font name="System Bold" size="27.0" />
                </font>
             </Label>
-            <TextField fx:id="txtPackageName" layoutX="403.0" layoutY="24.0" prefHeight="40.0" prefWidth="314.0" promptText="Wedding Lite " />
-            <TextField fx:id="txtPackagePrice" layoutX="741.0" layoutY="85.0" prefHeight="40.0" prefWidth="310.0" promptText="R.s 25000" />
+            <TextField fx:id="txtPackageName" layoutX="403.0" layoutY="24.0" prefHeight="40.0" prefWidth="314.0" />
+            <TextField fx:id="txtPackagePrice" layoutX="741.0" layoutY="85.0" prefHeight="40.0" prefWidth="310.0" />
             <Label fx:id="lblPackageId" layoutX="196.0" layoutY="18.0" prefHeight="39.0" prefWidth="90.0" text="P001">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
-            <TextField fx:id="txtPackageType" layoutX="741.0" layoutY="23.0" prefHeight="40.0" prefWidth="310.0" promptText="Photography or Videography" />
-            <TextField fx:id="txtPackageSearch" layoutX="28.0" layoutY="159.0" onAction="#txtPckageSearchOnAction" prefHeight="40.0" prefWidth="287.0" promptText="P001" />
+            <TextField fx:id="txtPackageSearch" layoutX="28.0" layoutY="159.0" onAction="#txtPckageSearchOnAction" prefHeight="40.0" prefWidth="287.0" />
             <Label layoutX="31.0" layoutY="143.0" text="Search Package">
                <font>
                   <Font name="System Bold" size="13.0" />
@@ -60,6 +60,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
+            <ComboBox fx:id="cmbPackageType" layoutX="740.0" layoutY="26.0" onAction="#cmbPackageTypeOnAction" prefHeight="35.0" prefWidth="310.0" />
          </children>
       </AnchorPane>
       <TableView fx:id="tblPackages" layoutX="6.0" layoutY="259.0" prefHeight="431.0" prefWidth="1104.0" style="-fx-background-radius: 10;">

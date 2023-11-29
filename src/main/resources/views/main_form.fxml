@@ -111,7 +111,7 @@
                   <Image url="@../icon/icons8-rent-64.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="64.0" layoutY="658.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="64.0" layoutY="657.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../icon/icons8-log-out-64.png" />
                </image>

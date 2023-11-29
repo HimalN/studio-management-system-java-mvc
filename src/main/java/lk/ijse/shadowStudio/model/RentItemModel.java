@@ -1,10 +1,7 @@
 package lk.ijse.shadowStudio.model;
 
 import lk.ijse.shadowStudio.db.DbConnection;
-import lk.ijse.shadowStudio.dto.CustomerDto;
-import lk.ijse.shadowStudio.dto.EmployeeDto;
 import lk.ijse.shadowStudio.dto.ItemDto;
-import lk.ijse.shadowStudio.dto.PackageDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -133,6 +130,17 @@ public class RentItemModel {
         }
         return dtoList;
 
+    }
+
+    public boolean updateItem(String itemId, int qty) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+
+        String sql = "UPDATE item SET qty = qty - ? WHERE itemId = ?";
+        PreparedStatement ptsm = connection.prepareStatement(sql);
+        ptsm.setInt(1,qty);
+        ptsm.setString(2,itemId);
+
+        return ptsm.executeUpdate() > 0;
     }
 
 }

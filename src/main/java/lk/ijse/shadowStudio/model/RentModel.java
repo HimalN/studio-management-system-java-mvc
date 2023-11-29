@@ -1,7 +1,6 @@
 package lk.ijse.shadowStudio.model;
 
 import lk.ijse.shadowStudio.db.DbConnection;
-import lk.ijse.shadowStudio.dto.ComplainDto;
 import lk.ijse.shadowStudio.dto.RentDto;
 
 import java.sql.Connection;
@@ -12,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RentModel {
+    private RentItemModel rentItemModel = new RentItemModel();
+
+    private RentItemDetailsModel rentItemDetailsModel = new RentItemDetailsModel();
+
     public static String generateNextRentId() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
@@ -36,29 +39,6 @@ public class RentModel {
         }
     }
 
-    public static boolean saveRent(RentDto dto) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        String sql = "INSERT INTO rent VALUES(?,?,?,?,?,?,?)";
-        PreparedStatement pstm = connection.prepareStatement(sql);
-
-        pstm.setString(1, dto.getRentId());
-        pstm.setString(2,dto.getCustId());
-        pstm.setString(3,dto.getCustName());
-        pstm.setString(4,dto.getItemId());
-        pstm.setString(5,dto.getItemName());
-        pstm.setString(6,dto.getDaycount());
-        pstm.setString(7,dto.getDate());
-
-
-
-        boolean isSaved = pstm.executeUpdate() > 0;
-
-        return isSaved;
-
-
-    }
-
     public List<RentDto> getAllRent() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "select * from rent";
@@ -77,12 +57,12 @@ public class RentModel {
                             rs.getString(4),
                             rs.getString(5),
                             rs.getString(6),
-                            rs.getString(7)
+                            rs.getString(7),
+                            rs.getInt(8)
                     )
             );
         }
         return dtoList;
-
     }
 
     public boolean deleteRent(String id) throws SQLException {
@@ -92,6 +72,56 @@ public class RentModel {
         PreparedStatement pstm = connection.prepareStatement(sql);
 
         pstm.setString(1, id);
+
+        return pstm.executeUpdate() > 0;
+    }
+
+    public boolean saveRentDetails(RentDto dto) throws SQLException {
+        String rentId = dto.getRentId();
+        String custId = dto.getCustId();
+        String custName = dto.getCustName();
+        String itemId = dto.getItemId();
+        String itemName = dto.getItemName();
+        String daycount = dto.getDaycount();
+        String date = dto.getDate();
+        int qty = dto.getQty();
+
+        Connection connection = null;
+        try {
+            connection = DbConnection.getInstance().getConnection();
+            connection.setAutoCommit(false);
+
+            boolean isRentSaved = saveRent(rentId,custId,custName,itemId,itemName,daycount,date,qty);
+            if (isRentSaved) {
+                boolean isUpdated = rentItemModel.updateItem(dto.getItemId(),dto.getQty());
+                if (isUpdated) {
+                    boolean isItemDetailSaved = rentItemDetailsModel.saveItemDetail(dto.getItemId(), dto.getCustId());
+                    if (isItemDetailSaved) {
+                        connection.commit();
+                    }
+                }
+            }
+            connection.rollback();
+        } finally {
+            connection.setAutoCommit(true);
+        }
+        return false;
+    }
+
+    private boolean saveRent(String rentId, String custId, String custName, String itemId, String itemName, String daycount, String date, int qty) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+
+        String sql = "INSERT INTO rent VALUES(?,?,?,?,?,?,?,?)";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+
+        pstm.setString(1,rentId);
+        pstm.setString(2,custId);
+        pstm.setString(3,custName);
+        pstm.setString(4,itemId);
+        pstm.setString(5,itemName);
+        pstm.setString(6,daycount);
+        pstm.setString(7,date);
+        pstm.setInt(8,qty);
 
         return pstm.executeUpdate() > 0;
     }
