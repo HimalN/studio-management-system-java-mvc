@@ -41,11 +41,6 @@
                      </font>
                   </Label>
                   <TextField fx:id="txtPassword" layoutX="18.0" layoutY="204.0" onAction="#txtPasswordOnAction" prefHeight="29.0" prefWidth="236.0" style="-fx-background-radius: 10;" />
-                  <Label layoutX="133.0" layoutY="183.0" text="Forgot Password ?">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
                   <JFXButton fx:id="btnLogin" layoutX="102.0" layoutY="255.0" onAction="#btnLoginOmAction" prefHeight="29.0" prefWidth="74.0" style="-fx-background-radius: 10; -fx-background-color: #6c5ce7;" text="Login" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />

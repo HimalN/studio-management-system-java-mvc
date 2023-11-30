@@ -27,7 +27,7 @@ public class ComplainModel {
         if(currentComplainId != null) {
             String[] split = currentComplainId.split("[COM]");
 
-            int id = Integer.parseInt(split[1]); //01
+            int id = Integer.parseInt(split[3]); //01
             id++;
             return String.format("COM%03d",id);
         } else {

@@ -54,9 +54,9 @@ public class ReportsFormController{
             timeline.play();
         });
     }
-    @FXML
-    void btnRentDetailsFormOnAction(ActionEvent event) throws SQLException, JRException {
-        InputStream resourceAsStream = getClass().getResourceAsStream("/reports/RentDetails.jrxml");
+
+    public void btnAllCustomerReportOnAction(ActionEvent actionEvent) throws JRException, SQLException {
+        InputStream resourceAsStream = getClass().getResourceAsStream("/reports/customerReport.jrxml");
 
         JasperDesign load = JRXmlLoader.load(resourceAsStream);
 
@@ -70,16 +70,50 @@ public class ReportsFormController{
         JasperViewer.viewReport(jasperPrint,false);
     }
 
-    public void btnAllCustomerReportOnAction(ActionEvent actionEvent) {
+    public void btnAllBookingReportOnAction(ActionEvent actionEvent) throws JRException, SQLException {
+        InputStream resourceAsStream = getClass().getResourceAsStream("/reports/bookReport.jrxml");
 
+        JasperDesign load = JRXmlLoader.load(resourceAsStream);
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(load);
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(
+                jasperReport,
+                null,
+                DbConnection.getInstance().getConnection()
+        );
+        JasperViewer.viewReport(jasperPrint,false);
     }
 
-    public void btnAllBookingReportOnAction(ActionEvent actionEvent) {
-        
+    public void btnAllItemReportOnAction(ActionEvent actionEvent) throws JRException, SQLException {
+        InputStream resourceAsStream = getClass().getResourceAsStream("/reports/itemReport.jrxml");
+
+        JasperDesign load = JRXmlLoader.load(resourceAsStream);
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(load);
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(
+                jasperReport,
+                null,
+                DbConnection.getInstance().getConnection()
+        );
+        JasperViewer.viewReport(jasperPrint,false);
     }
 
-    public void btnAllItemReportOnAction(ActionEvent actionEvent) {
+    @FXML
+    void btnAllRentReportOnAction(ActionEvent event) throws JRException, SQLException {
+        InputStream resourceAsStream = getClass().getResourceAsStream("/reports/RentDetails.jrxml");
 
+        JasperDesign load = JRXmlLoader.load(resourceAsStream);
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(load);
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(
+                jasperReport,
+                null,
+                DbConnection.getInstance().getConnection()
+        );
+        JasperViewer.viewReport(jasperPrint,false);
     }
 
 }

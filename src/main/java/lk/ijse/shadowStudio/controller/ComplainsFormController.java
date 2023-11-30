@@ -166,7 +166,7 @@ public class ComplainsFormController {
 
     private void clearFields() {
         lblComplainsid.setText("");
-        // cmbCustomerId.setValue("");
+        cmbCustomerId.setValue("");
         lblCustName.setText("");
         txtComplain.setText("");
     }

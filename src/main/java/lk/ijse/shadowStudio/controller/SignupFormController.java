@@ -1,5 +1,6 @@
 package lk.ijse.shadowStudio.controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,10 @@ public class SignupFormController {
 
     @FXML
     private TextField txtUserNameSignUp;
+
+    @FXML
+    private JFXButton btnSignUp;
+
     private SignUpModel userModel = new SignUpModel();
 
     public void initialize(){
@@ -82,7 +87,16 @@ public class SignupFormController {
                 clearFields();
             }
         }
+    }
 
+    @FXML
+    void txtPasswordOnAction(ActionEvent event) {
+        btnSignUp.requestFocus();
+    }
+
+    @FXML
+    void txtUserNameOnAction(ActionEvent event) {
+        txtPasswordSignUp.requestFocus();
     }
 
 

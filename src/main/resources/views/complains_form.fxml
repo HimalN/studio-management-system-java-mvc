@@ -25,28 +25,28 @@
                <font>
                   <Font size="18.0" />
                </font></TextArea>
-            <Label layoutX="22.0" layoutY="19.0" text="Complain Id :">
+            <Label layoutX="22.0" layoutY="44.0" text="Complain Id :">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
-            <Label layoutX="309.0" layoutY="18.0" text="Customer Id :">
+            <Label layoutX="304.0" layoutY="44.0" text="Customer Id :">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
-            <Label layoutX="747.0" layoutY="19.0" prefHeight="36.0" prefWidth="208.0" text="Customer Name :">
+            <Label layoutX="747.0" layoutY="42.0" prefHeight="36.0" prefWidth="208.0" text="Customer Name :">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
-            <JFXComboBox fx:id="cmbCustomerId" layoutX="474.0" layoutY="11.0" onAction="#cmbCustomerIdOnAction" prefHeight="40.0" prefWidth="254.0" />
-            <Label fx:id="lblComplainsid" layoutX="182.0" layoutY="27.0" text="Label">
+            <JFXComboBox fx:id="cmbCustomerId" layoutX="469.0" layoutY="37.0" onAction="#cmbCustomerIdOnAction" prefHeight="40.0" prefWidth="254.0" />
+            <Label fx:id="lblComplainsid" layoutX="182.0" layoutY="52.0" text="Label">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label fx:id="lblCustName" layoutX="955.0" layoutY="25.0" prefHeight="30.0" prefWidth="143.0" text="Label">
+            <Label fx:id="lblCustName" layoutX="955.0" layoutY="48.0" prefHeight="30.0" prefWidth="143.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -81,12 +81,6 @@
                   <Image url="@../icon/saveIcon.png" />
                </image>
             </ImageView>
-            <TextField fx:id="txtSearchComplain" layoutX="607.0" layoutY="79.0" onAction="#txtSearchComplainOnAction" prefHeight="37.0" prefWidth="244.0" promptText="C001" />
-            <Label layoutX="415.0" layoutY="82.0" text="Search Complain :">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Label>
             <JFXButton fx:id="btnClear" layoutX="861.0" layoutY="241.0" onAction="#btnClearOnAction" prefHeight="35.0" prefWidth="111.0" style="-fx-background-radius: 10; -fx-background-color: #6c5ce7;" text="Clear" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -107,5 +101,11 @@
             <TableColumn fx:id="colDescription" prefWidth="474.0" text="Description" />
          </columns>
       </TableView>
+      <TextField fx:id="txtSearchComplain" layoutX="854.0" layoutY="6.0" onAction="#txtSearchComplainOnAction" prefHeight="37.0" prefWidth="244.0" promptText="C001" />
+      <Label layoutX="684.0" layoutY="10.0" text="Search Complain :">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

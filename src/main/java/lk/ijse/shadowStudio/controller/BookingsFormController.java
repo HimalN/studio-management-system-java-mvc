@@ -177,7 +177,7 @@ public class BookingsFormController {
     }
 
     @FXML
-    void btnSaveBookingOnAction(ActionEvent event) {
+    void btnSaveBookingOnAction(ActionEvent event) throws SQLException {
         String id = lblBookingId.getText();
         String custId = cmbCustomerId.getValue();
         String custName = lblCustomerName.getText();
@@ -189,29 +189,29 @@ public class BookingsFormController {
         String custIdea = txtCustomerIdea.getText();
         String payment = txtPaymentAmmount.getText();
 
-            var dto = new BookingDto(
-                    id,
-                    custId,
-                    custName,
-                    packageId,
-                    packageName,
-                    date,
-                    time,
-                    location,
-                    custIdea,
-                    payment
-            );
+        var dto = new BookingDto(
+                id,
+                custId,
+                custName,
+                packageId,
+                packageName,
+                date,
+                time,
+                location,
+                custIdea,
+                payment
+        );
 
-            boolean isSaved = BookingsModel.saveBooking(dto);
-            if (isSaved){
-                new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
-                clearFields();
-                loadAllBookings();
-                generateNextBookingId();
+        boolean isSaved = BookingsModel.saveBooking(dto);
+        if (isSaved){
+            new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
+            clearFields();
+            loadAllBookings();
+            generateNextBookingId();
 
-            }else {
-                new Alert(Alert.AlertType.ERROR,"Error While Saving data");
-            }
+        }else {
+            new Alert(Alert.AlertType.ERROR,"Error While Saving data");
+        }
 
     }
 

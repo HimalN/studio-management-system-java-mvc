@@ -22,17 +22,22 @@
                   <Image url="@../icon/images/22222.png" />
                </image>
             </ImageView>
-            <JFXButton buttonType="RAISED" layoutX="372.0" layoutY="123.0" onAction="#btnAllCustomerReportOnAction" prefHeight="93.0" prefWidth="343.0" style="-fx-background-color: #6c5ce7; -fx-background-radius: 30;" text="All Customer Report" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="372.0" layoutY="79.0" onAction="#btnAllCustomerReportOnAction" prefHeight="93.0" prefWidth="343.0" style="-fx-background-color: #6c5ce7; -fx-background-radius: 30;" text="All Customer Report" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="373.0" layoutY="384.0" onAction="#btnAllBookingReportOnAction" prefHeight="93.0" prefWidth="343.0" style="-fx-background-color: #6c5ce7; -fx-background-radius: 30;" text="All Booking Report" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="373.0" layoutY="340.0" onAction="#btnAllBookingReportOnAction" prefHeight="93.0" prefWidth="343.0" style="-fx-background-color: #6c5ce7; -fx-background-radius: 30;" text="Booking Report" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="373.0" layoutY="256.0" onAction="#btnAllItemReportOnAction" prefHeight="93.0" prefWidth="343.0" style="-fx-background-color: #6c5ce7; -fx-background-radius: 30;" text="All Item Report" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="373.0" layoutY="212.0" onAction="#btnAllItemReportOnAction" prefHeight="93.0" prefWidth="343.0" style="-fx-background-color: #6c5ce7; -fx-background-radius: 30;" text="Item Report" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="372.0" layoutY="465.0" onAction="#btnAllRentReportOnAction" prefHeight="93.0" prefWidth="343.0" style="-fx-background-color: #6c5ce7; -fx-background-radius: 30;" text="Rent Report" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>

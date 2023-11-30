@@ -150,6 +150,7 @@ public class RentFormController{
         int qty = Integer.parseInt(txtQty.getText());
 
         var dto = new RentDto(id, custId, custName, itemId,itemName,dayCount,broughtdate,qty);
+
         try {
             boolean isSuccess = rentModel.saveRentDetails(dto);
             if (!isSuccess) {

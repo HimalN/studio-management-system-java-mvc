@@ -2,8 +2,6 @@ package lk.ijse.shadowStudio.model;
 
 import lk.ijse.shadowStudio.db.DbConnection;
 import lk.ijse.shadowStudio.dto.BookingDto;
-import lk.ijse.shadowStudio.dto.ComplainDto;
-import lk.ijse.shadowStudio.dto.CustomerDto;
 import lombok.SneakyThrows;
 
 import java.sql.Connection;
@@ -14,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingsModel {
+    private EmployeeModel employeeModel = new EmployeeModel();
     public static String generateNextBookingId() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
@@ -148,4 +147,78 @@ public class BookingsModel {
         }
         return dto;
     }
+
+/*    public static boolean saveBooking(BookingDto dto) throws SQLException {
+        String bookingId = dto.getBooking_id();
+        String custId = dto.getCust_id();
+        String custName = dto.getCust_name();
+        String packageId = dto.getPackage_id();
+        String packageName = dto.getPackage_name();
+        String time = dto.getTime();
+        String location = dto.getLocation();
+        String description = dto.getDescription();
+        String payment = dto.getPaymemt();
+
+        Connection connection = null;
+        try {
+            connection = DbConnection.getInstance().getConnection();
+            connection.setAutoCommit(false);
+
+            boolean isBookingSaved = saveBooking(
+                    bookingId,
+                    custId,
+                    custName,
+                    packageId,
+                    packageName,
+                    time,
+                    location,
+                    description,
+                    payment
+            );
+
+            if (isBookingSaved) {
+                boolean isUpdated = rentItemModel.updateItem(dto.getItemId(),dto.getQty());
+                if (isUpdated) {
+                    boolean isItemDetailSaved = rentItemDetailsModel.saveItemDetail(dto.getItemId(), dto.getCustId());
+                    if (isItemDetailSaved) {
+                        connection.commit();
+                    }
+                }
+            }
+            connection.rollback();
+        } finally {
+            connection.setAutoCommit(true);
+        }
+        return false;
+    }
+
+    private static boolean saveBooking(
+            String bookingId,
+            String custId,
+            String custName,
+            String packgeId,
+            String packageName,
+            String date,
+            String time,
+            String location,
+            String description
+            ) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+
+        String sql = "INSERT INTO bookings VALUES(?,?,?,?,?,?,?,?,?,?)";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+
+        pstm.setString(1,bookingId);
+        pstm.setString(2,custId);
+        pstm.setString(3,custName);
+        pstm.setString(4,packgeId);
+        pstm.setString(5,packageName);
+        pstm.setString(6,date);
+        pstm.setString(7,time);
+        pstm.setString(8,location);
+        pstm.setString(9,description);
+        pstm.setString(10,payment);
+
+        return pstm.executeUpdate() > 0;
+    }*/
 }
