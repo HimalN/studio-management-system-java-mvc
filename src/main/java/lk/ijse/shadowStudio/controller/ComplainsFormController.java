@@ -126,6 +126,7 @@ public class ComplainsFormController {
         boolean isSaved = ComplainModel.saveComplain(dto);
         if (isSaved){
             new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
+            clearFields();
             loadAllComplains();
             generateNextComplainId();
 
@@ -165,7 +166,6 @@ public class ComplainsFormController {
     }
 
     private void clearFields() {
-        lblComplainsid.setText("");
         lblCustName.setText(null);
         txtComplain.setText("");
     }

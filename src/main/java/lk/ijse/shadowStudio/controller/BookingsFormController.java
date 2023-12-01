@@ -112,10 +112,10 @@ public class BookingsFormController {
     public void clearFields(){
         lblBookingId.setText("");
         //cmbCustomerId.setValue(null);
-        lblCustomerName.setText("");
+        //lblCustomerName.setText("");
         //cmbPackageId.setValue(null);
         txtCustomerIdea.setText("");
-        lblPackageName.setText("");
+        //lblPackageName.setText("");
         bookingDate.setValue(null);
         txtTime.setText("");
         txtLocation.setText("");
