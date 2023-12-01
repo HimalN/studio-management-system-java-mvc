@@ -137,14 +137,10 @@ public class RentItemFormController{
 
         ItemDto dto = new ItemDto(itemId,itemName,itemType,itemPrice,qty);
 
-        boolean isValidItemName =  RegExPatterns.getValidName().matcher(itemName).matches();
         boolean isValidPrice = RegExPatterns.getValidPrice().matcher(itemPrice).matches();
         boolean isValidCount = RegExPatterns.getValidCount().matcher(qty).matches();
 
-        if (!isValidItemName){
-            new Alert(Alert.AlertType.ERROR,"Invalid Item Name").show();
-            return;
-        }if (!isValidPrice){
+        if (!isValidPrice){
             new Alert(Alert.AlertType.ERROR,"Invalid Item Price").show();
             return;
         }if (!isValidCount){
@@ -205,14 +201,11 @@ public class RentItemFormController{
         String price = txtRentalPrice.getText();
         String qty = txtItemQty.getText();
 
-        boolean isValidItemName =  RegExPatterns.getValidName().matcher(name).matches();
         boolean isValidPrice = RegExPatterns.getValidPrice().matcher(price).matches();
         boolean isValidCount = RegExPatterns.getValidCount().matcher(qty).matches();
 
-        if (!isValidItemName){
-            new Alert(Alert.AlertType.ERROR,"Invalid Item Name").show();
-            return;
-        }if (!isValidPrice){
+
+        if (!isValidPrice){
             new Alert(Alert.AlertType.ERROR,"Invalid Item Price").show();
             return;
         }if (!isValidCount){

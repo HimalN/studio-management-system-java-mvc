@@ -1,7 +1,6 @@
 package lk.ijse.shadowStudio.controller;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -67,6 +66,7 @@ public class LoginFormController {
             new Alert(Alert.AlertType.ERROR, e.getMessage());
 
         }
+        DashboardFormController.staticLabel.setText(txtUserName.getText()+" !");
     }
 
     @FXML

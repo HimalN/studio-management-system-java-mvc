@@ -53,6 +53,12 @@ public class DashboardFormController {
 
     private SignUpDto userDto;
 
+    @FXML
+    private Label lbluser;
+
+    @FXML
+    static Label staticLabel;
+
     public void initialize() throws SQLException {
         setTime();
         countCustomer();
@@ -61,6 +67,7 @@ public class DashboardFormController {
         countBookings();
         countComplains();
         countRentItems();
+        staticLabel = lblwelcomeName;
     }
 
     private void setTime() {

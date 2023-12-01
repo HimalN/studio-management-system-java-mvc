@@ -19,14 +19,14 @@ create table customer(
     cust_id varchar (10)primary key ,
     cust_name varchar(15)not null ,
     cust_address varchar(50) not null ,
-    cust_nic varchar(10)not null ,
+    cust_nic varchar(12)not null ,
     cust_tp varchar (10) not null
 );
 
 create table packages(
     package_id varchar (10)Primary key,
     package_name varchar(15)not null,
-    package_type varchar(10)not null,
+    package_type varchar(15)not null,
     package_description varchar (50)not null,
     package_price int not null
 );
@@ -58,8 +58,8 @@ create table item(
     itemId varchar(10)primary key ,
     itemName varchar(20)not null ,
     itemType varchar(10)not null ,
-    rentalPrice varchar (10),
-    qty varchar(10)
+    rentalPrice varchar (10)not null ,
+    qty varchar(10) not null
 );
 
 create table rent(
@@ -70,8 +70,10 @@ create table rent(
     itemId varchar(10) ,
     foreign key (itemId)references item(itemId) on update cascade on delete cascade,
     item_name varchar(20),
-    dayCount int,
-    Date date
+    dayCount int not null ,
+    Date date not null ,
+    qty int not null ,
+    price varchar(10)not null
 );
 
 create table rent_item_details(

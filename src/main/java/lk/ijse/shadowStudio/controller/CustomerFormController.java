@@ -196,7 +196,7 @@ public class CustomerFormController {
         String nic = txtCustomerNic.getText();
         String tp = txtCustomerTp.getText();
 
-        boolean isValidName = RegExPatterns.getValidName().matcher(id).matches();
+        boolean isValidName = RegExPatterns.getValidName().matcher(name).matches();
         boolean isValidNic = RegExPatterns.getValidNic().matcher(nic).matches();
         boolean isValidTp = RegExPatterns.getValidPhoneNumber().matcher(tp).matches();
         boolean isValidAddress = RegExPatterns.getValidText().matcher(address).matches();

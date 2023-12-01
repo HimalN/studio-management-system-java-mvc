@@ -34,7 +34,7 @@ public class SignupFormController {
     private SignUpModel userModel = new SignUpModel();
 
     public void initialize(){
-
+        loadAllUser();
     }
 
     private void loadAllUser(){

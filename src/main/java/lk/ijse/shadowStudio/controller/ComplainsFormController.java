@@ -160,14 +160,13 @@ public class ComplainsFormController {
 
     @FXML
     void btnClearOnAction(ActionEvent event) {
-        clearFields();
+            clearFields();
         generateNextComplainId();
     }
 
     private void clearFields() {
         lblComplainsid.setText("");
-        cmbCustomerId.setValue("");
-        lblCustName.setText("");
+        lblCustName.setText(null);
         txtComplain.setText("");
     }
 
