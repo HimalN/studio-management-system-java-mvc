@@ -14,7 +14,10 @@ public class RegExPatterns {
     @Getter
     public static final Pattern validNic = Pattern.compile("^\\d{10,12}|\\d+[V]");
     @Getter
-    public static final Pattern validText = Pattern.compile("\\w{4,}");
+    public static final Pattern validText = Pattern.compile(".\\w{4,}");
     @Getter
-    public static final Pattern validPrice = Pattern.compile("\\d");
+    public static final Pattern validPrice = Pattern.compile("\\d{2,}");
+    @Getter
+    public static final Pattern validCount = Pattern.compile("\\d{1,}");
+
 }

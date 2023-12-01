@@ -137,19 +137,32 @@ public class RentItemFormController{
 
         ItemDto dto = new ItemDto(itemId,itemName,itemType,itemPrice,qty);
 
-        try {
-            boolean isSaved = RentItemModel.saveItem(dto);
-            if (isSaved){
-                new Alert(Alert.AlertType.CONFIRMATION,"Item Saved").show();
-                clearFields();
-            }else {
-                new Alert(Alert.AlertType.ERROR,"Error While Saving Data").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
-        initialize();
+        boolean isValidItemName =  RegExPatterns.getValidName().matcher(itemName).matches();
+        boolean isValidPrice = RegExPatterns.getValidPrice().matcher(itemPrice).matches();
+        boolean isValidCount = RegExPatterns.getValidCount().matcher(qty).matches();
 
+        if (!isValidItemName){
+            new Alert(Alert.AlertType.ERROR,"Invalid Item Name").show();
+            return;
+        }if (!isValidPrice){
+            new Alert(Alert.AlertType.ERROR,"Invalid Item Price").show();
+            return;
+        }if (!isValidCount){
+            new Alert(Alert.AlertType.ERROR,"Invalid Item Count").show();
+        }else{
+            try {
+                boolean isSaved = RentItemModel.saveItem(dto);
+                if (isSaved){
+                    new Alert(Alert.AlertType.CONFIRMATION,"Item Saved").show();
+                    clearFields();
+                }else {
+                    new Alert(Alert.AlertType.ERROR,"Error While Saving Data").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            }
+            initialize();
+        }
     }
     private void setCellValueFactory() {
         colItemId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
@@ -192,20 +205,36 @@ public class RentItemFormController{
         String price = txtRentalPrice.getText();
         String qty = txtItemQty.getText();
 
-        var dto = new ItemDto(id, name, type, price,qty);
-        try {
-            boolean isUpdated = RentItemModel.updateItem(dto);
-            if (isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Item is Updated").show();
-                clearFields();
-                generateNextItemId();
-                loadAllItem();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Item is Not Updated").show();
+        boolean isValidItemName =  RegExPatterns.getValidName().matcher(name).matches();
+        boolean isValidPrice = RegExPatterns.getValidPrice().matcher(price).matches();
+        boolean isValidCount = RegExPatterns.getValidCount().matcher(qty).matches();
+
+        if (!isValidItemName){
+            new Alert(Alert.AlertType.ERROR,"Invalid Item Name").show();
+            return;
+        }if (!isValidPrice){
+            new Alert(Alert.AlertType.ERROR,"Invalid Item Price").show();
+            return;
+        }if (!isValidCount){
+            new Alert(Alert.AlertType.ERROR,"Invalid Item Count").show();
+        }else{
+            var dto = new ItemDto(id, name, type, price,qty);
+            try {
+                boolean isUpdated = RentItemModel.updateItem(dto);
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Item is Updated").show();
+                    clearFields();
+                    generateNextItemId();
+                    loadAllItem();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Item is Not Updated").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+
+
 
     }
 

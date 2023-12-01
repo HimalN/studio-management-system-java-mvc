@@ -127,19 +127,19 @@ public class PackagesFormController{
         String packageAbout = txtAboutPackage.getText();
         String packagePrice = txtPackagePrice.getText();
 
-/*        boolean isValidName = RegExPatterns.getValidName().matcher(packageName).matches();
+        boolean isValidName = RegExPatterns.getValidName().matcher(packageName).matches();
         boolean isValidAbout = RegExPatterns.getValidText().matcher(packageAbout).matches();
         boolean isValidPrice = RegExPatterns.getValidPrice().matcher(packagePrice).matches();
 
         if (!isValidName){
-            new Alert(Alert.AlertType.ERROR,"Invalid Name");
+            new Alert(Alert.AlertType.ERROR,"Invalid Name").show();
             return;
         }if (!isValidAbout){
-            new Alert(Alert.AlertType.ERROR,"Invalid About");
+            new Alert(Alert.AlertType.ERROR,"Invalid About").show();
             return;
         }if (!isValidPrice){
-            new Alert(Alert.AlertType.ERROR,"Invalid Price");
-        }else {*/
+            new Alert(Alert.AlertType.ERROR,"Invalid Price").show();
+        }else {
             var dto = new PackageDto(packageId,packageName,packageType,packageAbout,packagePrice);
 
             try {
@@ -157,7 +157,7 @@ public class PackagesFormController{
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
 
-        //}
+        }
     }
 
     private void setCellValueFactory() {
@@ -221,13 +221,13 @@ public class PackagesFormController{
         boolean isValidPrice = RegExPatterns.getValidPrice().matcher(price).matches();
 
         if (!isValidName){
-            new Alert(Alert.AlertType.ERROR,"Invalid Name");
+            new Alert(Alert.AlertType.ERROR,"Invalid Name").show();
             return;
         }if (!isValidAbout){
-            new Alert(Alert.AlertType.ERROR,"Invalid About");
+            new Alert(Alert.AlertType.ERROR,"Invalid About").show();
             return;
         }if (!isValidPrice){
-            new Alert(Alert.AlertType.ERROR,"Invalid Price");
+            new Alert(Alert.AlertType.ERROR,"Invalid Price").show();
         }else {
             var dto = new PackageDto(id, name, type, description, price);
             try {

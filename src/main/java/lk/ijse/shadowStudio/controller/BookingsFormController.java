@@ -193,28 +193,42 @@ public class BookingsFormController {
         String custIdea = txtCustomerIdea.getText();
         String payment = txtPaymentAmmount.getText();
 
-        var dto = new BookingDto(
-                id,
-                custId,
-                custName,
-                packageId,
-                packageName,
-                date,
-                time,
-                location,
-                custIdea,
-                payment
-        );
+        boolean isValidLocation = RegExPatterns.getValidText().matcher(location).matches();
+        boolean isValidIdea = RegExPatterns.getValidText().matcher(custIdea).matches();
+        boolean isValidPrice = RegExPatterns.getValidPrice().matcher(payment).matches();
 
-        boolean isSaved = BookingsModel.saveBooking(dto);
-        if (isSaved){
-            new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
-            clearFields();
-            loadAllBookings();
-            generateNextBookingId();
+        if (!isValidLocation){
+            new Alert(Alert.AlertType.ERROR,"Invalid Location format").show();
+            return;
+        }if (!isValidIdea){
+            new Alert(Alert.AlertType.ERROR,"Invalid Idea format").show();
+            return;
+        }if (!isValidPrice){
+            new Alert(Alert.AlertType.ERROR,"Invalid price format").show();
+        }else{
+            var dto = new BookingDto(
+                    id,
+                    custId,
+                    custName,
+                    packageId,
+                    packageName,
+                    date,
+                    time,
+                    location,
+                    custIdea,
+                    payment
+            );
 
-        }else {
-            new Alert(Alert.AlertType.ERROR,"Error While Saving data");
+            boolean isSaved = BookingsModel.saveBooking(dto);
+            if (isSaved){
+                new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
+                clearFields();
+                loadAllBookings();
+                generateNextBookingId();
+
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Error While Saving data");
+            }
         }
     }
 
@@ -231,20 +245,36 @@ public class BookingsFormController {
         String custIdea = txtCustomerIdea.getText();
         String paymemt = txtPaymentAmmount.getText();
 
-        var dto = new BookingDto(bid,custId,custName,packageId,packageName,date,time,location,custIdea,paymemt);
-        try {
-            boolean isUpdated = bookingsModel.updateBookings(dto);
-            if (isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Booking Updated").show();
-                clearFields();
-                generateNextBookingId();
-                loadAllBookings();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Booking is Not Updated").show();
+        boolean isValidLocation = RegExPatterns.getValidText().matcher(location).matches();
+        boolean isValidIdea = RegExPatterns.getValidText().matcher(custIdea).matches();
+        boolean isValidPrice = RegExPatterns.getValidPrice().matcher(paymemt).matches();
+
+        if (!isValidLocation){
+            new Alert(Alert.AlertType.ERROR,"Invalid Location format").show();
+            return;
+        }if (!isValidIdea){
+            new Alert(Alert.AlertType.ERROR,"Invalid Idea format").show();
+            return;
+        }if (!isValidPrice){
+            new Alert(Alert.AlertType.ERROR,"Invalid price format").show();
+        }else{
+            var dto = new BookingDto(bid,custId,custName,packageId,packageName,date,time,location,custIdea,paymemt);
+            try {
+                boolean isUpdated = bookingsModel.updateBookings(dto);
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Booking Updated").show();
+                    clearFields();
+                    generateNextBookingId();
+                    loadAllBookings();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Booking is Not Updated").show();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+
+
     }
 
     @FXML

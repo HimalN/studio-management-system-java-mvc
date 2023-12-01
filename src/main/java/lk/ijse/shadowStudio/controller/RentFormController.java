@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.ItemDto;
 import lk.ijse.shadowStudio.dto.RentDto;
@@ -159,19 +160,26 @@ public class RentFormController{
         int qty = Integer.parseInt(txtQty.getText());
         String price = lblTotalPrice.getText();
 
-        var dto = new RentDto(id, custId, custName, itemId,itemName,dayCount,broughtdate,qty,price);
+        boolean isValidDayCount = RegExPatterns.getValidCount().matcher(dayCount).matches();
 
-        try {
-            boolean isSuccess = rentModel.saveRentDetails(dto);
-            if (!isSuccess) {
-                new Alert(Alert.AlertType.CONFIRMATION,"Rent Details Added").showAndWait();
-                loadAllRents();
-                generateNextRentId();
+        if (!isValidDayCount){
+            new Alert(Alert.AlertType.ERROR,"Invalid Day Count").show();
+        }else {
+            var dto = new RentDto(id, custId, custName, itemId,itemName,dayCount,broughtdate,qty,price);
 
+            try {
+                boolean isSuccess = rentModel.saveRentDetails(dto);
+                if (!isSuccess) {
+                    new Alert(Alert.AlertType.CONFIRMATION,"Rent Details Added").showAndWait();
+                    loadAllRents();
+                    generateNextRentId();
+
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
+
     }
 
     @FXML
@@ -191,17 +199,25 @@ public class RentFormController{
         int qty = Integer.parseInt(txtQty.getText());
         String price = lblTotalPrice.getText();
 
-        var dto = new RentDto(rentId,customerId,customerName,itemId,itemName,dayCount,date,qty,price);
-        try {
-            boolean isUpdated = rentItemModel.updateRent(dto);
-            if (isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION,"Rent is Updated").show();
-                loadAllRents();
-                generateNextRentId();
+        boolean isValidDayCount = RegExPatterns.getValidCount().matcher(dayCount).matches();
+
+        if (!isValidDayCount){
+            new Alert(Alert.AlertType.ERROR,"Invalid Day Count").show();
+        }else {
+            var dto = new RentDto(rentId,customerId,customerName,itemId,itemName,dayCount,date,qty,price);
+            try {
+                boolean isUpdated = rentItemModel.updateRent(dto);
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.CONFIRMATION,"Rent is Updated").show();
+                    loadAllRents();
+                    generateNextRentId();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
+
+
     }
 
     @FXML
