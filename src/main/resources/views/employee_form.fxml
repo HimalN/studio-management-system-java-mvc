@@ -25,10 +25,10 @@
                   <Font name="System Bold" size="31.0" />
                </font>
             </Label>
-            <TextField fx:id="txtEmployeeNic" layoutX="732.0" layoutY="18.0" prefHeight="40.0" prefWidth="260.0" promptText="200505201724" />
-            <TextField fx:id="txtEmployeeName" layoutX="405.0" layoutY="18.0" prefHeight="40.0" prefWidth="260.0" promptText="Himal Nimsara" />
-            <TextField fx:id="txtEmployeeTp" layoutX="732.0" layoutY="80.0" prefHeight="40.0" prefWidth="260.0" promptText="0712345678" />
-            <TextField fx:id="txtEmlployeeAddress" layoutX="406.0" layoutY="81.0" prefHeight="40.0" prefWidth="260.0" promptText="Avissawella" />
+            <TextField fx:id="txtEmployeeNic" layoutX="730.0" layoutY="18.0" onAction="#txtEmployeeNicOnAction" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 15;" />
+            <TextField fx:id="txtEmployeeName" layoutX="400.0" layoutY="18.0" onAction="#txtEmployeeNameOnAction" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 15;" />
+            <TextField fx:id="txtEmployeeTp" layoutX="729.0" layoutY="80.0" onAction="#txtTelephoneOnAction" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 15;" />
+            <TextField fx:id="txtEmlployeeAddress" layoutX="402.0" layoutY="81.0" onAction="#txtEmployeeAddressOnAction" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 15;" />
             <Label fx:id="lblEmployeeId" layoutX="259.0" layoutY="22.0" prefHeight="36.0" prefWidth="75.0" text="E001">
                <font>
                   <Font size="25.0" />
@@ -63,12 +63,16 @@
                   <TableColumn fx:id="colEmployeeTelephone" prefWidth="202.33331298828125" text="Telephone" />
                </columns>
             </TableView>
-            <TextField fx:id="txtEmlployeeSearch" layoutX="56.0" layoutY="81.0" onAction="#txtEmployeeSearchOnAction" prefHeight="40.0" prefWidth="260.0" promptText="E001" />
-            <Label layoutX="56.0" layoutY="65.0" text="Search Employee">
+            <JFXButton fx:id="btnClear" layoutX="635.0" layoutY="133.0" onAction="#btnClearOnAction" prefHeight="35.0" prefWidth="111.0" style="-fx-background-radius: 10; -fx-background-color: #6c5ce7;" text="Clear" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="13.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
-            </Label>
+            </JFXButton>
+            <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="643.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/icons8-clear-48.png" />
+               </image>
+            </ImageView>
          </children></AnchorPane>
       <Separator layoutX="794.0" layoutY="16.0" orientation="VERTICAL" prefHeight="19.0" prefWidth="6.0" />
       <JFXButton layoutX="764.0" layoutY="181.0" onAction="#btnDeleteEmployeeOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #fc1d0d;" text="Delete" textFill="WHITE">
@@ -91,7 +95,7 @@
             <Image url="@../icon/updateIcon.png" />
          </image>
       </ImageView>
-      <JFXButton layoutX="993.0" layoutY="180.0" onAction="#btnSaveEmployeeOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #81ecec;" text="Save">
+      <JFXButton fx:id="btnSave" layoutX="993.0" layoutY="180.0" onAction="#btnSaveEmployeeOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #81ecec;" text="Save">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -101,5 +105,11 @@
             <Image url="@../icon/saveIcon.png" />
          </image>
       </ImageView>
+      <TextField fx:id="txtEmlployeeSearch" layoutX="745.0" layoutY="7.0" onAction="#txtEmployeeSearchOnAction" prefHeight="35.0" prefWidth="248.0" promptText="E001" style="-fx-background-radius: 15;" />
+      <Label layoutX="628.0" layoutY="15.0" text="Search Employee :">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

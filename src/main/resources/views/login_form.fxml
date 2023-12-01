@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -40,7 +41,6 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtPassword" layoutX="18.0" layoutY="204.0" onAction="#txtPasswordOnAction" prefHeight="29.0" prefWidth="236.0" style="-fx-background-radius: 10;" />
                   <JFXButton fx:id="btnLogin" layoutX="102.0" layoutY="255.0" onAction="#btnLoginOmAction" prefHeight="29.0" prefWidth="74.0" style="-fx-background-radius: 10; -fx-background-color: #6c5ce7;" text="Login" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
@@ -56,6 +56,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </JFXButton>
+                  <PasswordField fx:id="txtPassword" layoutX="17.0" layoutY="202.0" onAction="#txtPasswordOnAction" prefHeight="29.0" prefWidth="236.0" style="-fx-background-radius: 10;" />
                </children>
             </AnchorPane>
          </children>

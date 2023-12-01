@@ -58,7 +58,8 @@ public class RentModel {
                             rs.getString(5),
                             rs.getString(6),
                             rs.getString(7),
-                            rs.getInt(8)
+                            rs.getInt(8),
+                            rs.getString(9)
                     )
             );
         }
@@ -85,13 +86,14 @@ public class RentModel {
         String daycount = dto.getDaycount();
         String date = dto.getDate();
         int qty = dto.getQty();
+        String price = dto.getPrice();
 
         Connection connection = null;
         try {
             connection = DbConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
 
-            boolean isRentSaved = saveRent(rentId,custId,custName,itemId,itemName,daycount,date,qty);
+            boolean isRentSaved = saveRent(rentId,custId,custName,itemId,itemName,daycount,date,qty,price);
             if (isRentSaved) {
                 boolean isUpdated = rentItemModel.updateItem(dto.getItemId(),dto.getQty());
                 if (isUpdated) {
@@ -108,10 +110,10 @@ public class RentModel {
         return false;
     }
 
-    private boolean saveRent(String rentId, String custId, String custName, String itemId, String itemName, String daycount, String date, int qty) throws SQLException {
+    private boolean saveRent(String rentId, String custId, String custName, String itemId, String itemName, String daycount, String date, int qty, String price) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
-        String sql = "INSERT INTO rent VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO rent VALUES(?,?,?,?,?,?,?,?,?)";
         PreparedStatement pstm = connection.prepareStatement(sql);
 
         pstm.setString(1,rentId);
@@ -122,6 +124,7 @@ public class RentModel {
         pstm.setString(6,daycount);
         pstm.setString(7,date);
         pstm.setInt(8,qty);
+        pstm.setString(9,price);
 
         return pstm.executeUpdate() > 0;
     }

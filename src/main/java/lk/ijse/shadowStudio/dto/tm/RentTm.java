@@ -1,6 +1,8 @@
 package lk.ijse.shadowStudio.dto.tm;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,4 +17,5 @@ public class RentTm {
     private String day_count;
     private String date;
     private int qty;
+    private String price;
 }

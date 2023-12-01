@@ -50,6 +50,9 @@ public class PackagesFormController{
     private Label lblPackageId;
 
     @FXML
+    private Button btnSave;
+
+    @FXML
     private AnchorPane rootHome;
 
     @FXML
@@ -124,7 +127,7 @@ public class PackagesFormController{
         String packageAbout = txtAboutPackage.getText();
         String packagePrice = txtPackagePrice.getText();
 
-        boolean isValidName = RegExPatterns.getValidName().matcher(packageName).matches();
+/*        boolean isValidName = RegExPatterns.getValidName().matcher(packageName).matches();
         boolean isValidAbout = RegExPatterns.getValidText().matcher(packageAbout).matches();
         boolean isValidPrice = RegExPatterns.getValidPrice().matcher(packagePrice).matches();
 
@@ -136,7 +139,7 @@ public class PackagesFormController{
             return;
         }if (!isValidPrice){
             new Alert(Alert.AlertType.ERROR,"Invalid Price");
-        }else {
+        }else {*/
             var dto = new PackageDto(packageId,packageName,packageType,packageAbout,packagePrice);
 
             try {
@@ -154,7 +157,7 @@ public class PackagesFormController{
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
 
-        }
+        //}
     }
 
     private void setCellValueFactory() {
@@ -263,10 +266,6 @@ public class PackagesFormController{
         }
 
     }
-    @FXML
-    void cmbPackageTypeOnAction(ActionEvent event) {
-
-    }
     public void setType(){
         ObservableList List = FXCollections.observableArrayList("Photography","Videography");
         cmbPackageType.setItems(List);
@@ -275,6 +274,20 @@ public class PackagesFormController{
     void btnClearOnAction(ActionEvent event) {
         clearFields();
         generateNextPackageId();
+    }
+
+    //Request Forcus
+    @FXML
+    void cmbPackageTypeOnAction(ActionEvent event) {
+        txtAboutPackage.requestFocus();
+    }
+    @FXML
+    void txtPackageName(ActionEvent event) {
+        cmbPackageType.requestFocus();
+    }
+    @FXML
+    void txtPackagePriceOnAction(ActionEvent event) {
+        btnSave.requestFocus();
     }
 
 }

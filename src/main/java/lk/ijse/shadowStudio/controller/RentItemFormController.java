@@ -28,6 +28,9 @@ public class RentItemFormController{
     private TextField txtItemQty;
 
     @FXML
+    private JFXButton btnSave;
+
+    @FXML
     private TableColumn<?, ?> colQty;
 
     @FXML
@@ -236,14 +239,30 @@ public class RentItemFormController{
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
-    @FXML
-    void cmbItemTypeOnAction(ActionEvent event) {
-
-    }
     private void setType(){
         ObservableList List = FXCollections.observableArrayList("Camera","Lence");
         cmbItemType.setItems(List);
     }
 
+    //Request Forcus
+
+    @FXML
+    void cmbItemTypeOnAction(ActionEvent event) {
+        txtRentalPrice.requestFocus();
+    }
+    @FXML
+    void txtItemNameOnAction(ActionEvent event) {
+        cmbItemType.requestFocus();
+    }
+
+    @FXML
+    void txtItemQtyOnAction(ActionEvent event) {
+        btnSave.requestFocus();
+    }
+
+    @FXML
+    void txtRentalPriceOnAction(ActionEvent event) {
+        txtItemQty.requestFocus();
+    }
 
 }

@@ -31,10 +31,16 @@ public class RentFormController{
     private ComboBox<String> cmbItemId;
 
     @FXML
+    private Button btnSave;
+
+    @FXML
     private TableColumn<?, ?> colQty;
 
     @FXML
     private TableColumn<?, ?> colBroughtDate;
+
+    @FXML
+    private TableColumn<?, ?> colPrice;
 
     @FXML
     private TableColumn<?, ?> colCustomerId;
@@ -77,6 +83,9 @@ public class RentFormController{
 
     @FXML
     private TextField txtQty;
+
+    @FXML
+    private Label lblTotalPrice;
 
     private final RentModel rentModel = new RentModel();
     private CustomerModel customerModel = new CustomerModel();
@@ -130,9 +139,9 @@ public class RentFormController{
     }
     private void clearFields(){
         lblRentID.setText("");
-        cmbCustomerId.setValue("");
+        //cmbCustomerId.setValue("");
         lblCustomerName.setText("");
-        cmbItemId.setValue("");
+        //cmbItemId.setValue("");
         lblItemName.setText("");
         txtDayCount.setText("");
         txtQty.setText("");
@@ -148,8 +157,9 @@ public class RentFormController{
         String dayCount = txtDayCount.getText();
         String broughtdate = String.valueOf(broughtDate.getValue());
         int qty = Integer.parseInt(txtQty.getText());
+        String price = lblTotalPrice.getText();
 
-        var dto = new RentDto(id, custId, custName, itemId,itemName,dayCount,broughtdate,qty);
+        var dto = new RentDto(id, custId, custName, itemId,itemName,dayCount,broughtdate,qty,price);
 
         try {
             boolean isSuccess = rentModel.saveRentDetails(dto);
@@ -165,32 +175,33 @@ public class RentFormController{
     }
 
     @FXML
-    void btnPlaceRentOnAction(ActionEvent actionEvent) {
+    void btnClearOnAction(ActionEvent event) {
+        clearFields();
     }
 
     @FXML
     void btnUpdateRentrOnAction(ActionEvent event) {
-/*        String id = lblPackageId.getText();
-        String name = txtPackageName.getText();
-        String type = txtPackageType.getText();
-        String description = txtAboutPackage.getText();
-        String price  = txtPackagePrice.getText();
+        String rentId = lblRentID.getText();
+        String customerId = cmbCustomerId.getValue();
+        String customerName = lblCustomerName.getText();
+        String itemId = cmbItemId.getValue();
+        String itemName = lblItemName.getText();
+        String dayCount = txtDayCount.getText();
+        String date = String.valueOf(broughtDate.getValue());
+        int qty = Integer.parseInt(txtQty.getText());
+        String price = lblTotalPrice.getText();
 
-            var dto = new PackageDto(id, name, type, description, price);
-            try {
-                boolean isUpdated = PackagesModel.updateCustomer(dto);
-                if (isUpdated) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Package is Updated").show();
-                    clearFields();
-                    generateNextPackageId();
-                    loadAllPackages();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "Package is Not Updated").show();
-                }
-            } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        var dto = new RentDto(rentId,customerId,customerName,itemId,itemName,dayCount,date,qty,price);
+        try {
+            boolean isUpdated = rentItemModel.updateRent(dto);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION,"Rent is Updated").show();
+                loadAllRents();
+                generateNextRentId();
             }
-        */
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        }
     }
 
     @FXML
@@ -204,6 +215,7 @@ public class RentFormController{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        cmbItemId.requestFocus();
     }
 
     @FXML
@@ -214,15 +226,18 @@ public class RentFormController{
             ItemDto itemDto = rentItemModel.searchItem(id);
             lblItemName.setText(itemDto.getItemName());
 
+            lblTotalPrice.setText(itemDto.getRentalPrice());
+
             lblQty.setText(itemDto.getQty());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        broughtDate.requestFocus();
     }
 
     @FXML
     void dateOnAction(ActionEvent event){
-
+        lblQty.requestFocus();
     }
     private void loadCustomerIds() {
         ObservableList<String> obList = FXCollections.observableArrayList();
@@ -263,6 +278,7 @@ public class RentFormController{
         colDayCount.setCellValueFactory(new PropertyValueFactory<>("day_count"));
         colBroughtDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
     private void loadAllRents() {
         var model = new RentModel();
@@ -281,7 +297,8 @@ public class RentFormController{
                                 dto.getItemName(),
                                 dto.getDaycount(),
                                 dto.getDate(),
-                                dto.getQty()
+                                dto.getQty(),
+                                dto.getPrice()
 
                         )
                 );
@@ -310,6 +327,18 @@ public class RentFormController{
         broughtDate.setValue(LocalDate.parse(row.getDate()));
         txtDayCount.setText(row.getDay_count());
         txtQty.setText(String.valueOf(row.getQty()));
+        lblTotalPrice.setText(row.getPrice());
 
+    }
+
+    //Request Forcus
+    @FXML
+    void lblQtyOnAction(ActionEvent event) {
+        txtDayCount.requestFocus();
+    }
+
+    @FXML
+    void txtDayCountOnAction(ActionEvent event) {
+        btnSave.requestFocus();
     }
 }

@@ -2,11 +2,9 @@ package lk.ijse.shadowStudio.model;
 
 import lk.ijse.shadowStudio.db.DbConnection;
 import lk.ijse.shadowStudio.dto.ItemDto;
+import lk.ijse.shadowStudio.dto.RentDto;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,7 +129,6 @@ public class RentItemModel {
         return dtoList;
 
     }
-
     public boolean updateItem(String itemId, int qty) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
@@ -139,6 +136,23 @@ public class RentItemModel {
         PreparedStatement ptsm = connection.prepareStatement(sql);
         ptsm.setInt(1,qty);
         ptsm.setString(2,itemId);
+
+        return ptsm.executeUpdate() > 0;
+    }
+    public boolean updateRent(RentDto dto) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+
+        String sql = "UPDATE rent SET cust_id = ?,cust_name = ?,itemId = ?,item_name = ?,dayCount = ?,Date = ?,qty = ? WHERE rentId = ?";
+        PreparedStatement ptsm = connection.prepareStatement(sql);
+
+        ptsm.setString(1,dto.getCustId());
+        ptsm.setString(2,dto.getCustName());
+        ptsm.setString(3,dto.getItemId());
+        ptsm.setString(4,dto.getItemName());
+        ptsm.setString(5,dto.getDaycount());
+        ptsm.setDate(6, Date.valueOf(dto.getDate()));
+        ptsm.setInt(7,dto.getQty());
+        ptsm.setString(8, dto.getRentId());
 
         return ptsm.executeUpdate() > 0;
     }

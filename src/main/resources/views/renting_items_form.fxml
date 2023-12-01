@@ -20,13 +20,13 @@
       </Label>
       <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="638.0" prefWidth="1103.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;">
          <children>
-            <TextField fx:id="txtItemName" layoutX="255.0" layoutY="22.0" prefHeight="40.0" prefWidth="265.0" />
+            <TextField fx:id="txtItemName" layoutX="255.0" layoutY="22.0" onAction="#txtItemNameOnAction" prefHeight="40.0" prefWidth="265.0" style="-fx-background-radius: 15;" />
             <Label layoutX="548.0" layoutY="4.0" text="Item Type">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="txtRentalPrice" layoutX="825.0" layoutY="22.0" prefHeight="40.0" prefWidth="265.0" />
+            <TextField fx:id="txtRentalPrice" layoutX="825.0" layoutY="22.0" onAction="#txtRentalPriceOnAction" prefHeight="40.0" prefWidth="265.0" style="-fx-background-radius: 15;" />
             <Label layoutX="23.0" layoutY="20.0" text="Item Id :">
                <font>
                   <Font name="System Bold" size="31.0" />
@@ -47,7 +47,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="txtItemQty" layoutX="255.0" layoutY="89.0" prefHeight="40.0" prefWidth="265.0" />
+            <TextField fx:id="txtItemQty" layoutX="255.0" layoutY="89.0" onAction="#txtItemQtyOnAction" prefHeight="40.0" prefWidth="265.0" style="-fx-background-radius: 15;" />
             <Label layoutX="255.0" layoutY="68.0" text="Item Qty">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -84,7 +84,7 @@
             <Image url="@../icon/updateIcon.png" />
          </image>
       </ImageView>
-      <JFXButton layoutX="1003.0" layoutY="162.0" onAction="#btnSaveItemOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #81ecec;" text="Save">
+      <JFXButton fx:id="btnSave" layoutX="1003.0" layoutY="162.0" onAction="#btnSaveItemOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #81ecec;" text="Save">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -104,7 +104,7 @@
             <Image url="@../icon/icons8-clear-48.png" />
          </image>
       </ImageView>
-      <TextField fx:id="txtSearch" layoutX="835.0" layoutY="10.0" onAction="#txtSearchItemOnAction" prefHeight="31.0" prefWidth="265.0" promptText="I001" />
+      <TextField fx:id="txtSearch" layoutX="835.0" layoutY="10.0" onAction="#txtSearchItemOnAction" prefHeight="31.0" prefWidth="265.0" promptText="I001" style="-fx-background-radius: 15;" />
       <Label layoutX="721.0" layoutY="12.0" text="Search Item :">
          <font>
             <Font name="System Bold" size="18.0" />

@@ -1,5 +1,6 @@
 package lk.ijse.shadowStudio.controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.ComplainDto;
 import lk.ijse.shadowStudio.dto.EmployeeDto;
 import lk.ijse.shadowStudio.dto.ItemDto;
+import lk.ijse.shadowStudio.dto.tm.ComplainTm;
 import lk.ijse.shadowStudio.dto.tm.EmployeeTm;
 import lk.ijse.shadowStudio.model.ComplainModel;
 import lk.ijse.shadowStudio.model.CustomerModel;
@@ -23,6 +25,9 @@ import lk.ijse.shadowStudio.model.EmployeeModel;
 import lk.ijse.shadowStudio.model.RentItemModel;
 
 public class EmployeeFormController{
+
+    @FXML
+    private JFXButton btnSave;
 
     @FXML
     private TableColumn<?, ?> colEmployeeAddress;
@@ -69,6 +74,7 @@ public class EmployeeFormController{
         generateNextEmployeeId();
         loadAllEmployee();
         setCellValueFactory();
+        tableListener();
     }
 
     private void generateNextEmployeeId() throws SQLException {
@@ -136,11 +142,11 @@ public class EmployeeFormController{
         try {
             boolean isDeleted = EmployeeModel.deleteEmployee(emp_id);
             if (isDeleted) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Customer Deleted").show();
+                new Alert(Alert.AlertType.CONFIRMATION, "Employee Deleted").show();
                 clearFields();
                 loadAllEmployee();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Customer Not Deleted").show();
+                new Alert(Alert.AlertType.ERROR, "Employee Not Deleted").show();
             }
         }catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -219,6 +225,29 @@ public class EmployeeFormController{
         }
     }
 
+    @FXML
+    void btnClearOnAction(ActionEvent event) {
+        clearFields();
+    }
+
+    private void tableListener() {
+        tblEmployee.getSelectionModel().selectedItemProperty().addListener((observable, oldValued, newValue) -> {
+            if (tblEmployee.getSelectionModel().getSelectedItem() != null) {
+                setData(newValue);
+            }
+        });
+
+    }
+
+    private void setData(EmployeeTm row) {
+        lblEmployeeId.setText(row.getEmployeeId());
+        txtEmployeeName.setText(row.getEmployeeName());
+        txtEmployeeNic.setText(row.getEmployeeNic());
+        txtEmlployeeAddress.setText(row.getEmployeeAddress());
+        txtEmployeeTp.setText(row.getEmployeeTp());
+        txtEmlployeeSearch.setText(row.getEmployeeId());
+    }
+
 
     private void loadAllEmployee() {
         var model = new EmployeeModel();
@@ -242,5 +271,27 @@ public class EmployeeFormController{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    //Request Forcus
+
+    @FXML
+    void txtEmployeeAddressOnAction(ActionEvent event) {
+        txtEmployeeTp.requestFocus();
+    }
+
+    @FXML
+    void txtEmployeeNameOnAction(ActionEvent event) {
+        txtEmployeeNic.requestFocus();
+    }
+
+    @FXML
+    void txtEmployeeNicOnAction(ActionEvent event) {
+        txtEmlployeeAddress.requestFocus();
+    }
+
+    @FXML
+    void txtTelephoneOnAction(ActionEvent event) {
+        btnSave.requestFocus();
     }
 }

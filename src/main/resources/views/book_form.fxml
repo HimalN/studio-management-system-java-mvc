@@ -49,9 +49,9 @@
                </font>
             </Label>
             <JFXComboBox fx:id="cmbCustomerId" layoutX="473.0" layoutY="16.0" onAction="#cmbCustomerIdOnAction" prefHeight="40.0" prefWidth="254.0" />
-            <DatePicker fx:id="bookingDate" layoutX="803.0" layoutY="89.0" prefHeight="40.0" prefWidth="280.0" promptText="Date" />
-            <TextField fx:id="txtTime" layoutX="803.0" layoutY="150.0" prefHeight="40.0" prefWidth="280.0" promptText="Time" style="-fx-background-radius: 15;" />
-            <TextField fx:id="txtLocation" layoutX="484.0" layoutY="152.0" prefHeight="40.0" prefWidth="280.0" promptText="Location" style="-fx-background-radius: 15;" />
+            <DatePicker fx:id="bookingDate" layoutX="803.0" layoutY="89.0" onAction="#bookingDateOnAction" prefHeight="40.0" prefWidth="280.0" promptText="Date" />
+            <TextField fx:id="txtTime" layoutX="803.0" layoutY="150.0" onAction="#txtTimeOnAction" prefHeight="40.0" prefWidth="280.0" promptText="Time" style="-fx-background-radius: 15;" />
+            <TextField fx:id="txtLocation" layoutX="484.0" layoutY="152.0" onAction="#txtLocationOnAction" prefHeight="40.0" prefWidth="280.0" promptText="Location" style="-fx-background-radius: 15;" />
             <TextArea fx:id="txtCustomerIdea" layoutX="17.0" layoutY="153.0" prefHeight="144.0" prefWidth="454.0" promptText="Customer Idea" style="-fx-background-radius: 15;">
                <font>
                   <Font size="20.0" />
@@ -90,7 +90,7 @@
                   <Image url="@../icon/updateIcon.png" />
                </image>
             </ImageView>
-            <JFXButton layoutX="1011.0" layoutY="263.0" onAction="#btnSaveBookingOnAction" prefHeight="35.0" prefWidth="89.0" style="-fx-background-radius: 10; -fx-background-color: #81ecec;" text="Save">
+            <JFXButton fx:id="btnSave" layoutX="1011.0" layoutY="263.0" onAction="#btnSaveBookingOnAction" prefHeight="35.0" prefWidth="89.0" style="-fx-background-radius: 10; -fx-background-color: #81ecec;" text="Save">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -120,7 +120,7 @@
                   <Image url="@../icon/icons8-clear-48.png" />
                </image>
             </ImageView>
-            <TextField fx:id="txtPaymentAmmount" layoutX="483.0" layoutY="217.0" prefHeight="40.0" prefWidth="288.0" promptText="LKR" style="-fx-background-radius: 15;" />
+            <TextField fx:id="txtPaymentAmmount" layoutX="483.0" layoutY="217.0" onAction="#txtAmmountOnAction" prefHeight="40.0" prefWidth="288.0" promptText="LKR" style="-fx-background-radius: 15;" />
             <Label layoutX="490.0" layoutY="194.0" prefHeight="27.0" prefWidth="174.0" text="Payment Ammount :">
                <font>
                   <Font name="System Bold" size="15.0" />

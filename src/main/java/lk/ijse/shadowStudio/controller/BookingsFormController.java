@@ -1,5 +1,6 @@
 package lk.ijse.shadowStudio.controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -73,6 +74,9 @@ public class BookingsFormController {
 
     @FXML
     private Label lblCustomerName;
+
+    @FXML
+    private JFXButton btnSave;
 
     @FXML
     private AnchorPane rootHome;
@@ -212,7 +216,6 @@ public class BookingsFormController {
         }else {
             new Alert(Alert.AlertType.ERROR,"Error While Saving data");
         }
-
     }
 
     @FXML
@@ -280,6 +283,7 @@ public class BookingsFormController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        cmbPackageId.requestFocus();
     }
 
     @FXML
@@ -292,6 +296,7 @@ public class BookingsFormController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        bookingDate.requestFocus();
     }
     private void setCellValueFactory() {
         colBookingId.setCellValueFactory(new PropertyValueFactory<>("booking_id"));
@@ -356,4 +361,27 @@ public class BookingsFormController {
         clearFields();
        generateNextBookingId();
     }
+
+    //Request forcus
+    @FXML
+    void bookingDateOnAction(ActionEvent event) {
+        txtCustomerIdea.requestFocus();
+    }
+
+    @FXML
+    void txtAmmountOnAction(ActionEvent event) {
+        btnSave.requestFocus();
+    }
+
+    @FXML
+    void txtLocationOnAction(ActionEvent event) {
+        txtTime.requestFocus();
+    }
+
+    @FXML
+    void txtTimeOnAction(ActionEvent event) {
+        txtPaymentAmmount.requestFocus();
+    }
+
+
 }

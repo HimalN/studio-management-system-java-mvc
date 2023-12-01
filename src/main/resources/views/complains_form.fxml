@@ -101,7 +101,7 @@
             <TableColumn fx:id="colDescription" prefWidth="474.0" text="Description" />
          </columns>
       </TableView>
-      <TextField fx:id="txtSearchComplain" layoutX="854.0" layoutY="6.0" onAction="#txtSearchComplainOnAction" prefHeight="37.0" prefWidth="244.0" promptText="C001" />
+      <TextField fx:id="txtSearchComplain" layoutX="854.0" layoutY="6.0" onAction="#txtSearchComplainOnAction" prefHeight="37.0" prefWidth="244.0" promptText="C001" style="-fx-background-radius: 15;" />
       <Label layoutX="684.0" layoutY="10.0" text="Search Complain :">
          <font>
             <Font name="System Bold" size="20.0" />

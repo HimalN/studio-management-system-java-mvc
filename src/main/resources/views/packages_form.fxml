@@ -27,17 +27,11 @@
                   <Font name="System Bold" size="27.0" />
                </font>
             </Label>
-            <TextField fx:id="txtPackageName" layoutX="403.0" layoutY="24.0" prefHeight="40.0" prefWidth="314.0" />
-            <TextField fx:id="txtPackagePrice" layoutX="741.0" layoutY="85.0" prefHeight="40.0" prefWidth="310.0" />
+            <TextField fx:id="txtPackageName" layoutX="401.0" layoutY="24.0" onAction="#txtPackageName" prefHeight="40.0" prefWidth="314.0" style="-fx-background-radius: 15;" />
+            <TextField fx:id="txtPackagePrice" layoutX="741.0" layoutY="85.0" onAction="#txtPackagePriceOnAction" prefHeight="40.0" prefWidth="310.0" style="-fx-background-radius: 15;" />
             <Label fx:id="lblPackageId" layoutX="196.0" layoutY="18.0" prefHeight="39.0" prefWidth="90.0" text="P001">
                <font>
                   <Font size="27.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtPackageSearch" layoutX="28.0" layoutY="159.0" onAction="#txtPckageSearchOnAction" prefHeight="40.0" prefWidth="287.0" />
-            <Label layoutX="31.0" layoutY="143.0" text="Search Package">
-               <font>
-                  <Font name="System Bold" size="13.0" />
                </font>
             </Label>
             <Label layoutX="31.0" layoutY="57.0" text="About Package">
@@ -92,7 +86,7 @@
             <Image url="@../icon/updateIcon.png" />
          </image>
       </ImageView>
-      <JFXButton layoutX="987.0" layoutY="212.0" onAction="#btnSavePackageOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #81ecec;" text="Save">
+      <JFXButton fx:id="btnSave" layoutX="987.0" layoutY="212.0" onAction="#btnSavePackageOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #81ecec;" text="Save">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -112,5 +106,11 @@
             <Image url="@../icon/icons8-clear-48.png" />
          </image>
       </ImageView>
+      <TextField fx:id="txtPackageSearch" layoutX="759.0" layoutY="7.0" onAction="#txtPckageSearchOnAction" prefHeight="35.0" prefWidth="277.0" style="-fx-background-radius: 15;" />
+      <Label layoutX="650.0" layoutY="15.0" text="Search Package :">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
