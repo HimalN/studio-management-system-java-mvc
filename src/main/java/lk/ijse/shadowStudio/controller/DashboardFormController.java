@@ -57,8 +57,8 @@ public class DashboardFormController {
         setTime();
         countCustomer();
         countItems();
-        countBookings();
         countprofit();
+        countBookings();
         countComplains();
         countRentItems();
     }
@@ -134,7 +134,18 @@ public class DashboardFormController {
         //Retrieving the result
         rs.next();
         int count = rs.getInt(1);
-        lblProfit.setText(String.valueOf("Rs."+count));
+
+        Statement stmt1 = connection.createStatement();
+        //Query to get the number of rows in a table
+        String query1 = "SELECT SUM(price) AS total_sum FROM rent;";
+        //Executing the query
+        ResultSet rs1 = stmt.executeQuery(query1);
+        //Retrieving the result
+        rs1.next();
+        int countRent = rs1.getInt(1);
+
+        int finalProfit = countRent+count;
+        lblProfit.setText(String.valueOf("Rs."+finalProfit));
     }
     private void countComplains()  {
         Connection connection = null;
