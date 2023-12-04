@@ -2,6 +2,8 @@ package lk.ijse.shadowStudio.dto.tm;
 
 import lombok.*;
 
+import java.util.PrimitiveIterator;
+
 @Getter
 @Setter
 @Data
@@ -13,5 +15,6 @@ public class CustomerTm {
     private String customerAddress;
     private String customerNic;
     private String customerTp;
+    private String customerEmail;
 
 }

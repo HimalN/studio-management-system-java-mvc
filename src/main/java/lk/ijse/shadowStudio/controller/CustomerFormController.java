@@ -22,6 +22,9 @@ public class CustomerFormController {
     public JFXButton btnSave;
 
     @FXML
+    private TableColumn<?, ?> colEmail;
+
+    @FXML
     private TableColumn<?, ?> colCustAddress;
 
     @FXML
@@ -41,6 +44,9 @@ public class CustomerFormController {
 
     @FXML
     private AnchorPane rootHome;
+
+    @FXML
+    private TextField txtEmailOnAction;
 
     @FXML
     private TableView<CustomerTm> tblCustomer;
@@ -79,6 +85,7 @@ public class CustomerFormController {
         colCustAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
         colCustNic.setCellValueFactory(new PropertyValueFactory<>("customerNic"));
         colCustTelephone.setCellValueFactory(new PropertyValueFactory<>("customerTp"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("customerEmail"));
     }
 
 
@@ -96,7 +103,8 @@ public class CustomerFormController {
                                 dto.getCust_Name(),
                                 dto.getCust_address(),
                                 dto.getCust_nic(),
-                                dto.getCust_tp()
+                                dto.getCust_tp(),
+                                dto.getCust_email()
                         )
                 );
             }
@@ -115,6 +123,7 @@ public class CustomerFormController {
         txtCustomerNic.setText("");
         txtCustomerTp.setText("");
         txtCustomerSearch.setText("");
+        txtEmailOnAction.setText("");
     }
 
     private void tableListener() {
@@ -132,6 +141,7 @@ public class CustomerFormController {
         txtCustomerAddress.setText(String.valueOf(row.getCustomerAddress()));
         txtCustomerNic.setText(String.valueOf(row.getCustomerNic()));
         txtCustomerTp.setText(String.valueOf(row.getCustomerTp()));
+        txtEmailOnAction.setText(row.getCustomerEmail());
     }
 
     @FXML
@@ -141,6 +151,7 @@ public class CustomerFormController {
         String custAddress = txtCustomerAddress.getText();
         String custNic = txtCustomerNic.getText();
         String custTp = txtCustomerTp.getText();
+        String email = txtEmailOnAction.getText();
 
         boolean isValidName = RegExPatterns.getValidName().matcher(custName).matches();
         boolean isValidNic = RegExPatterns.getValidNic().matcher(custNic).matches();
@@ -160,7 +171,7 @@ public class CustomerFormController {
             new Alert(Alert.AlertType.ERROR,"Invalid Telephone Format").show();
         }else {
 
-            var dto = new CustomerDto(custId, custName, custAddress, custNic, custTp);
+            var dto = new CustomerDto(custId, custName, custAddress, custNic, custTp,email);
 
             try {
                 boolean isSaved = CustomerModel.saveCustomer(dto);
@@ -195,6 +206,7 @@ public class CustomerFormController {
         String address = txtCustomerAddress.getText();
         String nic = txtCustomerNic.getText();
         String tp = txtCustomerTp.getText();
+        String email = txtEmailOnAction.getText();
 
         boolean isValidName = RegExPatterns.getValidName().matcher(name).matches();
         boolean isValidNic = RegExPatterns.getValidNic().matcher(nic).matches();
@@ -213,7 +225,7 @@ public class CustomerFormController {
         }if (!isValidTp){
             new Alert(Alert.AlertType.ERROR,"Invalid Telephone Format").show();
         }else {
-            var dto = new CustomerDto(id, name, address, nic, tp);
+            var dto = new CustomerDto(id, name, address, nic, tp,email);
             try {
                 boolean isUpdated = customerModel.updateCustomer(dto);
                 if (isUpdated) {
@@ -270,6 +282,7 @@ public class CustomerFormController {
                 txtCustomerAddress.setText(customerDto.getCust_address());
                 txtCustomerNic.setText(customerDto.getCust_nic());
                 txtCustomerTp.setText(customerDto.getCust_tp());
+                txtEmailOnAction.setText(customerDto.getCust_email());
 
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "customer not found !").show();
@@ -287,10 +300,11 @@ public class CustomerFormController {
     }
 
 
+
     //Requesy Forcus on text field
     @FXML
     void txtAddressOnAction(ActionEvent event) {
-        txtCustomerTp.requestFocus();
+        txtEmailOnAction.requestFocus();
     }
     @FXML
     void txtCustomerNameOnAction(ActionEvent event) {
@@ -304,5 +318,7 @@ public class CustomerFormController {
     void txtTelephoneOnAction(ActionEvent event) {
         btnSave.requestFocus();
     }
+    @FXML
+    void txtEmailOnAction(ActionEvent event) {txtCustomerTp.requestFocus();}
 
 }

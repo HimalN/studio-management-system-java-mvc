@@ -25,6 +25,9 @@ import java.util.List;
 public class BookingsFormController {
 
     @FXML
+    private JFXButton btnRecipt;
+
+    @FXML
     private TextField txtPaymentAmmount;
 
     @FXML
@@ -382,6 +385,14 @@ public class BookingsFormController {
         txtLocation.setText(row.getLocation());
         txtCustomerIdea.setText(row.getDescription());
         txtPaymentAmmount.setText(row.getPayment());
+    }
+
+    @FXML
+    void btnReciptEmailOnAction(ActionEvent event) {
+        //String bookinId = lblBookingId.getText();
+
+
+
     }
 
     @FXML

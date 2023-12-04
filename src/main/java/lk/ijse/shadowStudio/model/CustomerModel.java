@@ -14,7 +14,7 @@ public class CustomerModel {
     public static boolean saveCustomer(CustomerDto dto) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
-        String sql = "INSERT INTO customer VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO customer VALUES(?,?,?,?,?,?)";
         PreparedStatement pstm = connection.prepareStatement(sql);
 
         pstm.setString(1, dto.getCust_id());
@@ -22,6 +22,7 @@ public class CustomerModel {
         pstm.setString(3,dto.getCust_address());
         pstm.setString(4,dto.getCust_nic());
         pstm.setString(5,dto.getCust_tp());
+        pstm.setString(6,dto.getCust_email());
 
         boolean isSaved = pstm.executeUpdate() > 0;
 
@@ -65,13 +66,14 @@ public class CustomerModel {
     public  boolean updateCustomer(CustomerDto dto) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
-        String sql = "UPDATE customer SET cust_name = ?, cust_address = ?, cust_nic = ?, cust_tp = ? WHERE cust_id = ?";
+        String sql = "UPDATE customer SET cust_name = ?, cust_address = ?, cust_nic = ?, cust_tp = ?, cust_email = ? WHERE cust_id = ?";
         PreparedStatement pstm = connection.prepareStatement(sql);
         pstm.setString(1, dto.getCust_Name());
         pstm.setString(2, dto.getCust_address());
         pstm.setString(3, dto.getCust_nic());
         pstm.setString(4, dto.getCust_tp());
-        pstm.setString(5, dto.getCust_id());
+        pstm.setString(5,dto.getCust_email());
+        pstm.setString(6, dto.getCust_id());
 
         return pstm.executeUpdate() > 0;
     }
@@ -91,7 +93,8 @@ public class CustomerModel {
                             rs.getString(2),
                             rs.getString(3),
                             rs.getString(4),
-                            rs.getString(5)
+                            rs.getString(5),
+                            rs.getString(6)
                     )
             );
         }
@@ -114,8 +117,9 @@ public class CustomerModel {
             String cust_address = resultSet.getString(3);
             String cust_nic = resultSet.getString(4);
             String cust_tp = resultSet.getString(5);
+            String cust_email = resultSet.getString(6);
 
-            dto = new CustomerDto(cust_id, cust_name, cust_address,cust_nic,cust_tp);
+            dto = new CustomerDto(cust_id, cust_name, cust_address,cust_nic,cust_tp,cust_email);
         }
         return dto;
     }
@@ -136,8 +140,9 @@ public class CustomerModel {
             String cust_address = resultSet.getString(3);
             String cust_nic = resultSet.getString(4);
             String cust_tp = resultSet.getString(5);
+            String cust_email = resultSet.getString(6);
 
-            dto = new CustomerDto(cust_id, cust_name, cust_address,cust_nic,cust_tp);
+            dto = new CustomerDto(cust_id, cust_name, cust_address,cust_nic,cust_tp,cust_email);
         }
         return dto;
     }

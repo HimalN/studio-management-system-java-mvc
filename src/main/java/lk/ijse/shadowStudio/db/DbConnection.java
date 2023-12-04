@@ -14,16 +14,12 @@ public class DbConnection {
                 "Ijse@1234"
         );
     }
-
     public static DbConnection getInstance() throws SQLException {
         if(dbConnection == null) {dbConnection = new DbConnection();}
         return dbConnection;
 
-        //return (null == dbConnection) ? dbConnection = new DbConnection() : dbConnection;
     }
-
     public Connection getConnection() {
         return connection;
     }
 }
-

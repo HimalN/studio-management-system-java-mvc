@@ -176,8 +176,8 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <Separator layoutX="784.0" layoutY="23.0" orientation="VERTICAL" prefHeight="19.0" prefWidth="6.0" />
-      <Label fx:id="lblDate" layoutX="656.0" layoutY="15.0" prefHeight="35.0" prefWidth="157.0">
+      <Separator layoutX="817.0" layoutY="23.0" orientation="VERTICAL" prefHeight="19.0" prefWidth="6.0" />
+      <Label fx:id="lblDate" layoutX="656.0" layoutY="15.0" prefHeight="35.0" prefWidth="130.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
