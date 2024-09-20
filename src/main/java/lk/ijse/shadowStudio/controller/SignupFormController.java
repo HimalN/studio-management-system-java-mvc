@@ -62,31 +62,28 @@ public class SignupFormController {
         String password = txtPasswordSignUp.getText();
 
         boolean isUserValid = RegExPatterns.getValidName().matcher(userName).matches();
-        boolean isPasswordValid = RegExPatterns.getValidPassword().matcher(password).matches();
+
 
         if (!isUserValid){
-            new Alert(Alert.AlertType.ERROR,"Can Not Leave Name Empty").showAndWait();
-            return;
-        }if (!isPasswordValid){
-            new Alert(Alert.AlertType.ERROR,"Password need to contain minimum of four Characters").showAndWait();
-            return;
-        }else {
+            new Alert(Alert.AlertType.ERROR,"User Name Invalid!!!").show();
+
+        }
+
             var dto = new SignUpDto(userName, password);
             try {
                 if (userName.isEmpty() || password.isEmpty()) {
-                    new Alert(Alert.AlertType.ERROR, "Empty").show();
+                    new Alert(Alert.AlertType.ERROR, "One or more fields Empty").show();
                     return;
                 }
                 clearFields();
                 boolean isSaved = userModel.saveUser(dto);
                 if (isSaved) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "User Saved").show();
+                    new Alert(Alert.AlertType.CONFIRMATION, "New User Saved").show();
                 }
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
                 clearFields();
             }
-        }
     }
 
     @FXML

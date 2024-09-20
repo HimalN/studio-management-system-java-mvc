@@ -131,7 +131,7 @@ public class PackagesFormController{
         boolean isValidAbout = RegExPatterns.getValidText().matcher(packageAbout).matches();
         boolean isValidPrice = RegExPatterns.getValidPrice().matcher(packagePrice).matches();
 
-        if (!isValidName){
+/*        if (!isValidName){
             new Alert(Alert.AlertType.ERROR,"Invalid Name").show();
             return;
         }if (!isValidAbout){
@@ -139,7 +139,7 @@ public class PackagesFormController{
             return;
         }if (!isValidPrice){
             new Alert(Alert.AlertType.ERROR,"Invalid Price").show();
-        }else {
+        }else {*/
             var dto = new PackageDto(packageId,packageName,packageType,packageAbout,packagePrice);
 
             try {
@@ -157,7 +157,7 @@ public class PackagesFormController{
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
 
-        }
+
     }
 
     private void setCellValueFactory() {

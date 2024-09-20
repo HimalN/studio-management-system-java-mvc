@@ -148,10 +148,11 @@ public class CustomerFormController {
     void btnSaveCustomerOnAction(ActionEvent event) {
         String custId = lblcustId.getText();
         String custName = txtCustomerName.getText();
-        String custAddress = txtCustomerAddress.getText();
         String custNic = txtCustomerNic.getText();
-        String custTp = txtCustomerTp.getText();
+        String custAddress = txtCustomerAddress.getText();
         String email = txtEmailOnAction.getText();
+        String custTp = txtCustomerTp.getText();
+
 
         boolean isValidName = RegExPatterns.getValidName().matcher(custName).matches();
         boolean isValidNic = RegExPatterns.getValidNic().matcher(custNic).matches();
@@ -171,7 +172,11 @@ public class CustomerFormController {
             new Alert(Alert.AlertType.ERROR,"Invalid Telephone Format").show();
         }else {
 
-            var dto = new CustomerDto(custId, custName, custAddress, custNic, custTp,email);
+            if (custName.isEmpty() || custNic.isEmpty()||custAddress.isEmpty()||email.isEmpty()||custTp.isEmpty()) {
+                new Alert(Alert.AlertType.ERROR, "One or more fields are empty").show();
+                return;
+            }
+            var dto = new CustomerDto(custId, custName, custAddress, custNic, custTp, email);
 
             try {
                 boolean isSaved = CustomerModel.saveCustomer(dto);

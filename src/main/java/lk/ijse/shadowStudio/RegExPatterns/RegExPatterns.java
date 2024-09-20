@@ -6,9 +6,9 @@ import java.util.regex.Pattern;
 
 public class RegExPatterns {
     @Getter
-    public static final Pattern validName = Pattern.compile("\\b[A-Z][a-z]*( [A-Z][a-z]*)*\\b");
+    public static final Pattern validName = Pattern.compile("^(?=.{3,15}$)[a-zA-Z0-9]+(?:[_-][a-zA-Z0-9]+)*$");
     @Getter
-    public static final Pattern validPassword = Pattern.compile("(.*?[0-9]){4,}");
+    public static final Pattern validPassword = Pattern.compile("^.{5,}$\n");
     @Getter
     public static final Pattern validPhoneNumber = Pattern.compile("07\\d{8}");
     @Getter

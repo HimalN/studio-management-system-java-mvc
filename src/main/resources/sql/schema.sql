@@ -18,8 +18,9 @@ create table employee(
 create table customer(
     cust_id varchar (10)primary key ,
     cust_name varchar(15)not null ,
-    cust_address varchar(50) not null ,
     cust_nic varchar(12)not null ,
+    cust_address varchar(50) not null ,
+    cust_email varchar(50) not null,
     cust_tp varchar (10) not null
 );
 

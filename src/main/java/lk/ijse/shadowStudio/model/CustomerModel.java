@@ -19,10 +19,10 @@ public class CustomerModel {
 
         pstm.setString(1, dto.getCust_id());
         pstm.setString(2,dto.getCust_Name());
-        pstm.setString(3,dto.getCust_address());
-        pstm.setString(4,dto.getCust_nic());
-        pstm.setString(5,dto.getCust_tp());
-        pstm.setString(6,dto.getCust_email());
+        pstm.setString(3,dto.getCust_nic());
+        pstm.setString(4,dto.getCust_address());
+        pstm.setString(5,dto.getCust_email());
+        pstm.setString(6,dto.getCust_tp());
 
         boolean isSaved = pstm.executeUpdate() > 0;
 
