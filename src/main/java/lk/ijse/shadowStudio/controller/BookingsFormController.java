@@ -222,7 +222,7 @@ public class BookingsFormController {
 
             boolean isSaved = BookingsModel.saveBooking(dto);
             if (isSaved){
-                new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
+                new Alert(Alert.AlertType.CONFIRMATION,"Booking Added").show();
                 clearFields();
                 loadAllBookings();
                 generateNextBookingId();
